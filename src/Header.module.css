@@ -1,0 +1,62 @@
+.navbar {
+    background-color: #FFD90F; /* Giallo Simpson */
+    width: 100%;
+    padding: 1rem 0;
+    border-bottom: 5px solid #000; /* Tratto nero tipico del fumetto */
+    position: sticky; /* Tiene ferma in alto mentre scorri */
+    top: 0;
+    z-index: 1000;
+}
+
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+}
+
+.logoSection {
+    padding-left: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.logoImg {
+    height: 50%;
+    width: 20%;
+    display: block;
+}
+
+.navLinks {
+    display: flex;
+    gap: 1rem;
+    padding-right: 3rem;
+}
+
+.navbarLink {
+    text-decoration: none;
+    color: #000;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border: 3px solid transparent;
+    transition: all 0.15s ease-in-out;
+}
+
+/* Stile attivo */
+.active {
+    composes: navbarLink; /* Eredita gli stili di base (opzionale) */
+    background-color: #355C9B;
+    color: #fff !important;
+    border-radius: 5px;
+    transform: translateY(2px);
+}
+
+/* Effetto hover con il blu di Homer */
+.navbarLink:hover {
+    background-color: #355C9B;
+    color: #ffffff;
+    border-color: #000;
+    transform: rotate(-2deg) scale(1.1); /* Leggera rotazione stile cartoon */
+}
