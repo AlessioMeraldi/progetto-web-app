@@ -1,0 +1,1 @@
+// toDo: ricordarsi che il model deve poter fetchare immagini a 2 diverse risoluzioni (small per card, large per detail)

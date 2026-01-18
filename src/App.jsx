@@ -1,7 +1,10 @@
 import './App.css'
-import Header from "./Header.jsx";
-import Footer from "./Footer.jsx";
+import Header from "./simpleViews (components)/Header.jsx";
+import Footer from "./simpleViews (components)/Footer.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// test imports
+import charactersViewModel from '/src/viewModels/charactersViewModel.js'
 
 function App() {
 
@@ -12,6 +15,12 @@ function App() {
     ];
     const courseName = "Università degli Studi di Milano Bicocca";
     const courseLink = "https://www.unimib.it/";
+
+    // test variables
+    const {
+        getSingleCharacter,
+        getCharacterBatch
+    } = charactersViewModel();
 
     return (
         <Router>
@@ -26,6 +35,9 @@ function App() {
                 </Routes>
             </main>
             <Footer navItems={footerLinks} courseName={courseName} courseLink={courseLink} />
+            <h2> Prove funzionamento Model </h2>
+            <button onClick={() => getSingleCharacter()}> premi per vedere un character </button>
+            <button onClick={() => getCharacterBatch()}> premi per vedere un batch di characters </button>
         </Router>
     )
 }
