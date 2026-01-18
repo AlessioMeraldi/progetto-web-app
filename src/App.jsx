@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // test imports
 import charactersViewModel from '/src/viewModels/charactersViewModel.js'
+import locationsViewModel from "./viewModels/locationsViewModel.js";
 
 function App() {
 
@@ -22,6 +23,11 @@ function App() {
         getCharacterBatch
     } = charactersViewModel();
 
+    const {
+        getSingleLocation,
+        getLocationsBatch
+    } = locationsViewModel();
+
     return (
         <Router>
             {/* L'Header deve stare dentro il Router per far funzionare i Link */}
@@ -35,9 +41,14 @@ function App() {
                 </Routes>
             </main>
             <Footer navItems={footerLinks} courseName={courseName} courseLink={courseLink} />
-            <h2> Prove funzionamento Model </h2>
+
+            {/* toDo: delete content after this part */}
+            <h2> Prove funzionamento Model dei personaggi </h2>
             <button onClick={() => getSingleCharacter()}> premi per vedere un character </button>
             <button onClick={() => getCharacterBatch()}> premi per vedere un batch di characters </button>
+            <h2> Prove di funzionamento Model delle locations </h2>
+            <button onClick={() => getSingleLocation()}> premi per vedere una location </button>
+            <button onClick={() => getLocationsBatch()}> premi per vedere un batch di locations </button>
         </Router>
     )
 }

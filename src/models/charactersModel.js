@@ -5,7 +5,7 @@
  *  fetchSingleCharater
  *  @Param characterId = integer number of the single character.
  *  @Param imageSize = integer number of the resolution for the image = 200 / 500 / 1280.
- *  Fetches a single specified character's JSON from The Simpsons API (characterId) and prepares the URL to get the image of the appropriate size (imageSize)
+ *  Fetches a single specified character's JSON from The Simpsons API (characterId) and prepares the URL to get their image of the appropriate size (imageSize)
  */
 export async function fetchSingleCharacter(characterId, imageSize) {
 
@@ -34,7 +34,8 @@ export async function fetchSingleCharacter(characterId, imageSize) {
     return { characterData, characterImageURL }; // return an object {data, url_for_the_image} (CORS blocks from downloading the image)
 }
 
-/** fetchCharacters
+/**
+ * fetchCharacters
  * @Param charactersBatchId = integer number of the <20 characters batch> (Simpson's API allows to fetch maximum 20 at a time).
  * Fetches a batch of 20 Simpson's characters, the one with the specified charactersBatchId
  */
