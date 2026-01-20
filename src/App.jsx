@@ -1,6 +1,7 @@
 import './App.css'
 import Header from "./simpleViews (components)/Header.jsx";
 import Footer from "./simpleViews (components)/Footer.jsx";
+import Home from "./simpleViews (components)/Home.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // test imports
@@ -30,11 +31,12 @@ function App() {
 
     return (
         <Router>
+            <div className="app">
             {/* L'Header deve stare dentro il Router per far funzionare i Link */}
             <Header />
             <main>
                 <Routes>
-                    <Route path="/" element={<h1>Benvenuti a Springfield!</h1>} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/characters" element={<h1>Personaggi</h1>} />
                     <Route path="/locations" element={<h1>Luoghi</h1>} />
                     <Route path="/profile" element={<h1>Profilo</h1>} />
@@ -49,6 +51,7 @@ function App() {
             <h2> Prove di funzionamento Model delle locations </h2>
             <button onClick={() => getSingleLocation()}> premi per vedere una location </button>
             <button onClick={() => getLocationsBatch()}> premi per vedere un batch di locations </button>
+            </div>
         </Router>
     )
 }
