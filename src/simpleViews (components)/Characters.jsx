@@ -34,7 +34,6 @@ function Characters() {
             <section className={styles.charactersSection}>
                 <h2> Ecco i personaggi </h2>
 
-                {/* toDo: @YuYu - a me sembra che l'hover dei primi personaggi lagghi e non quello degli ultimi, però forse è una mia impressione - mi fai sapere se ti sembra anche a te? */}
                 <div className={styles.grid}>
                     {allCharacters?.map((character, index) => ( // toDo: clarify the ? with a comment
                         <div key={character.id || index} className={styles.card}>

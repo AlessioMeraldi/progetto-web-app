@@ -66,9 +66,10 @@ export async function fetchCharactersBatch(charactersBatchId) {
 }
 
 /**
- * fetchAllCharacters
+ * fetchAllCharacters (old sequential version)
  * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
  */
+/*
 export async function fetchAllCharacters() {
 
     let allCharacters = [];
@@ -78,4 +79,28 @@ export async function fetchAllCharacters() {
     }
 
     return (allCharacters);
+}
+*/
+
+/**
+ * fetchAllCharacters (new parallel version)
+ * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
+ */
+export async function fetchAllCharacters() {
+
+    const promises = [];
+
+    // parallel requests
+    for (let i=1; i<=60; i++){
+        promises.push(fetchCharactersBatch(i));
+    }
+
+    // assemble API responses and return all the character's batches together
+    try {
+        const allCharacterBatches = await Promise.all(promises);
+        return (allCharacterBatches);
+    } catch (error) {
+        console.error("API error, "+error);
+    }
+
 }
