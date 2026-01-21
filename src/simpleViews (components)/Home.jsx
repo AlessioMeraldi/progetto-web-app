@@ -10,7 +10,7 @@ import characterViewModel from "/src/viewModels/CharactersViewModel";
 
 // Begin logic
 export default function Home() {
-    const { getCharacterBatch } = characterViewModel();
+    const { getCharacterBatch, getAllCharacters } = characterViewModel();
 
     const [characters, setCharacters] = useState([]);
     const [birthdayCharacter, setBirthdayCharacter] = useState(null);
@@ -18,25 +18,23 @@ export default function Home() {
     useEffect(() => {
         async function loadCharacters() {
             const data = await getCharacterBatch(1);
-
-            if (!data || !data.results) return;
-
-            // Prendiamo solo i primi 6
-            const firstSix = data.results.slice(0, 6);
-            setCharacters(firstSix);
+            if (data && data.results) {
+                setCharacters(data.results.slice(0, 6));
+            }
 
             // Controllo compleanni
+            const allChars = await getAllCharacters();
             /*
             const today = new Date();
             const todayDay = String(today.getDate()).padStart(2, "0");
             const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
             */
 
-            // PROVA COMPLEANNO HOMER: 12 MAGGIO
-            const todayDay = "12";
-            const todayMonth = "05";
+            // PROVA COMPLEANNO PERSONAGGIO
+            const todayDay = "25";
+            const todayMonth = "02";
 
-            const birthday = data.results.find((char) => {
+            const birthday = allChars.find((char) => {
                 if (!char.birthdate) return false;
 
                 const [, month, day] = char.birthdate.split("-");
@@ -78,8 +76,8 @@ export default function Home() {
                                 alt={char.name}
                             />
                             <h3>{char.name}</h3>
-                            <p>{char.occupation}</p>
-                            <p>{char.status}</p>
+                            <p className={gridStyles.occupation}>Occupazione: <span>{char.occupation}</span></p>
+                            <p>" <span className={gridStyles.citation}>{char.phrases[1]}</span> "</p>
 
                         </div>
                     ))}
@@ -113,6 +111,24 @@ export default function Home() {
                     </div>
                 </section>
             )}
+
+            {/* SEZIONE INVITO LOGIN: toDo -> quando implementermo l'autenticazione bisogna verificare se l'utente è loggato */}
+            <section className={styles.authStrip}>
+                <h2>Vuoi diventare cittadino di Springfield?</h2>
+                <p>
+                    Alcuni contenuti sono riservati ai cittadini registrati.  <br />
+                    Accedi per salvare i tuoi personaggi preferiti e non perderti
+                    le curiosità più segrete della città. <br />
+                    Diventa subito un cittadino!
+                </p>
+                <button className={gridStyles.ctaCharacters}>
+                    Accedi
+                </button>
+                <button className={gridStyles.ctaCharacters}>
+                    Registrati
+                </button>
+            </section>
+
         </div>
     );
 }

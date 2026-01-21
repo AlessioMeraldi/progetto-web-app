@@ -90,6 +90,15 @@
     color: var(--black);
 }
 
+.citation {
+    font-style: italic;
+}
+
+.occupation {
+    font-size: 1rem;
+}
+
+
 .ctaCharacters, .ctaLocations {
     padding: 1rem 2.5rem;
     margin-right: 2rem;
