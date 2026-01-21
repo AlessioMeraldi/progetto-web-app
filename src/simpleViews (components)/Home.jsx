@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import characterViewModel from "/src/viewModels/CharactersViewModel";
+// Style imports
 import styles from "./Home.module.css";
+import gridStyles from "./Grids.module.css";
 
+// React imports
+import React, { useEffect, useState } from "react";
+
+// ViewModel imports
+import characterViewModel from "/src/viewModels/CharactersViewModel";
+
+// Begin logic
 export default function Home() {
     const { getCharacterBatch } = characterViewModel();
 
@@ -44,7 +51,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={styles.home}>
+        <div className={gridStyles.componentWithGrid}>
             {/* HERO */}
             <section className={styles.hero}>
                 <div className={styles.heroContent}>
@@ -59,13 +66,13 @@ export default function Home() {
             </section>
 
             {/* PERSONAGGI */}
-            <section className={styles.charactersSection}>
+            <section className={gridStyles.charactersSection}>
                 <h2>The simpson family</h2>
                 {/* <h2>Personaggi</h2>*/}
 
-                <div className={styles.grid}>
+                <div className={gridStyles.grid}>
                     {characters.map((char) => (
-                        <div key={char.id} className={styles.card}>
+                        <div key={char.id} className={gridStyles.card}>
                             <img
                                 src={`https://cdn.thesimpsonsapi.com/500/character/${char.id}.webp`}
                                 alt={char.name}
@@ -78,13 +85,13 @@ export default function Home() {
                     ))}
                 </div>
 
-                <p className={styles.sectionSubtitle}>
+                <p className={gridStyles.sectionSubtitle}>
                     Questa è solo una piccola anteprima degli abitanti di Springfield.
                     Puoi trovare la lista completa nella nostra pagina dedicata.
                 </p>
                 <div className={styles.buttonsHome}>
-                    <button className={styles.ctaCharacters}>Visualizza tutti i personaggi</button>
-                    <button className={styles.ctaLocations}>Visualizza tutte le location</button>
+                    <button className={gridStyles.ctaCharacters}>Visualizza tutti i personaggi</button>
+                    <button className={gridStyles.ctaLocations}>Visualizza tutte le location</button>
                 </div>
             </section>
 
@@ -101,7 +108,7 @@ export default function Home() {
                         <div className={styles.birthdayInfo}>
                             <h2>Oggi è il compleanno di <span>{birthdayCharacter.name}</span>!</h2>
                             <p>Festeggia con il cittadino più festeggiato di oggi a Springfield.</p>
-                            <button className={styles.ctaCharacters}>Vedi dettagli</button>
+                            <button className={gridStyles.ctaCharacters}>Vedi dettagli</button>
                         </div>
                     </div>
                 </section>

@@ -1,11 +1,12 @@
 // Style imports
-import styles from "/src/simpleViews (components)/Characters.module.css"
+import styles from "/src/simpleViews (components)/Grids.module.css";
+import ownStyles from "/src/simpleViews (components)/Characters.module.css";
 
 // React imports
 import React, {useEffect} from "react";
 
 //  ViewModel imports
-import CharactersViewModel from '/src/viewModels/CharactersViewModel.js'
+import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 
 // Begin logic
 function Characters() {
@@ -22,7 +23,7 @@ function Characters() {
     }, []);
 
     return (
-        <div className={styles.characters}>
+        <div className={styles.componentWithGrid}>
 
             {/* toDo: filters section */}
             <section>

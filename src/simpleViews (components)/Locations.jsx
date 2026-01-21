@@ -1,11 +1,12 @@
 // Style imports
-import styles from "/src/simpleViews (components)/Locations.module.css"
+import styles from "/src/simpleViews (components)/Grids.module.css";
+import ownStyles from "/src/simpleViews (components)/Locations.module.css";
 
 // React imports
 import React, {useEffect} from "react";
 
 //  ViewModel imports
-import LocationsViewModel from '/src/viewModels/LocationsViewModel.js'
+import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
 
 // Begin logic
 function Characters () {
@@ -22,7 +23,7 @@ function Characters () {
     }, []);
 
     return (
-        <div className={styles.locations}>
+        <div className={styles.componentWithGrid}>
 
             {/* toDo: filters section */}
             <section>
