@@ -2,7 +2,7 @@
 import styles from "/src/simpleViews (components)/Locations.module.css"
 
 // React imports
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 
 //  ViewModel imports
 import LocationsViewModel from '/src/viewModels/LocationsViewModel.js'
@@ -22,7 +22,7 @@ function Characters () {
     }, []);
 
     return (
-        <div>
+        <div className={styles.locations}>
 
             {/* toDo: filters section */}
             <section>
@@ -30,13 +30,23 @@ function Characters () {
             </section>
 
             {/* Locations grid */}
-            <main>
+            <section className={styles.charactersSection}>
+                <h2> Ecco le locations </h2>
+
+            <div className={styles.grid}>
                 {allLocations?.map((location, index) => ( // toDo: clarify the ?
-                    <div key={location.id || index}> {/* attempt to use location's ID and fallback to index if something goes wrong */}
-                        <p> {location?.name} </p> {/* toDo: clarify the ?*/}
+                    <div key={location.id || index} className={styles.card}> {/* attempt to use location's ID and fallback to index if something goes wrong */}
+                        <img
+                            src={`https://cdn.thesimpsonsapi.com/500${location.image_path}`}
+                            alt={location.name}
+                        />
+                        <h3>{location.name}</h3>
+                        <p>{location.town}</p>
+                        <p>{location.use}</p>
                     </div>
                 ))}
-            </main>
+            </div>
+            </section>
 
         </div>
     )
