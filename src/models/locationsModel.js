@@ -73,7 +73,7 @@ export async function fetchAllLocations() {
     let allLocations = [];
 
     for (let i=1; i<=24; i++){
-        allLocations [i] = await fetchLocationsBatch(i);
+        allLocations.push( await fetchLocationsBatch(i));
     }
 
     return (allLocations);

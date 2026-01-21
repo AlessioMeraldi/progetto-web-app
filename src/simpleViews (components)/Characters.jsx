@@ -32,9 +32,9 @@ function Characters () {
 
             {/* Characters grid */}
             <main>
-                {allCharacters?.map((character, index) => (
+                {allCharacters?.map((character, index) => ( // toDo: clarify the ?
                     <div key={character.id || index}> {/* attempt to use character's ID and fallback to index if something goes wrong */}
-                        <p> {character?.name} </p>
+                        <p> {character?.name} </p> {/* toDo: clarify the ?*/}
                     </div>
                 ))}
             </main>

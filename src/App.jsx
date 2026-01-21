@@ -13,6 +13,7 @@ import Header from "./simpleViews (components)/Header.jsx";
 import Footer from "./simpleViews (components)/Footer.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
 import Characters from "./simpleViews (components)/Characters.jsx";
+import Locations from "./simpleViews (components)/Locations.jsx";
 
 // Begin logic
 function App() {
@@ -48,7 +49,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/characters" element={<Characters/>}/>
-                        <Route path="/locations" element={<h1>Luoghi</h1>}/>
+                        <Route path="/locations" element={<Locations/>}/>
                         <Route path="/profile" element={<h1>Profilo</h1>}/>
                     </Routes>
                 </main>

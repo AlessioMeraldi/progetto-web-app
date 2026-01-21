@@ -1,4 +1,4 @@
-// imports for external components
+// imports from React
 import {useState} from 'react';
 
 // imports from Model
@@ -52,7 +52,7 @@ function CharacterViewModel() {
     /**
      * getAllCharacters
      * toDo: see if I can make it parallel (to be done at a later date)
-     * Fetches through the Model all the characters batches in The Simpson's API and returns them (the characters) in a flattened array
+     * Fetches through the Model all the 60 <characters batches> in The Simpson's API and returns them (the characters) in a flattened array
      * @returns {Promise<(number | AuthenticationExtensionsPRFValues)[]>}
      */
     const getAllCharacters = async () => {
@@ -60,12 +60,12 @@ function CharacterViewModel() {
         const allBatches = await fetchAllCharacters(); // fetch all characters Batches
         // The format of allBatches is [ { headerBatch1, results = [array of characters 1] }, {headerBatch2, results = [array of characters 2] }, ... ]
 
-        let allCharacters = allBatches.flatMap(batch => batch.results); // discard headers, chain and flatten arrays of characters
-        // The format of allCharacters is [ character1, character2, character3, ... character20 (last of batch 1), character 21 (first of batch 2), ... ]
+        let localAllCharacters = allBatches.flatMap(batch => batch.results); // discard headers, chain and flatten arrays of characters
+        // The format of localAllCharacters is [ character1, character2, character3, ... character20 (last of batch 1), character21 (first of batch 2), ... ]
 
-        setAllCharacters(allCharacters);
-        console.log(allCharacters);
-        return (allCharacters);
+        console.log(localAllCharacters);
+        setAllCharacters(localAllCharacters);
+        return (localAllCharacters);
 
     }
 
