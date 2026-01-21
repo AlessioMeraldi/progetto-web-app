@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import characterViewModel from "/src/viewModels/charactersViewModel";
+import characterViewModel from "/src/viewModels/CharactersViewModel";
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
 
     useEffect(() => {
         async function loadCharacters() {
-            const data = await getCharacterBatch();
+            const data = await getCharacterBatch(1);
 
             if (!data || !data.results) return;
 

@@ -35,7 +35,7 @@ export async function fetchSingleCharacter(characterId, imageSize) {
 }
 
 /**
- * fetchCharacters
+ * fetchCharactersBatch
  * @Param charactersBatchId = integer number of the <20 characters batch> (Simpson's API allows to fetch maximum 20 at a time).
  * Fetches a batch of 20 Simpson's characters, the one with the specified charactersBatchId
  */
@@ -63,4 +63,19 @@ export async function fetchCharactersBatch(charactersBatchId) {
     }
 
     return (charactersBatch);
+}
+
+/**
+ * fetchAllCharacters
+ * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
+ */
+export async function fetchAllCharacters() {
+
+    let allCharacters = [];
+
+    for (let i=1; i<=60; i++){
+        allCharacters.push (await fetchCharactersBatch(i));
+    }
+
+    return (allCharacters);
 }

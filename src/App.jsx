@@ -1,56 +1,70 @@
+// Style imports
 import './App.css'
+
+// React imports
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+
+// ViewModels imports (toDo: delete after testing is finished)
+import CharactersViewModel from '/src/viewModels/CharactersViewModel.js'
+import LocationsViewModel from "./viewModels/LocationsViewModel.js";
+
+// View imports
 import Header from "./simpleViews (components)/Header.jsx";
 import Footer from "./simpleViews (components)/Footer.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Characters from "./simpleViews (components)/Characters.jsx";
 
-// test imports
-import charactersViewModel from '/src/viewModels/charactersViewModel.js'
-import locationsViewModel from "./viewModels/locationsViewModel.js";
-
+// Begin logic
 function App() {
 
     const footerLinks = [
-        { text: "Home", url: "/" },
-        { text: "Characters", url: "/characters" },
-        { text: "Locations", url: "/locations" }
+        {text: "Home", url: "/"},
+        {text: "Characters", url: "/characters"},
+        {text: "Locations", url: "/locations"}
     ];
     const courseName = "Università degli Studi di Milano Bicocca";
     const courseLink = "https://www.unimib.it/";
 
-    // test variables
+    // viewModel functions (toDo: delete upon having finished testing)
     const {
         getSingleCharacter,
-        getCharacterBatch
-    } = charactersViewModel();
+        getCharacterBatch,
+        getAllCharacters,
+    } = CharactersViewModel();
 
+    // viewModel functions (toDo: delete upon having finished testing)
     const {
         getSingleLocation,
-        getLocationsBatch
-    } = locationsViewModel();
+        getLocationsBatch,
+        getAllLocations
+    } = LocationsViewModel();
 
     return (
         <Router>
             <div className="app">
-            {/* L'Header deve stare dentro il Router per far funzionare i Link */}
-            <Header />
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/characters" element={<h1>Personaggi</h1>} />
-                    <Route path="/locations" element={<h1>Luoghi</h1>} />
-                    <Route path="/profile" element={<h1>Profilo</h1>} />
-                </Routes>
-            </main>
-            <Footer navItems={footerLinks} courseName={courseName} courseLink={courseLink} />
+                {/* L'Header deve stare dentro il Router per far funzionare i Link */}
+                <Header/>
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/characters" element={<Characters/>}/>
+                        <Route path="/locations" element={<h1>Luoghi</h1>}/>
+                        <Route path="/profile" element={<h1>Profilo</h1>}/>
+                    </Routes>
+                </main>
+                <Footer navItems={footerLinks} courseName={courseName} courseLink={courseLink}/>
 
-            {/* toDo: delete content after this part */}
-            <h2> Prove funzionamento Model dei personaggi </h2>
-            <button onClick={() => getSingleCharacter()}> premi per vedere un character </button>
-            <button onClick={() => getCharacterBatch()}> premi per vedere un batch di characters </button>
-            <h2> Prove di funzionamento Model delle locations </h2>
-            <button onClick={() => getSingleLocation()}> premi per vedere una location </button>
-            <button onClick={() => getLocationsBatch()}> premi per vedere un batch di locations </button>
+                {/* toDo: delete content after this part */}
+                <h2> Prove funzionamento Model dei personaggi </h2>
+                <button onClick={() => getSingleCharacter()}> premi per vedere un character</button>
+                <button onClick={() => getCharacterBatch()}> premi per vedere un batch di characters</button>
+                <button onClick={() => getAllCharacters()}> premi per vedere tutti i characters</button>
+                <h2> Prove di funzionamento Model delle locations </h2>
+                <button onClick={() => getSingleLocation()}> premi per vedere una location</button>
+                <button onClick={() => getLocationsBatch()}> premi per vedere un batch di locations</button>
+                <button onClick={() => getAllLocations()}> premi per vedere tutte le locations</button>
+                {/* toDo: delete end */}
+
             </div>
         </Router>
     )

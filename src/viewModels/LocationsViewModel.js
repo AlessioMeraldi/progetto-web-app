@@ -4,6 +4,7 @@ import {useState} from 'react';
 // imports for our components
 import {fetchSingleLocation} from '/src/models/locationsModel.js';
 import {fetchLocationsBatch} from '/src/models/locationsModel.js';
+import {fetchAllLocations} from "/src/models/locationsModel.js";
 
 function locationsViewModel() {
 
@@ -21,9 +22,16 @@ function locationsViewModel() {
         return (locations);
     }
 
+    const getAllLocations = async () => {
+        const allLocations = await fetchAllLocations();
+        console.log(allLocations);
+        return (allLocations);
+    }
+
     return {
         getSingleLocation,
         getLocationsBatch,
+        getAllLocations,
     }
 
 }

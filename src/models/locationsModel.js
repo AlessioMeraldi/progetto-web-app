@@ -52,7 +52,7 @@ export async function fetchLocationsBatch(locationsBatchId) {
         const fetchedBatch = await fetch(locationsBatchURL);
 
         if (!fetchedBatch.ok) {
-            throw new Error("Could not fetch characters batch "+locationsBatchId);
+            throw new Error("Could not fetch locations batch "+locationsBatchId);
         }
 
         locationsBatch = await fetchedBatch.json();
@@ -62,4 +62,19 @@ export async function fetchLocationsBatch(locationsBatchId) {
     }
 
     return (locationsBatch);
+}
+
+/**
+ * fetchAllLocations
+ * Fetches all the 24 batches of The Simpson's locations by invoking fetchLocationsBatch() multiple times
+ */
+export async function fetchAllLocations() {
+
+    let allLocations = [];
+
+    for (let i=1; i<=24; i++){
+        allLocations [i] = await fetchLocationsBatch(i);
+    }
+
+    return (allLocations);
 }
