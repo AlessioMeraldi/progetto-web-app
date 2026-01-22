@@ -1,5 +1,3 @@
-// toDo: ricordarsi che il model deve poter fetchare immagini a 2 diverse risoluzioni (small per card, large per detail)
-
 
 /**
  *  fetchSingleCharater
@@ -91,7 +89,7 @@ export async function fetchAllCharacters() {
     const promises = [];
 
     // parallel requests
-    for (let i=1; i<=60; i++){
+    for (let i=1; i<=30; i++){ // toDo: see if we can fetch the rest keeping acceptable performance (might have to split in 2 modules if react-window / react-virtuoso prove too complicated)
         promises.push(fetchCharactersBatch(i));
     }
 

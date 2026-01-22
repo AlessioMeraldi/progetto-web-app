@@ -11,6 +11,7 @@ import LocationsViewModel from "./viewModels/LocationsViewModel.js";
 // View imports
 import Header from "./simpleViews (components)/Header.jsx";
 import Footer from "./simpleViews (components)/Footer.jsx";
+import Page_404 from "./simpleViews (components)/Page_404.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
 import Characters from "./simpleViews (components)/Characters.jsx";
 import Locations from "./simpleViews (components)/Locations.jsx";
@@ -51,6 +52,7 @@ function App() {
                         <Route path="/characters" element={<Characters/>}/>
                         <Route path="/locations" element={<Locations/>}/>
                         <Route path="/profile" element={<h1>Profilo</h1>}/>
+                        <Route path="*" element={<Page_404/>}/>
                     </Routes>
                 </main>
                 <Footer navItems={footerLinks} courseName={courseName} courseLink={courseLink}/>
