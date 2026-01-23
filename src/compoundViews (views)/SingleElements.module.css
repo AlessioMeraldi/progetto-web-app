@@ -1,6 +1,5 @@
 /**
     Note: style is applied to both ShowSingleCharacter.jsx and ShowSingleLocation.jsx
-    alongside their external counterpart (SingleCharacter.jsx and SingleLocation.jsx)
  */
 
 /* <single-item-page> (character or location) general container */
@@ -8,10 +7,10 @@
     width: 100%;
     min-height: 100vh;
     padding: 3rem 1rem;
-    background-image: url("/public/clouds-bg.webp");
+    background-image: url("/public/clouds-bg.webp"); /* Ripreso dalla Hero */
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: fixed; /* L'immagine sta ferma mentre scorri */
     font-family: 'Comic Sans MS', "Arial Round", sans-serif;
     display: flex;
     justify-content: center;
@@ -167,59 +166,3 @@
     color: var(--gray-dark);
     opacity: 0.2;
 }
-
-/* == "previous" and "next" button style == */
-
-/* Shared style for both buttons */
-.navBtn {
-    position: fixed;          /* Stays stuck to the screen while scrolling */
-    top: 50%;                 /* Vertically centered */
-    transform: translateY(-50%); /* Perfect centering offset */
-
-    background-color: var(--yellow-primary);
-    color: var(--blue-primary); /* Using your blue for text contrast */
-    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    text-decoration: none;    /* Removes standard link underline */
-
-    padding: 1rem 1.5rem;
-    border: 3px solid var(--black);
-    border-radius: 12px;      /* Slightly rounded corners */
-
-    /* The "Simpsons" hard shadow look */
-    box-shadow: 6px 6px 0px var(--black);
-
-    z-index: 100;             /* Ensures it sits on top of everything */
-    transition: all 0.1s ease-in-out;
-    cursor: pointer;
-}
-
-/* Specific positioning for Previous */
-.prevBtn {
-    left: 2rem;
-}
-
-/* Add the Left Arrow using CSS */
-.prevBtn::before {
-    content: "◀ "; /* Arrow character */
-    font-size: 1.2rem;
-    margin-right: 5px;
-}
-
-/* Specific positioning for Next */
-.nextBtn {
-    right: 2rem;
-}
-
-/* Add the Right Arrow using CSS */
-.nextBtn::after {
-    content: " ▶"; /* Arrow character */
-    font-size: 1.2rem;
-    margin-left: 5px;
-}
-
-/* == Interaction Effects == */
-
-/* toDo */
