@@ -1,0 +1,126 @@
+.profilePage {
+    background-color: var(--white);
+    min-height: 100vh;
+    padding: 4rem 1rem;
+    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
+}
+
+.profileContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* HERO SECTION */
+.heroSection {
+    background-color: var(--blue-primary-alpha);
+    border: 4px solid var(--black);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    box-shadow: 15px 15px 0px var(--yellow-primary);
+    transform: rotate(-1deg);
+    margin-bottom: 5rem;
+}
+
+.avatarWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 6px solid var(--black);
+    background: var(--white);
+    object-fit: cover;
+}
+
+.userName {
+    font-size: 3rem;
+    color: var(--black);
+    text-transform: uppercase;
+    -webkit-text-stroke: 1.5px var(--black);
+    margin: 0;
+}
+
+.badgeContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.badge {
+    background: var(--yellow-primary);
+    border: 2px solid var(--black);
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border-radius: 20px;
+}
+
+/* SEZIONE PREFERITI */
+.sectionTitle {
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--blue-primary);
+    -webkit-text-stroke: 1px var(--black);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.favoritesSection {
+    background: var(--white);
+    border: 4px solid var(--black);
+    padding: 2rem;
+    margin-bottom: 4rem;
+    box-shadow: 10px 10px 0px var(--black);
+}
+
+.emptyFavorites {
+    text-align: center;
+    padding: 2rem;
+}
+
+.homerPng {
+    height: 220px;
+    margin-bottom: 1rem;
+}
+
+.ctaExplore {
+    margin-top: 1.5rem;
+}
+
+/* DETTAGLI LISTA */
+.detailsSection {
+    border-top: 6px dashed var(--yellow-primary);
+    padding-top: 3rem;
+}
+
+.detailsList {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.detailsList li {
+    background: var(--yellow-primary);
+    padding: 1.5rem;
+    border: 3px solid var(--black);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .heroSection {
+        flex-direction: column;
+        text-align: center;
+        transform: none;
+    }
+}

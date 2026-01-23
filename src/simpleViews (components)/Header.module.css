@@ -54,9 +54,17 @@
 }
 
 /* Effetto hover */
-.navbarLink:hover {
+.navbarLink, .login:hover {
     background-color: var(--blue-primary);
     color: var(--white);
     border-color: var(--black);
     transform: rotate(-2deg) scale(1.1);
+}
+
+.login {
+    /* Reset stili predefiniti del bottone */
+    background: none;
+    border: 3px solid transparent;
+    cursor: pointer;
+    font-family: inherit; /* Importante per ereditare il font Simpson */
 }

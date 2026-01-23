@@ -14,6 +14,7 @@ import Footer from "./simpleViews (components)/Footer.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
 import Characters from "./simpleViews (components)/Characters.jsx";
 import Locations from "./simpleViews (components)/Locations.jsx";
+import Profile from "./simpleViews (components)/Profile.jsx";
 
 // Begin logic
 function App() {
@@ -50,7 +51,7 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/characters" element={<Characters/>}/>
                         <Route path="/locations" element={<Locations/>}/>
-                        <Route path="/profile" element={<h1>Profilo</h1>}/>
+                        <Route path="/profile" element={<Profile/>}/>
                     </Routes>
                 </main>
                 <Footer navItems={footerLinks} courseName={courseName} courseLink={courseLink}/>
