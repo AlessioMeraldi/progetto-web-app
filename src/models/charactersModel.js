@@ -1,5 +1,3 @@
-// toDo: ricordarsi che il model deve poter fetchare immagini a 2 diverse risoluzioni (small per card, large per detail)
-
 
 /**
  *  fetchSingleCharater
@@ -66,9 +64,10 @@ export async function fetchCharactersBatch(charactersBatchId) {
 }
 
 /**
- * fetchAllCharacters
+ * fetchAllCharacters (old sequential version)
  * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
  */
+/*
 export async function fetchAllCharacters() {
 
     let allCharacters = [];
@@ -78,4 +77,28 @@ export async function fetchAllCharacters() {
     }
 
     return (allCharacters);
+}
+*/
+
+/**
+ * fetchAllCharacters (new parallel version)
+ * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
+ */
+export async function fetchAllCharacters() {
+
+    const promises = [];
+
+    // parallel requests
+    for (let i=1; i<=30; i++){ // toDo: see if we can fetch the rest keeping acceptable performance (might have to split in 2 modules if react-window / react-virtuoso prove too complicated)
+        promises.push(fetchCharactersBatch(i));
+    }
+
+    // assemble API responses and return all the character's batches together
+    try {
+        const allCharacterBatches = await Promise.all(promises);
+        return (allCharacterBatches);
+    } catch (error) {
+        console.error("API error, "+error);
+    }
+
 }

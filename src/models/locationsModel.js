@@ -1,4 +1,3 @@
-// toDo: ricordarsi che il model deve poter fetchare immagini a 2 diverse risoluzioni (small per card, large per detail)
 
 /**
  *  fetchSingleLocation
@@ -65,9 +64,10 @@ export async function fetchLocationsBatch(locationsBatchId) {
 }
 
 /**
- * fetchAllLocations
+ * fetchAllLocations (old sequential version)
  * Fetches all the 24 batches of The Simpson's locations by invoking fetchLocationsBatch() multiple times
  */
+/*
 export async function fetchAllLocations() {
 
     let allLocations = [];
@@ -77,4 +77,28 @@ export async function fetchAllLocations() {
     }
 
     return (allLocations);
+}
+*/
+
+/**
+ * fetchAllLocations (new parallel version)
+ * Fetches all the 24 batches of The Simpson's locations by invoking fetchLocationsBatch() multiple times
+ */
+export async function fetchAllLocations() {
+
+    const promises = [];
+
+    // parallel requests
+    for (let i=1; i<=24; i++){
+        promises.push(fetchLocationsBatch(i));
+    }
+
+    // assemble API responses and return all the character's batches together
+    try {
+        const allLocationsBatches = await Promise.all(promises);
+        return (allLocationsBatches);
+    } catch (error) {
+        console.error("API error, "+error);
+    }
+
 }

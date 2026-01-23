@@ -1,0 +1,168 @@
+/**
+    Note: style is applied to both ShowSingleCharacter.jsx and ShowSingleLocation.jsx
+ */
+
+/* <single-item-page> (character or location) general container */
+.pageContainer {
+    width: 100%;
+    min-height: 100vh;
+    padding: 3rem 1rem;
+    background-image: url("/public/clouds-bg.webp"); /* Ripreso dalla Hero */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* L'immagine sta ferma mentre scorri */
+    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Central card style */
+.card {
+    background-color: var(--white);
+    border: 4px solid var(--black);
+    border-radius: 4px;
+    max-width: 800px;
+    width: 100%;
+    padding: 2.5rem;
+    box-shadow: 15px 15px 0px var(--yellow-primary);
+    position: relative;
+}
+
+/* == Card's header == */
+
+/* header style */
+.header {
+    text-align: center;
+    border-bottom: 4px solid var(--black);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* image's container (that makes a round blue oval around it) */
+.imageContainer {
+    /*display: inline-block;*/ /* toDo: keep disabled to make oval, enable to make it a circle (but probably requires circle to be bigger) */
+    background-color: var(--blue-sky-alpha);
+    border: 3px solid var(--black);
+    border-radius: 50%;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 6px 6px 0px rgba(0,0,0,0.1);
+}
+
+/* image's style */
+.characterImg {
+    height: 250px;
+    width: 250px;
+    object-fit: contain;
+    filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.1));
+}
+
+/* Element's name style */
+.header h1 {
+    font-size: 3rem;
+    margin: 0.5rem 0 0;
+    color: var(--blue-primary);
+    -webkit-text-stroke: 1.5px var(--black); /* black border around text */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* == Content sections's style == */
+
+.section {
+    margin-bottom: 2.5rem;
+}
+
+/* section's heading (yellow button-looking card dangling on the side) */
+.section h2 {
+    font-size: 1.8rem;
+    background-color: var(--yellow-primary);
+    display: inline-block;
+    padding: 0.2rem 1rem;
+    border: 2px solid var(--black);
+    border-radius: 8px;
+    transform: rotate(-2deg);
+    margin-bottom: 1.5rem;
+    box-shadow: 3px 3px 0px var(--black);
+}
+
+/* Anagraphic data's grid look (container) */
+.dataList {
+    list-style: none; /* disable bullets (dots) of the list */
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* responsive grid (1fr = 1fraction) */
+    /* ^ = Fit as many columns as you can into the row. Make them at least 200px wide, but if there is extra space, let them stretch to fill it */
+    gap: 1rem;
+}
+
+/* Anagraphic data's grid look (individual elements) */
+.dataList li {
+    font-size: 1.1rem;
+    border: 2px dashed var(--black); /* dotted-line border with size 2 pixels, coloured black */
+    padding: 0.8rem;
+    background-color: var(--white);
+}
+
+/* text style (within sections) */
+.section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* style of the <first-appearance> boxes */
+.appearanceBox {
+    background-color: var(--blue-primary-alpha);
+    border: 2px solid var(--black);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+/* heading of the <first-appearance> boxes */
+.appearanceBox h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+/* quotes style (container) */
+.quotesList {
+    list-style: none;
+    padding: 0;
+}
+
+/* quotes style (individual elements) */
+.quotesList li {
+    text-align: center;
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    position: relative;
+    background: var(--gray-light);
+    border-left: 6px solid var(--yellow-primary);
+}
+
+/* grayed out opening quote effect */
+.quotesList li::before {
+    content: "“";
+    font-size: 3rem;
+    position: absolute;
+    left: 0.5rem;
+    top: -0.5rem;
+    color: var(--gray-dark);
+    opacity: 0.2;
+}
+
+/* grayed out closing quote effect */
+.quotesList li::after {
+    content: "“";
+    font-size: 3rem;
+    position: absolute;
+    right: 1.5rem; /* I had to fine tune this one seemingly randomly because the irregular shape feels wierd when spaced evenly */
+    bottom: -2rem;
+    color: var(--gray-dark);
+    opacity: 0.2;
+}

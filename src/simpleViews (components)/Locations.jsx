@@ -40,6 +40,7 @@ function Characters () {
                         <img
                             src={`https://cdn.thesimpsonsapi.com/500${location.image_path}`}
                             alt={location.name}
+                            loading="lazy"
                         />
                         <h3>{location.name}</h3>
                         <p>{location.town}</p>
