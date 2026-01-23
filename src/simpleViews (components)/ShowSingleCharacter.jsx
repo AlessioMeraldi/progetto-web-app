@@ -1,6 +1,6 @@
 
 // React imports
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 
 // ViewModel imports
 import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
@@ -23,9 +23,7 @@ function ShowSingleCharacter({charId, imgSize}) {
     }, [charId, imgSize]);
 
     return (
-
-        <main className={style.pageContainer}>
-
+        <React.Fragment>
             {/* Character's card */}
             <section className={style.card}>
 
@@ -97,7 +95,7 @@ function ShowSingleCharacter({charId, imgSize}) {
                     </section>
                 )}
             </section>
-        </main>
+        </React.Fragment>
     )
 
 }

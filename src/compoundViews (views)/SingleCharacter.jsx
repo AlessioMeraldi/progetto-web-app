@@ -2,7 +2,7 @@
 import style from '/src/compoundViews (views)/SingleElements.module.css';
 
 // Routing imports
-import {useParams, Navigate} from 'react-router-dom';
+import {useParams, Navigate, NavLink} from 'react-router-dom';
 
 // Component imports
 import ShowSingleCharacter from '/src/simpleViews (components)/ShowSingleCharacter.jsx';
@@ -33,8 +33,23 @@ function SingleCharacter() {
     console.log(characterId);
 
     return (
-        <main>
+        <main className={style.pageContainer}>
+            {
+                /* conditional rendering of the {condition && <thing to render>} type */
+                (characterId>1)
+                &&
+                <NavLink to={`/character/${characterId - 1}`}>
+                    Previous
+                </NavLink>
+            }
             <ShowSingleCharacter charId={characterId} imgSize="500"/>
+            {
+                (characterId<1182)
+                &&
+                <NavLink to={`/character/${characterId + 1}`}>
+                    Next
+                </NavLink>
+            }
         </main>
     )
 
