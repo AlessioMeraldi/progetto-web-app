@@ -40,6 +40,7 @@ function Characters() {
                             <img
                                 src={`https://cdn.thesimpsonsapi.com/200/character/${character.id}.webp`}
                                 alt={character.name}
+                                loading="lazy"
                             />
                             <h3>{character.name}</h3>
                             <p>{character.occupation}</p>

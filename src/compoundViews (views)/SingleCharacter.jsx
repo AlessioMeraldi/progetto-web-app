@@ -1,13 +1,16 @@
-
 // Style imports
-import style from './src/simpleViews (components)/SIngleElements.module.css';
+import style from '/src/compoundViews (views)/SingleElements.module.css';
 
 // Routing imports
 import {useParams, Navigate} from 'react-router-dom';
 
+// Component imports
+import ShowSingleCharacter from '/src/simpleViews (components)/ShowSingleCharacter.jsx';
+
 // Begin logic
 function SingleCharacter() {
 
+    // Get parameter
     let {idNumber} = useParams();
 
     // Loathsome Regex, source of all evil, to check if the passed parameter :idNumber is a number
@@ -26,6 +29,14 @@ function SingleCharacter() {
     if (characterId > 1182) {
         return (<Navigate to='/404' replace/>);
     }
+
+    console.log(characterId);
+
+    return (
+        <main>
+            <ShowSingleCharacter charId={characterId} imgSize="500"/>
+        </main>
+    )
 
 }
 

@@ -15,6 +15,7 @@ import Page_404 from "./simpleViews (components)/Page_404.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
 import Characters from "./simpleViews (components)/Characters.jsx";
 import Locations from "./simpleViews (components)/Locations.jsx";
+import SingleCharacter from "./compoundViews (views)/SingleCharacter.jsx";
 
 // Begin logic
 function App() {
@@ -50,6 +51,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/characters" element={<Characters/>}/>
+                        <Route path="/character/:idNumber" element={<SingleCharacter/>}/>
                         <Route path="/locations" element={<Locations/>}/>
                         <Route path="/profile" element={<h1>Profilo</h1>}/>
                         <Route path="*" element={<Page_404/>}/>
@@ -59,8 +61,8 @@ function App() {
 
                 {/* toDo: delete content after this part */}
                 <h2> Prove funzionamento Model dei personaggi </h2>
-                <button onClick={() => getSingleCharacter()}> premi per vedere un character</button>
-                <button onClick={() => getCharacterBatch()}> premi per vedere un batch di characters</button>
+                <button onClick={() => getSingleCharacter(1, 200)}> premi per vedere un character</button>
+                <button onClick={() => getCharacterBatch(1)}> premi per vedere un batch di characters</button>
                 <button onClick={() => getAllCharacters()}> premi per vedere tutti i characters</button>
                 <h2> Prove di funzionamento Model delle locations </h2>
                 <button onClick={() => getSingleLocation()}> premi per vedere una location</button>
