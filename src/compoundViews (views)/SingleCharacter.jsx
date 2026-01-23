@@ -38,16 +38,16 @@ function SingleCharacter() {
                 /* conditional rendering of the {condition && <thing to render>} type */
                 (characterId>1)
                 &&
-                <NavLink to={`/character/${characterId - 1}`}>
-                    Previous
+                <NavLink to={`/character/${characterId - 1}`} className={`${style.navBtn} ${style.prevBtn}`}>
+                    PREVIOUS
                 </NavLink>
             }
             <ShowSingleCharacter charId={characterId} imgSize="500"/>
             {
                 (characterId<1182)
                 &&
-                <NavLink to={`/character/${characterId + 1}`}>
-                    Next
+                <NavLink to={`/character/${characterId + 1}`} className={`${style.navBtn} ${style.nextBtn}`}>
+                    NEXT
                 </NavLink>
             }
         </main>

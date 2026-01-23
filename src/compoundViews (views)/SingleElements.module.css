@@ -42,7 +42,7 @@
 
 /* image's container (that makes a round blue oval around it) */
 .imageContainer {
-    /*display: inline-block;*/ /* toDo: keep disabled to make oval, enable to make it a circle (but probably requires circle to be bigger) */
+    /*display: inline-block;*/
     background-color: var(--blue-sky-alpha);
     border: 3px solid var(--black);
     border-radius: 50%;
@@ -172,17 +172,17 @@
 
 /* Shared style for both buttons */
 .navBtn {
-    position: fixed;          /* Stays stuck to the screen while scrolling */
-    top: 50%;                 /* Vertically centered */
-    transform: translateY(-50%); /* Perfect centering offset */
+
+    position: sticky;
+    top: 50%;
+    /*margin-left: 4.7rem; !* right button needs more left margin or it looks off *!*/
+    /*margin-right: 4rem;*/
 
     background-color: var(--yellow-primary);
-    color: var(--blue-primary); /* Using your blue for text contrast */
-    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
+    color: var(--blue-primary);
     font-weight: bold;
     font-size: 1.5rem;
-    text-transform: uppercase;
-    text-decoration: none;    /* Removes standard link underline */
+    text-decoration: none; /* Removes standard link underline */
 
     padding: 1rem 1.5rem;
     border: 3px solid var(--black);
@@ -199,6 +199,7 @@
 /* Specific positioning for Previous */
 .prevBtn {
     left: 2rem;
+    margin-right: 4rem;
 }
 
 /* Add the Left Arrow using CSS */
@@ -211,6 +212,7 @@
 /* Specific positioning for Next */
 .nextBtn {
     right: 2rem;
+    margin-left: 4.5625rem;
 }
 
 /* Add the Right Arrow using CSS */
@@ -222,4 +224,76 @@
 
 /* == Interaction Effects == */
 
-/* toDo */
+/* Hover State */
+.navBtn:hover {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--black);
+}
+
+/* Active State */
+.navBtn:active {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    transform: translate(6px, 6px);
+    box-shadow: none;
+    transition: all 0.05s ease;
+}
+
+/* == Responsiveness == */
+
+/* Tablet visualization */
+@media (max-width: 1100px) {
+
+    /* Smaller button */
+    .navBtn {
+        font-size: 1.1rem;
+        padding: 0.6rem 1rem;
+        box-shadow: 4px 4px 0px var(--black); /* reduced shadow */
+
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+
+    /* closer left button */
+    .prevBtn {
+        left: 0.5rem;
+    }
+
+    /* closer right button */
+    .nextBtn {
+        right: 0.5rem;
+    }
+}
+
+/* Mobile visualization */
+@media (max-width: 768px) {
+
+    /* Smallest button size */
+    .navBtn {
+        position: fixed;
+        top: 1rem;
+        margin: 0 !important;
+
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        box-shadow: 3px 3px 0px var(--black);
+        z-index: 9999;
+    }
+
+    /* Top left corner*/
+    .prevBtn {
+        left: 1rem;
+        right: auto;
+        top: 20rem;
+    }
+
+    /* Top right corner */
+    .nextBtn {
+        right: 1rem;
+        left: auto;
+        top: 20rem;
+    }
+
+}
