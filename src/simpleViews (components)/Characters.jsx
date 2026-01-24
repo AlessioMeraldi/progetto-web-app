@@ -1,6 +1,5 @@
 // Style imports
 import styles from "/src/simpleViews (components)/Grids.module.css";
-import ownStyles from "/src/simpleViews (components)/Characters.module.css";
 
 // React imports
 import React, {useEffect} from "react";

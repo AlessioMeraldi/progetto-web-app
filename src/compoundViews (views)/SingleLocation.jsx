@@ -8,14 +8,14 @@ import { useEffect } from 'react';
 import {useParams, Navigate, NavLink} from 'react-router-dom';
 
 // Component imports
-import ShowSingleCharacter from '/src/simpleViews (components)/ShowSingleCharacter.jsx';
+import ShowSingleLocation from '/src/simpleViews (components)/ShowSingleLocation.jsx';
 
 // Begin logic
-function SingleCharacter() {
+function SingleLocation() {
 
     // Get parameter
     let {idNumber} = useParams();
-    const maxId = 1182; // doing characterId > 1182 directly caused an error with type conversion
+    const maxId = 477; // doing characterId > 447 directly caused an error with type conversion
 
     // Scroll back to top (in case character is being shown from clicking far down the same or another page)
     useEffect(() => {
@@ -27,35 +27,35 @@ function SingleCharacter() {
         return (<Navigate to='/404' replace/>);
     }
 
-    const characterId = parseInt(idNumber);
+    const locationId = parseInt(idNumber);
 
     // checks for number validity - number too small
-    if (characterId < 1) {
+    if (locationId < 1) {
         return (<Navigate to='/404' replace/>);
     }
 
     // check for number validity - number too big
-    if (characterId > maxId) {
+    if (locationId > maxId) {
         return (<Navigate to='/404' replace/>);
     }
 
-    console.log(characterId);
+    console.log(locationId);
 
     return (
         <main className={style.pageContainer}>
             {
                 /* conditional rendering of the {condition && <thing to render>} type */
-                (characterId>1)
+                (locationId>1)
                 &&
-                <NavLink to={`/character/${characterId - 1}`} className={`${style.navBtn} ${style.prevBtn}`}>
+                <NavLink to={`/location/${locationId - 1}`} className={`${style.navBtn} ${style.prevBtn}`}>
                     PREVIOUS
                 </NavLink>
             }
-            <ShowSingleCharacter charId={characterId} imgSize="500"/>
+            <ShowSingleLocation locId={locationId} imgSize="500"/>
             {
-                (characterId<maxId)
+                (locationId<maxId)
                 &&
-                <NavLink to={`/character/${characterId + 1}`} className={`${style.navBtn} ${style.nextBtn}`}>
+                <NavLink to={`/location/${locationId + 1}`} className={`${style.navBtn} ${style.nextBtn}`}>
                     NEXT
                 </NavLink>
             }
@@ -64,4 +64,4 @@ function SingleCharacter() {
 
 }
 
-export default SingleCharacter;
+export default SingleLocation;

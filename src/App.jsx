@@ -17,6 +17,7 @@ import Characters from "./simpleViews (components)/Characters.jsx";
 import Locations from "./simpleViews (components)/Locations.jsx";
 import Profile from "./simpleViews (components)/Profile.jsx";
 import SingleCharacter from "./compoundViews (views)/SingleCharacter.jsx";
+import SingleLocation from "./compoundViews (views)/SingleLocation.jsx";
 
 // Begin logic
 function App() {
@@ -53,6 +54,7 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/characters" element={<Characters/>}/>
                         <Route path="/character/:idNumber" element={<SingleCharacter/>}/>
+                        <Route path="/location/:idNumber" element={<SingleLocation/>}/>
                         <Route path="/locations" element={<Locations/>}/>
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/profile" element={<h1>Profilo</h1>}/>
@@ -67,8 +69,8 @@ function App() {
                 <button onClick={() => getCharacterBatch(1)}> premi per vedere un batch di characters</button>
                 <button onClick={() => getAllCharacters()}> premi per vedere tutti i characters</button>
                 <h2> Prove di funzionamento Model delle locations </h2>
-                <button onClick={() => getSingleLocation()}> premi per vedere una location</button>
-                <button onClick={() => getLocationsBatch()}> premi per vedere un batch di locations</button>
+                <button onClick={() => getSingleLocation(1, 200)}> premi per vedere una location</button>
+                <button onClick={() => getLocationsBatch(1)}> premi per vedere un batch di locations</button>
                 <button onClick={() => getAllLocations()}> premi per vedere tutte le locations</button>
                 {/* toDo: delete end */}
 

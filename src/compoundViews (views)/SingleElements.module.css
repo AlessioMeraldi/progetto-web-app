@@ -297,3 +297,30 @@
     }
 
 }
+
+/* == Locations adjustments == */
+
+#singleLocation {
+
+    border-radius: 24px;
+    padding: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: fit-content
+
+}
+
+#singleLocation img {
+
+    width: 450px;
+    height: 300px;
+
+}
+
+@media (max-width: 768px) {
+    #singleLocation .characterImg {
+        width: 100%; /* Occupa tutto lo spazio disponibile su mobile */
+        height: auto; /* Mantieni le proporzioni */
+        max-height: 300px; /* Non diventare più alta di 300px */
+    }
+}

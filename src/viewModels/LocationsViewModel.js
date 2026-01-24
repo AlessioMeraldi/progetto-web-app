@@ -5,7 +5,7 @@ import {useState} from 'react';
 import {fetchSingleLocation, fetchLocationsBatch, fetchAllLocations} from '/src/models/locationsModel.js';
 
 // Begin logic
-function locationsViewModel() {
+function LocationsViewModel() {
 
     // State
     const [location, setLocation] = useState(null);
@@ -80,4 +80,4 @@ function locationsViewModel() {
 
 }
 
-export default locationsViewModel;
+export default LocationsViewModel;

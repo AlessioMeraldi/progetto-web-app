@@ -1,6 +1,5 @@
 // Style imports
 import styles from "/src/simpleViews (components)/Grids.module.css";
-import ownStyles from "/src/simpleViews (components)/Locations.module.css";
 
 // React imports
 import React, {useEffect} from "react";
@@ -8,8 +7,11 @@ import React, {useEffect} from "react";
 //  ViewModel imports
 import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
 
+// Routing imports
+import {NavLink} from 'react-router-dom';
+
 // Begin logic
-function Characters () {
+function Characters() {
 
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
@@ -34,20 +36,22 @@ function Characters () {
             <section className={styles.charactersSection}>
                 <h2> Ecco le locations </h2>
 
-            <div className={styles.grid}>
-                {allLocations?.map((location, index) => ( // toDo: clarify the ?
-                    <div key={location.id || index} className={styles.card}> {/* attempt to use location's ID and fallback to index if something goes wrong */}
-                        <img
-                            src={`https://cdn.thesimpsonsapi.com/500${location.image_path}`}
-                            alt={location.name}
-                            loading="lazy"
-                        />
-                        <h3>{location.name}</h3>
-                        <p>{location.town}</p>
-                        <p>{location.use}</p>
-                    </div>
-                ))}
-            </div>
+                <div className={styles.grid}>
+                    {allLocations?.map((location, index) => ( // toDo: clarify the ?
+                        <NavLink key={location.id || index} to={`/location/${location.id}`} className={styles.card}>
+                            <div>
+                                <img
+                                    src={`https://cdn.thesimpsonsapi.com/500${location.image_path}`}
+                                    alt={location.name}
+                                    loading="lazy"
+                                />
+                                <h3>{location.name}</h3>
+                                <p>{location.town}</p>
+                                <p>{location.use}</p>
+                            </div>
+                        </NavLink>
+                    ))}
+                </div>
             </section>
 
         </div>
