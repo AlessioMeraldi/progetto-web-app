@@ -8,6 +8,9 @@ import React, {useEffect} from "react";
 //  ViewModel imports
 import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 
+// Routing imports
+import { NavLink } from 'react-router-dom';
+
 // Begin logic
 function Characters() {
 
@@ -36,17 +39,19 @@ function Characters() {
 
                 <div className={styles.grid}>
                     {allCharacters?.map((character, index) => ( // toDo: clarify the ? with a comment
-                        <div key={character.id || index} className={styles.card}>
-                            <img
-                                src={`https://cdn.thesimpsonsapi.com/200/character/${character.id}.webp`}
-                                alt={character.name}
-                                loading="lazy"
-                            />
-                            <h3>{character.name}</h3>
-                            <p>{character.occupation}</p>
-                            <p>{character.status}</p>
 
-                        </div>
+                        <NavLink key={character.id || index} to={`/character/${character.id}`} className={styles.card}>
+                            <div>
+                                <img
+                                    src={`https://cdn.thesimpsonsapi.com/200/character/${character.id}.webp`}
+                                    alt={character.name}
+                                    loading="lazy"
+                                />
+                                <h3>{character.name}</h3>
+                                <p>{character.occupation}</p>
+                                <p>{character.status}</p>
+                            </div>
+                        </NavLink>
                     ))}
                 </div>
             </section>

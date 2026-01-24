@@ -1,6 +1,9 @@
 // Style imports
 import style from '/src/compoundViews (views)/SingleElements.module.css';
 
+// React imports
+import { useEffect } from 'react';
+
 // Routing imports
 import {useParams, Navigate, NavLink} from 'react-router-dom';
 
@@ -12,6 +15,11 @@ function SingleCharacter() {
 
     // Get parameter
     let {idNumber} = useParams();
+
+    // Scroll back to top (in case character is being shown from clicking far down the same or another page)
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [idNumber]); // dependency on the parameter
 
     // Loathsome Regex, source of all evil, to check if the passed parameter :idNumber is a number
     if (!/^\d+$/.test(idNumber)) {

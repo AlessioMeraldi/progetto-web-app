@@ -8,6 +8,9 @@ import React, { useEffect, useState } from "react";
 // ViewModel imports
 import characterViewModel from "/src/viewModels/CharactersViewModel";
 
+// Routing imports
+import { NavLink } from "react-router-dom";
+
 // Begin logic
 export default function Home() {
     const { getCharacterBatch, getAllCharacters } = characterViewModel();
@@ -70,16 +73,18 @@ export default function Home() {
 
                 <div className={gridStyles.grid}>
                     {characters.map((char) => (
-                        <div key={char.id} className={gridStyles.card}>
-                            <img
-                                src={`https://cdn.thesimpsonsapi.com/500/character/${char.id}.webp`}
-                                alt={char.name}
-                            />
-                            <h3>{char.name}</h3>
-                            <p className={gridStyles.occupation}>Occupazione: <span>{char.occupation}</span></p>
-                            <p>" <span className={gridStyles.citation}>{char.phrases[1]}</span> "</p>
+                        <NavLink key={char.id} to={`/character/${char.id}`} className={gridStyles.card}>
+                            <div>
+                                <img
+                                    src={`https://cdn.thesimpsonsapi.com/500/character/${char.id}.webp`}
+                                    alt={char.name}
+                                />
+                                <h3>{char.name}</h3>
+                                <p className={gridStyles.occupation}>Occupazione: <span>{char.occupation}</span></p>
+                                <p>" <span className={gridStyles.citation}>{char.phrases[1]}</span> "</p>
 
-                        </div>
+                            </div>
+                        </NavLink>
                     ))}
                 </div>
 
