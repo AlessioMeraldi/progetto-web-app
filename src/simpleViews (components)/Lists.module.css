@@ -1,0 +1,110 @@
+
+/* section container */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
+}
+
+/* title */
+.title {
+    text-align: center;
+    font-size: 3.5rem;
+    color: var(--yellow-primary);
+    text-transform: uppercase;
+    -webkit-text-stroke: 3px var(--black);
+    text-shadow: 5px 5px 0px var(--black), 8px 8px 0px var(--blue-primary);
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 8px;
+    background: var(--black);
+    margin: 10px auto 0;
+    border-radius: 4px;
+    transform: rotate(1deg);
+}
+
+/* list container */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* single row */
+.row {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--black);
+    box-shadow: 6px 6px 0px var(--blue-primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.row:hover {
+    transform: translateX(8px);
+    box-shadow: 8px 8px 0px var(--yellow-primary);
+    background-color: #fffdf0;
+}
+
+/* image */
+.avatar {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    border: 3px solid var(--black);
+    margin-right: 25px;
+    background-color: var(--blue-sky-alpha);
+    flex-shrink: 0;
+}
+
+.info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name {
+    margin: 0 0 5px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.details {
+    margin: 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .title { font-size: 2.5rem; -webkit-text-stroke: 1.5px var(--black); }
+
+    .row {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+
+    .avatar {
+        margin: 0 0 15px 0;
+        width: 120px;
+        height: 120px;
+    }
+
+    .name { font-size: 1.5rem; }
+}

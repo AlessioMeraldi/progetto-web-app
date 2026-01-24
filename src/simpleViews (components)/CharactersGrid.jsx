@@ -1,43 +1,28 @@
+
 // Style imports
 import styles from "/src/simpleViews (components)/Grids.module.css";
 
 // React imports
-import React, {useEffect} from "react";
-
-//  ViewModel imports
-import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
+import React from "react";
 
 // Routing imports
 import { NavLink } from 'react-router-dom';
 
-// Begin logic
-function Characters() {
-
-    // instantiate the ViewModel and get only the parts we're interested in right now
-    const {
-        allCharacters,
-        getAllCharacters,
-    } = CharactersViewModel();
-
-    // tell the ViewModel to update its state regarding [allCharacters]
-    useEffect(() => {
-        getAllCharacters();
-    }, []);
+// Being view
+function CharactersGrid({allChars}) {
 
     return (
-        <div className={styles.componentWithGrid}>
 
-            {/* toDo: filters section */}
-            <section>
-                <p> I filtri andranno qui </p>
-            </section>
+        <div className={styles.componentWithGrid}>
 
             {/* Characters grid */}
             <section className={styles.charactersSection}>
-                <h2> Ecco i personaggi </h2>
+
+                <h2> Grid of the characters </h2>
 
                 <div className={styles.grid}>
-                    {allCharacters?.map((character, index) => ( // toDo: clarify the ? with a comment
+
+                    {allChars?.map((character, index) => ( // varName?.xyz only tries to access xyz if varName exists (avoids "undefined element" errors)
 
                         <NavLink key={character.id || index} to={`/character/${character.id}`} className={styles.card}>
                             <div>
@@ -52,7 +37,9 @@ function Characters() {
                             </div>
                         </NavLink>
                     ))}
+
                 </div>
+
             </section>
 
         </div>
@@ -60,4 +47,4 @@ function Characters() {
 
 }
 
-export default Characters;
+export default CharactersGrid;

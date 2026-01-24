@@ -1,0 +1,49 @@
+
+.container {
+    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+
+}
+
+.container h3 {
+
+    font-size: 1.8rem;
+    color: var(--yellow-primary);
+    text-shadow: 3px 3px 0px var(--black);
+    -webkit-text-stroke: 1px var(--black);
+    letter-spacing: 1px;
+
+    position: relative;
+    margin-bottom: 0.5rem;
+
+    transform: rotate(-1deg);
+}
+
+.buttonsContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.cta {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    border: var(--border-std);
+    border-radius: 12px;
+    background-color: var(--yellow-primary);
+    cursor: pointer;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.cta:hover {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 4px 4px 0px var(--black);
+}

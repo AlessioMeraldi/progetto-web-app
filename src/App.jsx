@@ -13,7 +13,7 @@ import Header from "./simpleViews (components)/Header.jsx";
 import Footer from "./simpleViews (components)/Footer.jsx";
 import Page_404 from "./simpleViews (components)/Page_404.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
-import Characters from "./simpleViews (components)/Characters.jsx";
+import Characters from "./compoundViews (views)/Characters.jsx";
 import Locations from "./simpleViews (components)/Locations.jsx";
 import Profile from "./simpleViews (components)/Profile.jsx";
 import SingleCharacter from "./compoundViews (views)/SingleCharacter.jsx";
