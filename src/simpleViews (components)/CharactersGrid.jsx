@@ -6,7 +6,7 @@ import styles from "/src/simpleViews (components)/Grids.module.css";
 import React from "react";
 
 // Routing imports
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 // Being view
 function CharactersGrid({allChars}) {

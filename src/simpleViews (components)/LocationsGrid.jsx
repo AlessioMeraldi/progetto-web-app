@@ -2,42 +2,23 @@
 import styles from "/src/simpleViews (components)/Grids.module.css";
 
 // React imports
-import React, {useEffect} from "react";
-
-//  ViewModel imports
-import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
+import React from "react";
 
 // Routing imports
 import {NavLink} from 'react-router-dom';
 
-// Begin logic
-function Characters() {
-
-    // instantiate the ViewModel and get only the parts we're interested in right now
-    const {
-        allLocations,
-        getAllLocations,
-    } = LocationsViewModel();
-
-    // tell the ViewModel to update its state regarding [allCharacters]
-    useEffect(() => {
-        getAllLocations();
-    }, []);
+// Begin view
+function LocationsGrid({allLocs}) {
 
     return (
-        <div className={styles.componentWithGrid}>
 
-            {/* toDo: filters section */}
-            <section>
-                <p> I filtri andranno qui </p>
-            </section>
+        <React.Fragment>
 
-            {/* Locations grid */}
             <section className={styles.charactersSection}>
-                <h2> Ecco le locations </h2>
+                <h2> Grid of the locations </h2>
 
                 <div className={styles.grid}>
-                    {allLocations?.map((location, index) => ( // toDo: clarify the ?
+                    {allLocs?.map((location, index) => (
                         <NavLink key={location.id || index} to={`/location/${location.id}`} className={styles.card}>
                             <div>
                                 <img
@@ -54,9 +35,8 @@ function Characters() {
                 </div>
             </section>
 
-        </div>
+        </React.Fragment>
     )
-
 }
 
-export default Characters;
+export default LocationsGrid;
