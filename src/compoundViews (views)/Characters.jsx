@@ -18,10 +18,15 @@ function Characters() {
     // State (grid or list visualization)
     const [visualizationType, setVisualizationType] = React.useState('list');
 
+    // State for radio buttons (to show the default filters)
+    const [genderRadio, setGenderRadio] = React.useState('All');
+    const [statusRadio, setStatusRadio] = React.useState('All');
+
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
-        allCharacters,
+        filteredCharacters,
         getAllCharacters,
+        updateFilter,
     } = CharactersViewModel();
 
     // tell the ViewModel to update its state regarding [allCharacters]
@@ -32,9 +37,68 @@ function Characters() {
     return (
         <React.Fragment>
 
-            {/* toDo: filters section */}
-            <section>
-                <p> I filtri andranno qui </p>
+            {/* Filters section */}
+            <section className={`${styles.container} ${styles.filtersSection}`}>
+
+                {/* Gender radio buttons */}
+                <div className={styles.filterGroup}>
+
+                    <h3>Gender</h3>
+
+                    <input type="radio" id="allGenders" name="gender" value="allGenders"
+                            onChange={() => {updateFilter("gender", "All"); setGenderRadio("All");}}
+                            // ^ To show the default filters, the status was needed, that's why we are invoking both updateFilter(...) [VM state] and setGenderRadio(...) [local state]
+                            checked={genderRadio === 'All'}
+                    />
+                    <label htmlFor="allGenders">All</label>
+
+                    <input type="radio" id="male" name="gender" value="male"
+                           onChange={() => {updateFilter("gender","Male"); setGenderRadio("Male");}}
+                           checked={genderRadio === 'Male'}
+                    />
+                    <label htmlFor="male">Male</label>
+
+                    <input type="radio" id="female" name="gender" value="female"
+                           onChange={() => {updateFilter("gender","Female"); setGenderRadio("Female");}}
+                           checked={genderRadio === 'Female'}
+                    />
+                    <label htmlFor="female">Female</label>
+
+                    <input type="radio" id="other" name="gender" value="other"
+                           onChange={() => {updateFilter("gender","Other"); setGenderRadio("Other");}}
+                           checked={genderRadio === 'Other'}
+                    />
+                    <label htmlFor="other">Other</label>
+                    <br/>
+
+                </div>
+
+                {/* Status (alive or deceased) radio buttons */}
+                <div className={styles.filterGroup}>
+
+                    <h3>Status</h3>
+
+                    <input type="radio" id="allStatus" name="status" value="allStatus"
+                           onChange={() => {updateFilter("status","All"); setStatusRadio("All");}}
+                           checked={statusRadio === 'All'}
+                    />
+                    <label htmlFor="allStatus">Both alive and deceased</label>
+
+                    <input type="radio" id="alive" name="status" value="alive"
+                           onChange={() => {updateFilter("status","Alive"); setStatusRadio("Alive");}}
+                           checked={statusRadio === 'Alive'}
+                    />
+                    <label htmlFor="alive">Alive</label>
+
+                    <input type="radio" id="deceased" name="status" value="deceased"
+                           onChange={() => {updateFilter("status","Deceased"); setStatusRadio("Deceased");}}
+                           checked={statusRadio === 'Deceased'}
+                    />
+                    <label htmlFor="deceased">Deceased</label>
+                    <br/>
+
+                </div>
+
             </section>
 
             {/* Choose display type message & buttons */}
@@ -47,7 +111,7 @@ function Characters() {
             </section>
 
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}
-            { (visualizationType === "grid") ? <CharactersGrid allChars={allCharacters}/> : <CharactersList allChars={allCharacters}/> }
+            { (visualizationType === "grid") ? <CharactersGrid allChars={filteredCharacters}/> : <CharactersList allChars={filteredCharacters}/> }
 
         </React.Fragment>
     )

@@ -1,5 +1,5 @@
 // imports from React
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 // imports from Model
 import {fetchSingleCharacter, fetchCharactersBatch, fetchAllCharacters} from '/src/models/charactersModel.js';
@@ -12,7 +12,15 @@ function CharacterViewModel() {
     const [charactersBatch, setCharactersBatch] = useState([]);
     const [allCharacters, setAllCharacters] = useState([]);
 
-    // Functions
+    const [filteredCharacters, setFilteredCharacters] = useState([]);
+
+    // State dei filtri (La "Memoria" delle tue selezioni)
+    const [filters, setFilters] = useState({
+        gender: "All", // "All", "Male", "Female", "Other"
+        status: "All" // "All", "Alive", "Deceased"
+    });
+
+    // Functions that interact with the model
 
     /**
      * getSingleCharacter
@@ -51,7 +59,6 @@ function CharacterViewModel() {
 
     /**
      * getAllCharacters
-     * toDo: see if I can make it parallel (to be done at a later date)
      * Fetches through the Model all the 60 <characters batches> in The Simpson's API and returns them (the characters) in a flattened array
      * @returns {Promise<(number | AuthenticationExtensionsPRFValues)[]>}
      */
@@ -65,9 +72,139 @@ function CharacterViewModel() {
 
         console.log(localAllCharacters);
         setAllCharacters(localAllCharacters);
+        // setFilteredCharacters(localAllCharacters); // by default, no filter is applied
         return (localAllCharacters);
 
     }
+
+    // Functions to apply the filters
+    /* toDo: verify if these should go in the model instead */
+
+    /**
+     *  filterByGender
+     *  @Param listToFilter = array of characters to filter by gender
+     *  @Param requestedGender = gender to filter the characters by, it can be = "All", "Male", "Female", "Other"
+     *  Filters the provided characters list and returns one with only the characters of the specified gender
+     */
+    function filterByGender (listToFilter, requestedGender) {
+
+        if (requestedGender === "All") {
+            return (listToFilter);
+        }
+
+        let filteredList = [];
+
+        if (requestedGender === "Male" || requestedGender === "Female") {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].gender === requestedGender) {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        }
+
+        if (requestedGender === "Other") {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].gender !== "Male" && listToFilter[i].gender !== "Female") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        }
+
+        console.log(filteredList);
+        // doesn't update state itself, the useEffect will do it (itself) by using this function's return
+        return (filteredList);
+
+    }
+
+    /**
+     * filterByStatus
+     * @param listToFilter = array of characters to be filtered by status
+     * @param requestedStatus = living status to filter the characters by, it can be "All", "Alive", "Deceased"
+     * Filters the provided characters list and returns one with only the characters of the specified status
+     */
+    function filterByStatus (listToFilter, requestedStatus) {
+
+        if (requestedStatus === "All") {
+            return (listToFilter);
+        }
+
+        let filteredList = [];
+
+        if (requestedStatus === "Alive") {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].status === "Alive") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        } else {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].status === "Deceased") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        }
+
+        console.log(filteredList);
+        // doesn't update state itself, the useEffect will do it (itself) by using this function's return
+        return (filteredList);
+
+    }
+
+    // Function to update the filters (status)
+
+    /**
+     * updateFilters
+     * @param filterType = "gender", "status", toDo: put the others as they are developed
+     * @param newValue = new value of the filter to modify, depending on which one it is ("All"/"Male"/"Female"/"Other" for Gender, ...)
+     * Updates the filters state, setting the specific specified filter (first parameter) with the passed value (second parameter)
+     */
+    function updateFilter (filterType, newValue) {
+
+        if (filterType === "gender") {
+
+            setFilters(
+                {
+                    gender: newValue,
+                    status: filters.status
+                }
+            )
+
+        }
+
+        if (filterType === "status") {
+
+            setFilters(
+                {
+                    gender: filters.gender,
+                    status: newValue
+                }
+            )
+
+        }
+
+    }
+
+    // Effect to actually filter
+
+    /**
+     * This effect triggers whenever the state of 'allCharacters' or 'filters' changes, thus:
+     * --> It will trigger upon fetching all the characters the first time
+     * --> It will trigger whenever a filter is modified
+     * The effect itself chains the calling of a series of filtering functions to update the 'charactersToShow'
+     * state with the filtered list (on the first trigger, it won't filter anything at all)
+     */
+    useEffect(() => {
+
+        let charactersToShow = allCharacters.slice();
+
+        charactersToShow = filterByGender(charactersToShow, filters.gender);
+        charactersToShow = filterByStatus(charactersToShow, filters.status);
+
+        setFilteredCharacters(charactersToShow);
+
+    }, [allCharacters, filters]);
+
+
 
     // Return
 
@@ -75,9 +212,11 @@ function CharacterViewModel() {
         character,
         charactersBatch,
         allCharacters,
+        filteredCharacters,
         getSingleCharacter,
         getCharacterBatch,
         getAllCharacters,
+        updateFilter,
     }
 
 }
