@@ -14,7 +14,7 @@ function CharacterViewModel() {
 
     const [filteredCharacters, setFilteredCharacters] = useState([]);
 
-    // State dei filtri (La "Memoria" delle tue selezioni)
+    // Filters state
     const [filters, setFilters] = useState({
         gender: "All", // "All", "Male", "Female", "Other"
         status: "All" // "All", "Alive", "Deceased"
@@ -78,7 +78,6 @@ function CharacterViewModel() {
     }
 
     // Functions to apply the filters
-    /* toDo: verify if these should go in the model instead */
 
     /**
      *  filterByGender

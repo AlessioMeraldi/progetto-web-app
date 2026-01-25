@@ -1,5 +1,5 @@
 // imports from React
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 // imports from Model
 import {fetchSingleLocation, fetchLocationsBatch, fetchAllLocations} from '/src/models/locationsModel.js';
@@ -12,7 +12,15 @@ function LocationsViewModel() {
     const [locationsBatch, setLocationsBatch] = useState([]);
     const [allLocations, setAllLocations] = useState([]);
 
-    // Functions
+    const [filteredLocations, setfilteredLocations] = useState([]);
+
+    // Filters state
+    const [filters, setFilters] = useState({
+        city: "allCities", // "allCities", "Springfield", "otherCity"
+        use: "allUses" // "allUses", "residential", "otherUse"
+    });
+
+    // Functions that interact with the model
 
     /**
      * getSingleLocation
@@ -51,7 +59,6 @@ function LocationsViewModel() {
 
     /**
      * getAllLocations
-     * toDo: see if I can make it parallel (to be done at a later date)
      * Fetches through the Model all the 24 <locations batches> in The Simpson's API and returns them (the locations) in a flattened array
      * @returns {Promise<(number | AuthenticationExtensionsPRFValues)[]>}
      */
@@ -69,13 +76,141 @@ function LocationsViewModel() {
 
     }
 
+    // Functions to apply the filters
+
+    /**
+     *  filterByCity
+     *  @Param listToFilter = array of characters to filter by gender
+     *  @Param requestedCity = "allCities", "Springfield", "otherCity"
+     *  Text
+     */
+    function filterByCity (listToFilter, requestedCity) {
+
+        if (requestedCity === "allCities") {
+            return (listToFilter);
+        }
+
+        let filteredList = [];
+
+        if (requestedCity === "Springfield") {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].town === "Springfield") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        } else {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].town !== "Springfield") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        }
+
+        console.log(filteredList);
+        // doesn't update state itself, the useEffect will do it (itself) by using this function's return
+        return (filteredList);
+
+    }
+
+    /**
+     * filterByUse
+     * @param listToFilter = array of characters to be filtered by status
+     * @param requestedUse = "allUses", "residential", "otherUse"
+     * Text
+     */
+    function filterByUse (listToFilter, requestedUse) {
+
+        if (requestedUse === "allUses") {
+            return (listToFilter);
+        }
+
+        let filteredList = [];
+
+        if (requestedUse === "residential") {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].use === "Residential") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        } else {
+            for (let i = 0; i < listToFilter.length; i++) {
+                if (listToFilter[i].use !== "Residential") {
+                    filteredList.push(listToFilter[i]);
+                }
+            }
+        }
+
+        console.log(filteredList);
+        // doesn't update state itself, the useEffect will do it (itself) by using this function's return
+        return (filteredList);
+
+    }
+
+    // Function to update the filters (status)
+
+    /**
+     * updateFilters
+     * @param filterType = "gender", "status", toDo: put the others as they are developed
+     * @param newValue = new value of the filter to modify, depending on which one it is ("All"/"Male"/"Female"/"Other" for Gender, ...)
+     * Updates the filters state, setting the specific specified filter (first parameter) with the passed value (second parameter)
+     */
+    function updateFilter (filterType, newValue) {
+
+        if (filterType === "city") {
+
+            setFilters(
+                {
+                    city: newValue,
+                    use: filters.use
+                }
+            )
+
+        }
+
+        if (filterType === "use") {
+
+            setFilters(
+                {
+                    city: filters.city,
+                    use: newValue
+                }
+            )
+
+        }
+
+    }
+
+    // Effect to actually filter
+
+    /**
+     * This effect triggers whenever the state of 'allCharacters' or 'filters' changes, thus:
+     * --> It will trigger upon fetching all the characters the first time
+     * --> It will trigger whenever a filter is modified
+     * The effect itself chains the calling of a series of filtering functions to update the 'charactersToShow'
+     * state with the filtered list (on the first trigger, it won't filter anything at all)
+     */
+    useEffect(() => {
+
+        let locationsToShow = allLocations.slice();
+
+        locationsToShow = filterByCity(locationsToShow, filters.city);
+        locationsToShow = filterByUse(locationsToShow, filters.use);
+
+        setfilteredLocations(locationsToShow);
+
+    }, [allLocations, filters]);
+
+    // Return
+
     return {
         location,
         locationsBatch,
         allLocations,
+        filteredLocations,
         getSingleLocation,
         getLocationsBatch,
         getAllLocations,
+        updateFilter,
     }
 
 }
