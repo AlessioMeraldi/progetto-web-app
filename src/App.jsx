@@ -18,6 +18,7 @@ import Locations from "./compoundViews (views)/Locations.jsx";
 import Profile from "./simpleViews (components)/Profile.jsx";
 import SingleCharacter from "./compoundViews (views)/SingleCharacter.jsx";
 import SingleLocation from "./compoundViews (views)/SingleLocation.jsx";
+import Access_forbidden from "./simpleViews (components)/Access_forbidden.jsx";
 
 // Begin logic
 function App() {
@@ -57,7 +58,7 @@ function App() {
                         <Route path="/location/:idNumber" element={<SingleLocation/>}/>
                         <Route path="/locations" element={<Locations/>}/>
                         <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/profile" element={<h1>Profilo</h1>}/>
+                        <Route path="/access_forbidden" element={<Access_forbidden/>}/>
                         <Route path="*" element={<Page_404/>}/>
                     </Routes>
                 </main>

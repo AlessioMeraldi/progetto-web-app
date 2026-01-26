@@ -119,18 +119,18 @@ export default function Home() {
 
             {/* SEZIONE INVITO LOGIN: toDo -> quando implementermo l'autenticazione bisogna verificare se l'utente è loggato */}
             <section className={styles.authStrip}>
-                <h2>Vuoi diventare cittadino di Springfield?</h2>
+                <h2>Want to become a citizen of Springfield?</h2>
                 <p>
-                    Alcuni contenuti sono riservati ai cittadini registrati.  <br />
-                    Accedi per salvare i tuoi personaggi preferiti e non perderti
-                    le curiosità più segrete della città. <br />
-                    Diventa subito un cittadino!
+                    Some content is reserved for registered citizens. <br />
+                    Log in to save your favorite characters and don't miss out on
+                    the city's best-kept secrets. <br />
+                    Become a citizen now!
                 </p>
                 <button className={gridStyles.ctaCharacters}>
-                    Accedi
+                    Log In
                 </button>
                 <button className={gridStyles.ctaCharacters}>
-                    Registrati
+                    Sign Up
                 </button>
             </section>
 

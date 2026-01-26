@@ -38,7 +38,7 @@
     color: var(--black);
     font-weight: 900;
     text-transform: uppercase;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     padding: 10px 20px;
     border: 3px solid transparent;
     transition: all 0.15s ease-in-out;
@@ -67,4 +67,39 @@
     border: 3px solid transparent;
     cursor: pointer;
     font-family: inherit; /* Importante per ereditare il font Simpson */
+}
+
+.lockIcon {
+    height: 1.1em;
+    width: 1.1em;
+    margin-left: 0.5rem;
+    vertical-align: text-bottom;
+    fill: currentColor;
+    transition: transform 0.15s ease-in-out;
+    transform: translateY(2px);
+}
+
+.linkWithIcon {
+    display: flex;
+    flex-direction: row;
+}
+
+.linkWithIcon svg {
+    margin-bottom: -5px;
+}
+
+.linkWithIcon:hover path {
+    fill: var(--white);
+    transition: fill 0.15s ease-in-out;
+}
+
+.linkWithIcon:active path {
+    fill: var(--white);
+    transition: fill 0.15s ease-in-out;
+}
+
+{/* .active is automatically assigned via-CSS */}
+.active .lockIcon path {
+    fill: var(--white);
+    transition: fill 0.15s ease-in-out;
 }
