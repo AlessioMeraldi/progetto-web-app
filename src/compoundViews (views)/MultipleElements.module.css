@@ -44,7 +44,7 @@
     transition: all 0.2s ease;
 }
 
-.cta:hover {
+.cta:hover, .selected {
     background-color: var(--blue-primary);
     color: var(--white);
     transform: scale(1.05) rotate(2deg);

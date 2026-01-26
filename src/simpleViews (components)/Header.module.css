@@ -54,7 +54,7 @@
 }
 
 /* Effetto hover */
-.navbarLink, .login:hover {
+.navbarLink:hover, .login:hover {
     background-color: var(--blue-primary);
     color: var(--white);
     border-color: var(--black);

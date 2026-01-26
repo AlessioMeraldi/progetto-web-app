@@ -98,8 +98,16 @@ function Locations() {
             <section className={styles.container}>
                 <h3>CHOOSE VISUALIZATION TYPE</h3>
                 <div className={styles.buttonsContainer}>
-                    <button className={styles.cta} onClick={() => {setVisualizationType("grid")}}> grid </button>
-                    <button className={styles.cta} onClick={() => {setVisualizationType("list")}}> list </button>
+                    <button className={`${styles.cta} ${visualizationType === "grid" ? styles.selected : ""}`}
+                            onClick={() => {setVisualizationType("grid")}}
+                    >
+                        grid
+                    </button>
+                    <button className={`${styles.cta} ${visualizationType === "list" ? styles.selected : ""}`}
+                            onClick={() => {setVisualizationType("list")}}
+                    >
+                        list
+                    </button>
                 </div>
             </section>
 
