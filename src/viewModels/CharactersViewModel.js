@@ -16,8 +16,9 @@ function CharacterViewModel() {
 
     // Filters state
     const [filters, setFilters] = useState({
-        gender: "All", // "All", "Male", "Female", "Other"
-        status: "All" // "All", "Alive", "Deceased"
+        gender: "All",  // "All", "Male", "Female", "Other"
+        status: "All",  // "All", "Alive", "Deceased"
+        name: ""        // "" = *, "user-input-name"
     });
 
     // Functions that interact with the model
@@ -117,9 +118,9 @@ function CharacterViewModel() {
 
     /**
      * filterByStatus
-     * @param listToFilter = array of characters to be filtered by status
-     * @param requestedStatus = living status to filter the characters by, it can be "All", "Alive", "Deceased"
-     * Filters the provided characters list and returns one with only the characters of the specified status
+     * @param listToFilter = array of characters to be filtered by status.
+     * @param requestedStatus = living status to filter the characters by, it can be "All", "Alive", "Deceased".
+     * Filters the provided characters list and returns one with only the characters of the specified status.
      */
     function filterByStatus (listToFilter, requestedStatus) {
 
@@ -149,6 +150,28 @@ function CharacterViewModel() {
 
     }
 
+    /**
+     * filterByName
+     * @param listToFilter = array of characters to be filtered by name.
+     * @param requestedName = the name to search for, if it's empty "" it means any name, otherwise it tries to match the "string".
+     * Filters the provided characters list and returns one with only the characters with the specified name, or part of it
+     */
+    function filterByName(listToFilter, requestedName) {
+
+        if (!requestedName || requestedName.trim() === "") {
+            return listToFilter;
+        }
+
+        const lowerCaseName = requestedName.toLowerCase();
+
+        return (
+            listToFilter.filter ( character =>
+            character.name.toLowerCase().includes(lowerCaseName) // name search is case-insensitive
+            )
+        );
+
+    }
+
     // Function to update the filters (status)
 
     /**
@@ -159,27 +182,15 @@ function CharacterViewModel() {
      */
     function updateFilter (filterType, newValue) {
 
-        if (filterType === "gender") {
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [filterType]: newValue
+        }));
 
-            setFilters(
-                {
-                    gender: newValue,
-                    status: filters.status
-                }
-            )
-
-        }
-
-        if (filterType === "status") {
-
-            setFilters(
-                {
-                    gender: filters.gender,
-                    status: newValue
-                }
-            )
-
-        }
+        // Spread operator: object => ( {...object, field: newValue})
+        // will only update the specified 'field' with the 'newValue' and leave the other fields unchanged
+        // (as if it made otherField = object.otherField for each of them)
+        // Avoids putting too many if (filter is 'x') then setFilters( {x: newValue, assign same previous value to all other filters} )
 
     }
 
@@ -198,12 +209,11 @@ function CharacterViewModel() {
 
         charactersToShow = filterByGender(charactersToShow, filters.gender);
         charactersToShow = filterByStatus(charactersToShow, filters.status);
+        charactersToShow = filterByName(charactersToShow, filters.name);
 
         setFilteredCharacters(charactersToShow);
 
     }, [allCharacters, filters]);
-
-
 
     // Return
 

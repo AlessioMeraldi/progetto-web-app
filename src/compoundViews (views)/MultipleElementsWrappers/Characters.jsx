@@ -11,6 +11,7 @@ import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 // Components imports
 import CharactersGrid from '/src/simpleViews (components)/GridSubComponents/CharactersGrid.jsx'
 import CharactersList from '/src/simpleViews (components)/ListSubComponents/CharactersList.jsx'
+import CharactersSearchBar from '/src/simpleViews (components)/SearchBars/CharactersSearchBar.jsx'
 
 // Begin logic
 function Characters() {
@@ -36,6 +37,25 @@ function Characters() {
 
     return (
         <React.Fragment>
+
+            {/* Choose display type message & buttons */}
+            <section className={styles.container}>
+                <h3>CHOOSE VISUALIZATION TYPE</h3>
+                <div className={styles.buttonsContainer}>
+                    {/* v set style to be .cta regardless, if grid is currently being shown, set it to also be .selected*/}
+                    <button className={`${styles.cta} ${visualizationType === "grid" ? styles.selected : ""}`}
+                            onClick={() => {setVisualizationType("grid")}}
+                    >
+                        grid
+                    </button>
+                    <button
+                        className={`${styles.cta} ${visualizationType === "list" ? styles.selected : ""}`}
+                        onClick={() => {setVisualizationType("list")}}
+                    >
+                        list
+                    </button>
+                </div>
+            </section>
 
             {/* Filters section */}
             <section className={`${styles.container} ${styles.filtersSection}`}>
@@ -101,23 +121,9 @@ function Characters() {
 
             </section>
 
-            {/* Choose display type message & buttons */}
+            {/* Searchbar section */}
             <section className={styles.container}>
-                <h3>CHOOSE VISUALIZATION TYPE</h3>
-                <div className={styles.buttonsContainer}>
-                    {/* v set style to be .cta regardless, if grid is currently being shown, set it to also be .selected*/}
-                    <button className={`${styles.cta} ${visualizationType === "grid" ? styles.selected : ""}`}
-                            onClick={() => {setVisualizationType("grid")}}
-                    >
-                        grid
-                    </button>
-                    <button
-                        className={`${styles.cta} ${visualizationType === "list" ? styles.selected : ""}`}
-                        onClick={() => {setVisualizationType("list")}}
-                    >
-                        list
-                    </button>
-                </div>
+                <CharactersSearchBar searchCharacter={updateFilter} dataForAutocomplete={filteredCharacters} />
             </section>
 
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}

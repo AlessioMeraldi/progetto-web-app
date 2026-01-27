@@ -117,6 +117,7 @@
     font-weight: 700;
     text-transform: uppercase;
     transition: all 0.2s ease;
+    color: var(--black);
 }
 
 .ctaCharacters:hover, .ctaLocations:hover {
@@ -124,6 +125,10 @@
     color: var(--white);
     transform: scale(1.05) rotate(2deg);
     box-shadow: 4px 4px 0px var(--black);
+}
+
+.lastParagraphHome {
+    margin-bottom: 0 !important;
 }
 
 /* Responsive */

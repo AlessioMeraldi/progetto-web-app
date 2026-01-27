@@ -6,6 +6,7 @@ import LoginButton from "../ProfileComponents/LoginButton.jsx";
 import LogoutButton from "../ProfileComponents/LogoutButton.jsx";
 
 function Header() {
+
     const {isAuthenticated} = useAuth0(); // Stato di autenticazione
 
     // Funzione helper per non ripetere il codice su ogni link

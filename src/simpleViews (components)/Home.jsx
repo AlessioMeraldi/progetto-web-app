@@ -3,20 +3,27 @@ import styles from "./Home.module.css";
 import gridStyles from "./GridSubComponents/Grids.module.css";
 
 // React imports
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 // ViewModel imports
 import characterViewModel from "/src/viewModels/CharactersViewModel";
 
 // Routing imports
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
+
+// Auth0 imports
+import {useAuth0} from "@auth0/auth0-react";
 
 // Begin logic
 export default function Home() {
-    const { getCharacterBatch, getAllCharacters } = characterViewModel();
+
+    const {getCharacterBatch, getAllCharacters} = characterViewModel();
 
     const [characters, setCharacters] = useState([]);
     const [birthdayCharacter, setBirthdayCharacter] = useState(null);
+
+    const {loginWithRedirect} = useAuth0();
+    const {isAuthenticated, user} = useAuth0();
 
     useEffect(() => {
         async function loadCharacters() {
@@ -57,10 +64,11 @@ export default function Home() {
             <section className={styles.hero}>
                 <div className={styles.heroContent}>
                     <div>
-                        <img src="/logo-the-simpson2.svg" alt="Simpson Logo" className={styles.logo} />
+                        <img src="/logo-the-simpson2.svg" alt="Simpson Logo" className={styles.logo}/>
                     </div>
                     <p className={styles.subtitle}>
-                        Benvenuti a Spriengfield. Venite a scoprire tutte le curiosità sulla famiglia più gialla del cinema.
+                        Benvenuti a Spriengfield. Venite a scoprire tutte le curiosità sulla famiglia più gialla del
+                        cinema.
                     </p>
                     <button className={styles.cta}>Esplora i personaggi</button>
                 </div>
@@ -80,7 +88,7 @@ export default function Home() {
                                     alt={char.name}
                                 />
                                 <h3>{char.name}</h3>
-                                <p className={gridStyles.occupation}>Occupazione: <span>{char.occupation}</span></p>
+                                <p className={gridStyles.occupation}>Occupation: <span>{char.occupation}</span></p>
                                 <p>" <span className={gridStyles.citation}>{char.phrases[1]}</span> "</p>
 
                             </div>
@@ -89,13 +97,18 @@ export default function Home() {
                 </div>
 
                 <p className={gridStyles.sectionSubtitle}>
-                    Questa è solo una piccola anteprima degli abitanti di Springfield.
-                    Puoi trovare la lista completa nella nostra pagina dedicata.
+                    This is just a small preview of Springfield's residents.
+                    You can find the full list on our dedicated page.
                 </p>
+
+                {/* Ctas */}
                 <div className={styles.buttonsHome}>
-                    <button className={gridStyles.ctaCharacters}>Visualizza tutti i personaggi</button>
-                    <button className={gridStyles.ctaLocations}>Visualizza tutte le location</button>
+
+                    <NavLink className={gridStyles.ctaCharacters} to="/characters"> View all the characters </NavLink>
+                    <NavLink className={gridStyles.ctaLocations} to="/locations"> View all the locations </NavLink>
+
                 </div>
+
             </section>
 
             {/* SEZIONE COMPLEANNO - Layout "Featured" */}
@@ -117,22 +130,30 @@ export default function Home() {
                 </section>
             )}
 
-            {/* SEZIONE INVITO LOGIN: toDo -> quando implementermo l'autenticazione bisogna verificare se l'utente è loggato */}
-            <section className={styles.authStrip}>
+            {/* SEZIONE INVITO LOGIN: toDo: update style */}
+            {!isAuthenticated && (<section className={styles.authStrip}>
                 <h2>Want to become a citizen of Springfield?</h2>
                 <p>
-                    Some content is reserved for registered citizens. <br />
+                    Some content is reserved for registered citizens. <br/>
                     Log in to save your favorite characters and don't miss out on
-                    the city's best-kept secrets. <br />
+                    the city's best-kept secrets. <br/>
                     Become a citizen now!
                 </p>
-                <button className={gridStyles.ctaCharacters}>
-                    Log In
+                <button className={gridStyles.ctaCharacters} onClick={() => loginWithRedirect()}>
+                    Log in
                 </button>
-                <button className={gridStyles.ctaCharacters}>
-                    Sign Up
-                </button>
-            </section>
+            </section>)
+            }
+
+            {isAuthenticated && (<section className={styles.authStrip}>
+                <h2>Welcome to Springfield, {user.name}!</h2>
+                <p className={gridStyles.lastParagraphHome}> Visit your profile to check your favourite saved characters and places, having logged in also
+                    grants you access to visualizing the locations. </p>
+                <div className={styles.buttonsHome}>
+                    <NavLink className={gridStyles.ctaCharacters} to="/profile"> go to your profile </NavLink>
+                </div>
+            </section>)
+            }
 
         </div>
     );

@@ -10,7 +10,12 @@ import React, {useEffect} from 'react';
 // Routing imports
 import {NavLink} from 'react-router-dom';
 
+// Auth0 imports
+import {useAuth0} from "@auth0/auth0-react";
+
 function Access_forbidden() {
+
+    const { loginWithRedirect } = useAuth0();
 
     // Scroll back to top (in case redirect is cast from far down another page)
     useEffect(() => {
@@ -36,7 +41,7 @@ function Access_forbidden() {
                      alt="Homer retreats into a bush because he can't access the page"
                 />
 
-                {/* Quick send to login */}
+                {/* Quick send to log in */}
                 <section className={authStyles.authStrip}>
                     <h2>Want to become a citizen of Springfield?</h2>
                     <p>
@@ -45,11 +50,8 @@ function Access_forbidden() {
                         the city's best-kept secrets. <br />
                         Become a citizen now!
                     </p>
-                    <button className={gridStyles.ctaCharacters}>
-                        Log In
-                    </button>
-                    <button className={gridStyles.ctaCharacters}>
-                        Sign Up
+                    <button className={gridStyles.ctaCharacters} onClick={() => loginWithRedirect()}>
+                        Log in
                     </button>
                 </section>
 
