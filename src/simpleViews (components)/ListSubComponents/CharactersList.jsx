@@ -1,5 +1,5 @@
 // Style imports
-import styles from "/src/simpleViews (components)/Lists.module.css";
+import styles from "/src/simpleViews (components)/ListSubComponents/Lists.module.css";
 
 // React imports
 import React from "react";

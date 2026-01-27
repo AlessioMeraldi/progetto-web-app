@@ -1,6 +1,6 @@
 
 // Style imports
-import styles from "/src/simpleViews (components)/Lists.module.css";
+import styles from "/src/simpleViews (components)/ListSubComponents/Lists.module.css";
 
 // React imports
 import React from "react";
@@ -23,7 +23,7 @@ function LocationsList ({allLocs}){
 
                     <NavLink
                         key={location.id || index}
-                        to={`/character/${location.id}`}
+                        to={`/location/${location.id}`}
                         className={styles.row}
                     >
                         <img

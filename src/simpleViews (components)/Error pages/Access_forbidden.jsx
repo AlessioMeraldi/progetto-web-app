@@ -1,7 +1,7 @@
 
 // Style imports
-import styles from '/src/simpleViews (components)/Page_404.module.css';
-import gridStyles from '/src/simpleViews (components)/Grids.module.css';
+import styles from '/src/simpleViews (components)/Error pages/Page_404.module.css';
+import gridStyles from '/src/simpleViews (components)/GridSubComponents/Grids.module.css';
 import authStyles from '/src/simpleViews (components)/Home.module.css';
 
 // React imports

@@ -1,6 +1,6 @@
 
 // Style imports
-import styles from "/src/compoundViews (views)/MultipleElements.module.css";
+import styles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
 
 // React imports
 import React, {useEffect} from "react";
@@ -9,8 +9,8 @@ import React, {useEffect} from "react";
 import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 
 // Components imports
-import CharactersGrid from '/src/simpleViews (components)/CharactersGrid.jsx'
-import CharactersList from '/src/simpleViews (components)/CharactersList.jsx'
+import CharactersGrid from '/src/simpleViews (components)/GridSubComponents/CharactersGrid.jsx'
+import CharactersList from '/src/simpleViews (components)/ListSubComponents/CharactersList.jsx'
 
 // Begin logic
 function Characters() {

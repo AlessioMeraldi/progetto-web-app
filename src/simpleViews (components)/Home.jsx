@@ -1,6 +1,6 @@
 // Style imports
 import styles from "./Home.module.css";
-import gridStyles from "./Grids.module.css";
+import gridStyles from "./GridSubComponents/Grids.module.css";
 
 // React imports
 import React, { useEffect, useState } from "react";

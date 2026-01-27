@@ -1,6 +1,6 @@
 
 // Style imports
-import styles from "/src/simpleViews (components)/Grids.module.css";
+import styles from "/src/simpleViews (components)/GridSubComponents/Grids.module.css";
 
 // React imports
 import React from "react";

@@ -9,16 +9,16 @@ import CharactersViewModel from '/src/viewModels/CharactersViewModel.js'
 import LocationsViewModel from "./viewModels/LocationsViewModel.js";
 
 // View imports
-import Header from "./simpleViews (components)/Header.jsx";
-import Footer from "./simpleViews (components)/Footer.jsx";
-import Page_404 from "./simpleViews (components)/Page_404.jsx";
+import Header from "./simpleViews (components)/Header & Footer/Header.jsx";
+import Footer from "./simpleViews (components)/Header & Footer/Footer.jsx";
+import Page_404 from "./simpleViews (components)/Error pages/Page_404.jsx";
 import Home from "./simpleViews (components)/Home.jsx";
-import Characters from "./compoundViews (views)/Characters.jsx";
-import Locations from "./compoundViews (views)/Locations.jsx";
-import Profile from "./simpleViews (components)/Profile.jsx";
-import SingleCharacter from "./compoundViews (views)/SingleCharacter.jsx";
-import SingleLocation from "./compoundViews (views)/SingleLocation.jsx";
-import Access_forbidden from "./simpleViews (components)/Access_forbidden.jsx";
+import Characters from "./compoundViews (views)/MultipleElementsWrappers/Characters.jsx";
+import Locations from "./compoundViews (views)/MultipleElementsWrappers/Locations.jsx";
+import Profile from "./simpleViews (components)/ProfileComponents/Profile.jsx";
+import SingleCharacter from "./compoundViews (views)/SingleElementWrappers/SingleCharacter.jsx";
+import SingleLocation from "./compoundViews (views)/SingleElementWrappers/SingleLocation.jsx";
+import Access_forbidden from "./simpleViews (components)/Error pages/Access_forbidden.jsx";
 
 // Begin logic
 function App() {

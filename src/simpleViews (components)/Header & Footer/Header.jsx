@@ -2,8 +2,8 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import styles from "./Header.module.css";
 import {useAuth0} from "@auth0/auth0-react";
-import LoginButton from "./LoginButton.jsx";
-import LogoutButton from "./LogoutButton.jsx";
+import LoginButton from "../ProfileComponents/LoginButton.jsx";
+import LogoutButton from "../ProfileComponents/LogoutButton.jsx";
 
 function Header() {
     const {isAuthenticated} = useAuth0(); // Stato di autenticazione

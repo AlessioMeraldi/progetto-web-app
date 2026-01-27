@@ -1,5 +1,5 @@
 // Style imports
-import styles from "/src/compoundViews (views)/MultipleElements.module.css";
+import styles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
 
 // React imports
 import React, {useEffect} from "react";
@@ -8,8 +8,8 @@ import React, {useEffect} from "react";
 import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
 
 // Components imports
-import LocationsGrid from "../simpleViews (components)/LocationsGrid.jsx";
-import LocationsList from "../simpleViews (components)/LocationsList.jsx";
+import LocationsGrid from "../../simpleViews (components)/GridSubComponents/LocationsGrid.jsx";
+import LocationsList from "../../simpleViews (components)/ListSubComponents/LocationsList.jsx";
 
 // Begin logic
 function Locations() {

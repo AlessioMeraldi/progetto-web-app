@@ -6,7 +6,7 @@ import React, {useEffect} from 'react';
 import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
 
 // Style imports
-import style from '/src/compoundViews (views)/SingleElements.module.css';
+import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElements.module.css';
 
 // Begin logic
 function ShowSingleLocation({locId, imgSize}) {

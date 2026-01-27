@@ -1,6 +1,6 @@
 
 // Style imports
-import styles from '/src/simpleViews (components)/Page_404.module.css';
+import styles from '/src/simpleViews (components)/Error pages/Page_404.module.css';
 
 // React imports
 import React, {useEffect} from 'react';
