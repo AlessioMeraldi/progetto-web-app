@@ -19,6 +19,7 @@ import Profile from "./simpleViews (components)/ProfileComponents/Profile.jsx";
 import SingleCharacter from "./compoundViews (views)/SingleElementWrappers/SingleCharacter.jsx";
 import SingleLocation from "./compoundViews (views)/SingleElementWrappers/SingleLocation.jsx";
 import Access_forbidden from "./simpleViews (components)/Error pages/Access_forbidden.jsx";
+import ProtectedRoute from "./simpleViews (components)/Auth0/ProtectedRoute.jsx";
 
 // Begin logic
 function App() {
@@ -55,9 +56,34 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/characters" element={<Characters/>}/>
                         <Route path="/character/:idNumber" element={<SingleCharacter/>}/>
-                        <Route path="/location/:idNumber" element={<SingleLocation/>}/>
-                        <Route path="/locations" element={<Locations/>}/>
-                        <Route path="/profile" element={<Profile/>}/>
+
+                        <Route
+                            path="/locations"
+                            element={
+                                <ProtectedRoute>
+                                    <Locations />
+                                </ProtectedRoute>
+                            }
+                        />
+
+                        <Route
+                            path="/location/:idNumber"
+                            element={
+                                <ProtectedRoute>
+                                    <SingleLocation />
+                                </ProtectedRoute>
+                            }
+                        />
+
+                        <Route
+                            path="/profile"
+                            element={
+                                <ProtectedRoute>
+                                    <Profile />
+                                </ProtectedRoute>
+                            }
+                        />
+
                         <Route path="/access_forbidden" element={<Access_forbidden/>}/>
                         <Route path="*" element={<Page_404/>}/>
                     </Routes>
