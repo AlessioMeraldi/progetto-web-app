@@ -21,13 +21,15 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
 
     const toggleFavourite = async (characterId) => {
 
-        if (!isAuthenticated) return;
+        if (!isAuthenticated || !user?.email) return;
+
+        const userEmail = user.email;
 
         if (userFavourites.includes(characterId)) {
-            await removeFavourite(characterId, user.email);
+            await removeFavourite(characterId, userEmail);
             setFavourites(prev => prev.filter(id => id !== characterId));
         } else {
-            await addFavourite(characterId, user.email);
+            await addFavourite(characterId, userEmail);
             setFavourites(prev => [...prev, characterId]);
         }
     };
@@ -57,6 +59,18 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
                         <React.Fragment key={character.id || index}>
                             <NavLink key={character.id || index} to={`/character/${character.id}`} className={styles.card}>
                                 <div>
+                                    {isAuthenticated && (
+                                        <button
+                                            className={styles.favButton}
+                                            onClick={(e) => {
+                                                e.preventDefault();      // block the redirect
+                                                e.stopPropagation();     // block the click on the card
+                                                toggleFavourite(character.id);
+                                            }}
+                                        >
+                                            {isFavourite(character) ? "❤️" : "🤍"}
+                                        </button>
+                                    )}
                                     <img
                                         src={`https://cdn.thesimpsonsapi.com/200/character/${character.id}.webp`}
                                         alt={character.name}
@@ -67,15 +81,7 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
                                     <p>{character.status}</p>
                                 </div>
                             </NavLink>
-                                {isAuthenticated && (
-                                    <button
-                                        className={styles.favButton}
-                                        onClick={() => toggleFavourite(character.id)}
-                                    >
-                                        {isFavourite(character) ? "❤️" : "🤍"}
-                                    </button>
-                                    )
-                                }
+
                         </React.Fragment>
 
                     ))}
