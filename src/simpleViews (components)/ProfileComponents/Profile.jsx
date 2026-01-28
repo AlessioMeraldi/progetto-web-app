@@ -33,30 +33,48 @@ const Profile = () => {
     // Local variables
     const { filteredCharacters } = CharactersViewModel();
 
+    // const favouriteIds = favourites.map(fav => fav.character_id);
+
 
     // Begin logic
 
     useEffect(() => {
-        if (!isAuthenticated || !user?.email) return;
 
+        if (!isAuthenticated || !user?.email) {
+            return;
+        }
+
+        // toDo: check if this should be defined here
         async function loadFavourites() {
+
             try {
-                const favs = await getUserFavourites(user.email);
-                setFavourites(favs);
+
+                const favsData = await getUserFavourites(user.email); // get Supabase data
+                const onlyIds = favsData.map(row => row.character_id); // map only the IDs
+                setFavourites(onlyIds);
+
             } catch {
+
                 console.error("Errore caricamento preferiti");
+
             } finally {
+
                 setLoadingFavs(false);
+
             }
+
         }
 
         loadFavourites();
+
     }, [isAuthenticated, user]);
 
-    if (isLoading) return <div>Caricamento...</div>;
+    // Loading-state return
+    if (isLoading) {
+        return (<div>Loading...</div>);
+    }
 
-    // Return
-
+    // Loaded-state return
     return (
         isAuthenticated && (
             <div className={styles.profilePage}>
@@ -93,7 +111,11 @@ const Profile = () => {
                                 <button className={gridStyles.ctaCharacters}>Esplora Personaggi</button>
                             </div>
                         ) : (
-                            <CharactersGrid allChars={filteredCharacters.filter(c => favourites.includes(c.id))} />
+                            <CharactersGrid
+                                allChars={filteredCharacters.filter(c => favourites.includes(c.id))}
+                                userFavourites={favourites}
+                                setFavourites={setFavourites}
+                            />
                         )}
 
                     </section>

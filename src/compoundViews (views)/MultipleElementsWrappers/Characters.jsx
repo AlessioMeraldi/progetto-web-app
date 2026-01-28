@@ -3,7 +3,7 @@
 import styles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
 
 // React imports
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 //  ViewModel imports
 import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
@@ -12,6 +12,12 @@ import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 import CharactersGrid from '/src/simpleViews (components)/GridSubComponents/CharactersGrid.jsx'
 import CharactersList from '/src/simpleViews (components)/ListSubComponents/CharactersList.jsx'
 import CharactersSearchBar from '/src/simpleViews (components)/SearchBars/CharactersSearchBar.jsx'
+
+// Auth0 imports
+import { useAuth0 } from '@auth0/auth0-react';
+
+// Supabase imports
+import { getUserFavourites } from '../../services/favouritesService';
 
 // Begin logic
 function Characters() {
@@ -22,6 +28,10 @@ function Characters() {
     // State for radio buttons (to show the default filters)
     const [genderRadio, setGenderRadio] = React.useState('All');
     const [statusRadio, setStatusRadio] = React.useState('All');
+
+    // State for favourites
+    const { user, isAuthenticated } = useAuth0();
+    const [favourites, setFavourites] = useState([]); // will contain an array of IDs = [id1, id2, id3, ...]
 
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
@@ -34,6 +44,25 @@ function Characters() {
     useEffect(() => {
         getAllCharacters();
     }, []);
+
+    // Load user's favourites effect
+    useEffect(() => {
+
+        if (!isAuthenticated || !user?.email) return;
+
+        async function loadFavourites() {
+            try {
+                const favsData = await getUserFavourites(user.email);
+                const onlyIds = favsData.map(row => row.character_id);
+                setFavourites(onlyIds);
+            } catch (error) {
+                console.error("Errore caricamento preferiti in Characters:", error);
+            }
+        }
+
+        loadFavourites();
+
+    }, [isAuthenticated, user]);
 
     return (
         <React.Fragment>
@@ -127,7 +156,15 @@ function Characters() {
             </section>
 
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}
-            { (visualizationType === "grid") ? <CharactersGrid allChars={filteredCharacters}/> : <CharactersList allChars={filteredCharacters}/> }
+            { (visualizationType === "grid") ?
+                <CharactersGrid
+                    allChars={filteredCharacters}
+                    userFavourites={favourites}
+                    setFavourites={setFavourites}
+                />
+                :
+                <CharactersList allChars={filteredCharacters}/>
+            }
 
         </React.Fragment>
     )
