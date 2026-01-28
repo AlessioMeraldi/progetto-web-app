@@ -1,0 +1,72 @@
+
+/* Container to align input and button, and serve as an anchor for the list */
+.searchContainer {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative; /* Crucial for positioning the suggestions list */
+    width: 100%;
+
+}
+
+/* Input style */
+.searchInput {
+
+    padding: 0.5rem 1rem;
+    font-family: inherit; /* Inherits Comic Sans from parent */
+    font-size: 1rem;
+    border: var(--border-std);
+    border-radius: 12px;
+    outline: none;
+    width: 250px;
+    transition: box-shadow 0.2s ease;
+
+}
+
+/* Suggestions list that appears right below the searchbar and button*/
+.suggestionsList {
+
+    position: relative;
+    top: 110%; /* Slightly below the input */
+
+    width: 100%;
+    max-width: 400px;
+
+    border: var(--border-std);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0px var(--black);
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+/* Single list item */
+.suggestionItem {
+
+    color: var(--black);
+    padding: 0.6rem 1rem;
+    cursor: pointer; /* to remove the "insert text here" default style of the cursor */
+    border-bottom: 2px solid var(--black);
+    text-align: left;
+    transition: background 0.2s;
+
+}
+
+.suggestionItem:last-child {
+
+    border-bottom: none;
+
+}
+
+/* turn yellow when hovered */
+.suggestionItem:hover {
+
+    background-color: var(--yellow-primary);
+    font-weight: 900;
+    border-radius: 2px;
+
+}

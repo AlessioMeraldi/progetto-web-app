@@ -3,7 +3,8 @@
 import React, {useState} from 'react';
 
 // Style imports
-import styles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
+import globalStyles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
+import styles from "./SearchBars.module.css";
 
 // Begin view
 function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
@@ -84,10 +85,10 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
                         (e) =>
                             e.key === "Enter" && handleSearchSubmit()
                     }
-
+                    className={styles.searchInput}
                 />
                 <button
-                    className = {styles.cta}
+                    className = {globalStyles.cta}
                     onClick = {handleSearchSubmit}
                 >
                     Find
@@ -97,11 +98,11 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
 
             {/* autocomplete section */}
             { showSuggestions && suggestions.length > 0 && (
-                <ul>
+                <ul className={styles.suggestionsList}>
                     {suggestions.map(((character, index) => (
                         <li key={character.id || index}
                             onClick={() => handleSuggestionClick(character.name)}
-
+                            className={styles.suggestionItem}
                         >
                             {character.name}
                         </li>
