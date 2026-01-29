@@ -29,9 +29,10 @@
 
 .navLinks {
     display: flex;
-    width: 100%;
+    width: 150%;
     gap: 1rem;
     padding-right: 1.5rem;
+    justify-content: end;
 }
 
 .navbarLink {
