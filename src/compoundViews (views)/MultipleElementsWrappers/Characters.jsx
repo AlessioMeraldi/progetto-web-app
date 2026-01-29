@@ -32,6 +32,7 @@ function Characters() {
     // State for favourites
     const { user, isAuthenticated } = useAuth0();
     const [favourites, setFavourites] = useState([]); // will contain an array of IDs = [id1, id2, id3, ...]
+    const [favouritesLoaded, setFavouritesLoaded] = useState(false);
 
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
@@ -48,15 +49,19 @@ function Characters() {
     // Load user's favourites effect
     useEffect(() => {
 
-        if (!isAuthenticated || !user?.email) return;
+        if (!isAuthenticated || !user?.email) {
+            setFavouritesLoaded(true);
+            return;
+        }
 
         async function loadFavourites() {
             try {
                 const favsData = await getUserFavourites(user.email);
-                const onlyIds = favsData.map(row => row.character_id);
-                setFavourites(onlyIds);
+                setFavourites(favsData);
             } catch (error) {
                 console.error("Errore caricamento preferiti in Characters:", error);
+            } finally {
+                setFavouritesLoaded(true);
             }
         }
 
@@ -156,15 +161,23 @@ function Characters() {
             </section>
 
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}
-            { (visualizationType === "grid") ?
-                <CharactersGrid
-                    allChars={filteredCharacters}
-                    userFavourites={favourites}
-                    setFavourites={setFavourites}
-                />
-                :
-                <CharactersList allChars={filteredCharacters}/>
-            }
+            {!favouritesLoaded ? (
+                <p>Loading favourites...</p>
+            ) : (
+                visualizationType === "grid" ? (
+                    <CharactersGrid
+                        allChars={filteredCharacters}
+                        userFavourites={favourites}
+                        setFavourites={setFavourites}
+                    />
+                ) : (
+                    <CharactersList
+                        allChars={filteredCharacters}
+                        userFavourites={favourites}
+                        setFavourites={setFavourites}
+                    />
+                )
+            )}
 
         </React.Fragment>
     )

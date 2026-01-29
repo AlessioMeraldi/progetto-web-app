@@ -40,7 +40,7 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
      * @returns {boolean}
      */
     function isFavourite (passedCharacter) {
-        return (userFavourites.includes(passedCharacter.id))
+        return userFavourites.includes(Number(passedCharacter.id));
     }
 
     return (
@@ -61,6 +61,7 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
                                 <div>
                                     {isAuthenticated && (
                                         <button
+                                            type="button"
                                             className={styles.favButton}
                                             onClick={(e) => {
                                                 e.preventDefault();      // block the redirect

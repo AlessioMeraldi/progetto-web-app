@@ -1,6 +1,8 @@
-
 // React imports
 import React, {useEffect, useState} from 'react';
+
+// Router imports
+import { NavLink } from 'react-router-dom';
 
 // Auth0 imports
 import { useAuth0 } from '@auth0/auth0-react';
@@ -27,49 +29,46 @@ const Profile = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
 
     // Supabase state
-    const [favourites, setFavourites] = useState([]);
+    const [favourites, setFavourites] = useState([]); // Array di ID [15, 30, ...]
     const [loadingFavs, setLoadingFavs] = useState(true);
 
-    // Local variables
-    const { filteredCharacters } = CharactersViewModel();
+    // ViewModel data
+    const {
+        allCharacters,
+        getAllCharacters
+    } = CharactersViewModel();
 
-    // const favouriteIds = favourites.map(fav => fav.character_id);
+    // 1. Carica tutti i personaggi (necessario per mostrare i dettagli delle card)
+    useEffect(() => {
+        getAllCharacters();
+    }, []);
 
 
-    // Begin logic
-
+    // 2. Carica i preferiti dell'utente (GET)
     useEffect(() => {
 
         if (!isAuthenticated || !user?.email) {
+            setLoadingFavs(false);
             return;
         }
 
-        // toDo: check if this should be defined here
         async function loadFavourites() {
-
             try {
-
-                const favsData = await getUserFavourites(user.email); // get Supabase data
-                const onlyIds = favsData.map(row => row.character_id); // map only the IDs
-                setFavourites(onlyIds);
-
-            } catch {
-
-                console.error("Errore caricamento preferiti");
-
+                // getUserFavourites ritorna già l'array di numeri [15, 30] grazie al fix precedente
+                const favsData = await getUserFavourites(user.email);
+                setFavourites(favsData);
+            } catch (error) {
+                console.error("Errore caricamento preferiti:", error);
             } finally {
-
                 setLoadingFavs(false);
-
             }
-
         }
 
         loadFavourites();
 
     }, [isAuthenticated, user]);
 
-    // Loading-state return
+    // Loading-state return (Auth0)
     if (isLoading) {
         return (<div>Loading...</div>);
     }
@@ -97,24 +96,34 @@ const Profile = () => {
 
                     {/* SEZIONE PREFERITI */}
                     <section className={styles.favoritesSection}>
-                        <h2 className={styles.sectionTitle}>I miei personaggi preferiti</h2>
+                        <h2 className={styles.sectionTitle}>{user.name}'s favourites characters!</h2>
 
                         {loadingFavs ? (
                             <p>Caricamento preferiti...</p>
                         ) : favourites.length === 0 ? (
+                            // Caso: Nessun preferito salvato
                             <div className={styles.emptyFavorites}>
                                 <img src="/homer-gif.gif" alt="Homer" className={styles.homerPng} />
                                 <p>
-                                    Non hai ancora salvato nessun personaggio. <br />
-                                    Corri ad esplorare tutti i personaggi più iconici di Springfield e salva i tuoi preferiti!
+                                    You haven't saved any characters yet. <br />
+                                    Run to the characters page to explore all of Springfield's most iconic characters and save your favorites!
                                 </p>
-                                <button className={gridStyles.ctaCharacters}>Esplora Personaggi</button>
+                                {/* Aggiunto NavLink per rendere il bottone funzionante */}
+                                <NavLink to="/characters">
+                                    <button className={gridStyles.ctaCharacters}>Explore Characters</button>
+                                </NavLink>
                             </div>
+                        ) : allCharacters.length === 0 ? (
+                            <p>Loading characters...</p>
                         ) : (
+                            // Caso: Ci sono preferiti -> Mostra Griglia Filtrata
                             <CharactersGrid
-                                allChars={filteredCharacters.filter(c => favourites.includes(c.id))}
+                                // FILTRO FONDAMENTALE: Passiamo alla griglia SOLO i personaggi contenuti nei preferiti
+                                allChars={allCharacters.filter(c =>
+                                    favourites.includes(Number(c.id))
+                                )}
                                 userFavourites={favourites}
-                                setFavourites={setFavourites}
+                                setFavourites={setFavourites} // Passiamo il setter per permettere il REMOVE
                             />
                         )}
 
