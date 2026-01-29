@@ -11,7 +11,7 @@ import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 // Components imports
 import CharactersGrid from '/src/simpleViews (components)/GridSubComponents/CharactersGrid.jsx'
 import CharactersList from '/src/simpleViews (components)/ListSubComponents/CharactersList.jsx'
-import CharactersSearchBar from '/src/simpleViews (components)/SearchBars/CharactersSearchBar.jsx'
+import SearchBar from '/src/simpleViews (components)/SearchBar/SearchBar.jsx'
 
 // Auth0 imports
 import { useAuth0 } from '@auth0/auth0-react';
@@ -157,7 +157,7 @@ function Characters() {
 
             {/* Searchbar section */}
             <section className={styles.container}>
-                <CharactersSearchBar searchCharacter={updateFilter} dataForAutocomplete={filteredCharacters} />
+                <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredCharacters} />
             </section>
 
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}

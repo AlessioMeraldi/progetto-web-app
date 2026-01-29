@@ -10,6 +10,7 @@ import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
 // Components imports
 import LocationsGrid from "../../simpleViews (components)/GridSubComponents/LocationsGrid.jsx";
 import LocationsList from "../../simpleViews (components)/ListSubComponents/LocationsList.jsx";
+import SearchBar from '/src/simpleViews (components)/SearchBar/SearchBar.jsx'
 
 // Begin logic
 function Locations() {
@@ -111,8 +112,16 @@ function Locations() {
                 </div>
             </section>
 
+            {/* Searchbar section */}
+            <section className={styles.container}>
+                <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredLocations} />
+            </section>
+
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}
-            { (visualizationType === "grid") ? <LocationsGrid allLocs={filteredLocations}/> : <LocationsList allLocs={filteredLocations}/> }
+            { (visualizationType === "grid") ?
+                <LocationsGrid allLocs={filteredLocations}/>
+                :
+                <LocationsList allLocs={filteredLocations}/> }
 
         </React.Fragment>
     )

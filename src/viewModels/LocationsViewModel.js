@@ -17,7 +17,8 @@ function LocationsViewModel() {
     // Filters state
     const [filters, setFilters] = useState({
         city: "allCities", // "allCities", "Springfield", "otherCity"
-        use: "allUses" // "allUses", "residential", "otherUse"
+        use: "allUses", // "allUses", "residential", "otherUse"
+        name: ""        // "" = *, "user-input-name"
     });
 
     // Functions that interact with the model
@@ -146,37 +147,42 @@ function LocationsViewModel() {
 
     }
 
+    /**
+     * filterByName
+     * @param listToFilter = array of location to be filtered by name.
+     * @param requestedName = the name to search for, if it's empty "" it means any name, otherwise it tries to match the "string".
+     * Filters the provided locations list and returns one with only the locations with the specified name, or part of it.
+     */
+    function filterByName(listToFilter, requestedName) {
+
+        if (!requestedName || requestedName.trim() === "") {
+            return listToFilter;
+        }
+
+        const lowerCaseName = requestedName.toLowerCase();
+
+        return (
+            listToFilter.filter ( location =>
+                location.name.toLowerCase().includes(lowerCaseName) // name search for location is case-insensitive
+            )
+        );
+
+    }
+
     // Function to update the filters (status)
 
     /**
      * updateFilters
-     * @param filterType = "gender", "status", toDo: put the others as they are developed
+     * @param filterType = "gender", "status", "name"
      * @param newValue = new value of the filter to modify, depending on which one it is ("All"/"Male"/"Female"/"Other" for Gender, ...)
      * Updates the filters state, setting the specific specified filter (first parameter) with the passed value (second parameter)
      */
     function updateFilter (filterType, newValue) {
 
-        if (filterType === "city") {
-
-            setFilters(
-                {
-                    city: newValue,
-                    use: filters.use
-                }
-            )
-
-        }
-
-        if (filterType === "use") {
-
-            setFilters(
-                {
-                    city: filters.city,
-                    use: newValue
-                }
-            )
-
-        }
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [filterType]: newValue
+        }));
 
     }
 
@@ -195,6 +201,7 @@ function LocationsViewModel() {
 
         locationsToShow = filterByCity(locationsToShow, filters.city);
         locationsToShow = filterByUse(locationsToShow, filters.use);
+        locationsToShow = filterByName(locationsToShow, filters.name);
 
         setfilteredLocations(locationsToShow);
 
