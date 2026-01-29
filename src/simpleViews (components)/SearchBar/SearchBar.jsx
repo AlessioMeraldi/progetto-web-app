@@ -4,13 +4,13 @@ import React, {useState} from 'react';
 
 // Style imports
 import globalStyles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
-import styles from "./SearchBars.module.css";
+import styles from "./SearchBar.module.css";
 
 // Begin view
-function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
+function SearchBar ({searchElement, dataForAutocomplete}) {
 
     // State
-    const [searchedCharacter, setsSearchedCharacter] = useState("");
+    const [searchedElement, setsSearchedElement] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -19,13 +19,13 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
     /**
      * handleInputChange
      * @param event = the event caused by the input field (to get its value)
-     * Gets the input value and matches the characters that contain said input (case-insensitive), creating an array
-     * of up to 5 recommended matches.
+     * Gets the input value and matches the element (character or location) that contain said input (case-insensitive)
+     * creating an array of up to 5 recommended matches.
      */
     function handleInputChange(event) {
 
         const inputValue = event.target.value;
-        setsSearchedCharacter(inputValue);
+        setsSearchedElement(inputValue);
 
         // autocomplete logic
         if (inputValue.length > 0) {
@@ -39,31 +39,33 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
 
         } else {
             setShowSuggestions(false);
-            searchCharacter("name", ""); // if input change was to delete previous name (and gets to length 0), reset name filters
+            searchElement("name", ""); // if input change was to delete previous name (and gets to length 0), reset name filters
         }
 
     }
 
     /**
      * handleSearchSubmit
-     * Forwards request to search for a character to the character's wrapper (that will itself forward it to the VM).
-     * Disables the showing of the suggestions.
+     * Forwards request to search for an element to the character or location wrapper.
+     * The wrapper itself (characters.jsx or locations.jsx) will then call the respective VM to handle the request.
+     * After this, it disables the showing of the suggestions.
      */
     function handleSearchSubmit () {
-        searchCharacter("name", searchedCharacter);
+        searchElement("name", searchedElement);
         setShowSuggestions(false);
     }
 
     /**
      * handleSuggestionClick
      * @param clickedSuggestion = the clicked suggestion's string, a "name".
-     * Updates state for the searched character.
-     * Forwards request to search for a character to the character's wrapper (that will itself forward it to the VM).
-     * Disables the showing of the suggestions.
+     * Updates state for the searched element.
+     * Forwards request to search for a element to the character or location's wrapper.
+     * The wrapper itself (characters.jsx or locations.jsx) will then call the respective VM to handle the request.
+     * After this, it disables the showing of the suggestions.
      */
     function handleSuggestionClick (clickedSuggestion) {
-        setsSearchedCharacter(clickedSuggestion);
-        searchCharacter("name", clickedSuggestion);
+        setsSearchedElement(clickedSuggestion);
+        searchElement("name", clickedSuggestion);
         setShowSuggestions(false);
     }
 
@@ -79,7 +81,7 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
                 <input
                     type="text"
                     placeholder="Search character here"
-                    value = {searchedCharacter} // set input's value to be the one of the state
+                    value = {searchedElement} // set input's value to be the one of the state
                     onChange = {handleInputChange}
                     onKeyDown = {
                         (e) =>
@@ -99,12 +101,12 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
             {/* autocomplete section */}
             { showSuggestions && suggestions.length > 0 && (
                 <ul className={styles.suggestionsList}>
-                    {suggestions.map(((character, index) => (
-                        <li key={character.id || index}
-                            onClick={() => handleSuggestionClick(character.name)}
+                    {suggestions.map(((element, index) => (
+                        <li key={element.id || index}
+                            onClick={() => handleSuggestionClick(element.name)}
                             className={styles.suggestionItem}
                         >
-                            {character.name}
+                            {element.name}
                         </li>
                     )))}
                 </ul>
@@ -116,4 +118,4 @@ function CharactersSearchBar ({searchCharacter, dataForAutocomplete}) {
 
 }
 
-export default CharactersSearchBar;
+export default SearchBar;
