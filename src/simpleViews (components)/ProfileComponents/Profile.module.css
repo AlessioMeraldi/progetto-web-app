@@ -10,56 +10,144 @@
     margin: 0 auto;
 }
 
-/* HERO SECTION */
-.heroSection {
-    background-color: var(--blue-primary-alpha);
-    border: 4px solid var(--black);
-    padding: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    box-shadow: 15px 15px 0px var(--yellow-primary);
+/* SPRINGFIELD PASSPORT CARD */
+.passportWrapper {
+    background-color: #FFD90F;
+    border: 4px solid #000;
+    border-radius: 12px;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+    margin-bottom: 4rem;
+    overflow: hidden;
+    position: relative;
     transform: rotate(-1deg);
-    margin-bottom: 5rem;
+    transition: transform 0.3s ease;
 }
 
-.avatarWrapper {
-    position: relative;
+.passportWrapper:hover {
+    transform: rotate(0deg) scale(1.01);
+}
+
+.passportHeader {
+    background-color: rgba(40, 87, 126, 0.98);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 4px solid #000;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.passportBody {
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.passportPhotoSection {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 200px;
+}
+
+.photoFrame {
+    background: white;
+    padding: 10px;
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+    margin-bottom: 10px;
 }
 
 .avatar {
-    width: 180px;
+    width: 100%;
     height: 180px;
-    border-radius: 50%;
-    border: 6px solid var(--black);
-    background: var(--white);
     object-fit: cover;
+    display: block;
+    border: 1px solid #ccc;
 }
 
-.userName {
-    font-size: 3rem;
-    color: var(--black);
+.photoLabel {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #000;
     text-transform: uppercase;
-    -webkit-text-stroke: 1.5px var(--black);
-    margin: 0;
 }
 
-.badgeContainer {
+.passportData {
+    flex: 1;
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 1.2rem;
+    min-width: 250px;
+}
+
+.dataRow {
+    display: flex;
+    flex-direction: column;
+}
+
+.dataRow label {
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.dataValue {
+    font-size: 1.6rem;
+    color: #000;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    border-bottom: 2px dashed #000;
+}
+
+.dataValueSmall {
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    border-bottom: 2px dashed #000;
+}
+
+.passportGrid {
+    display: flex;
+    gap: 2rem;
     margin-top: 1rem;
 }
 
-.badge {
-    background: var(--yellow-primary);
-    border: 2px solid var(--black);
-    padding: 4px 12px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    border-radius: 20px;
+.passportStamps {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 200px;
+    margin-left: auto;
+}
+
+.statusStamp {
+    border: 4px solid #D12020;
+    color: #D12020;
+    padding: 10px 15px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transform: rotate(-15deg);
+    opacity: 0.8;
+    text-align: center;
+    border-radius: 8px;}
+
+.barcode {
+    font-family: 'Libre Barcode 39', cursive; /* Se non hai il font, usa un fallback */
+    font-size: 3rem;
+    letter-spacing: -2px;
+    transform: scaleY(1.5);
+    margin-top: auto;
 }
 
 /* SEZIONE PREFERITI */
@@ -94,33 +182,8 @@
     margin-top: 1.5rem;
 }
 
-/* DETTAGLI LISTA */
-.detailsSection {
-    border-top: 6px dashed var(--yellow-primary);
-    padding-top: 3rem;
-}
-
-.detailsList {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.detailsList li {
-    background: var(--yellow-primary);
-    padding: 1.5rem;
-    border: 3px solid var(--black);
-    font-weight: 700;
-    text-align: center;
-}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    .heroSection {
-        flex-direction: column;
-        text-align: center;
-        transform: none;
-    }
+
 }

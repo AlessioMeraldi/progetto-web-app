@@ -29,7 +29,7 @@ const Profile = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
 
     // Supabase state
-    const [favourites, setFavourites] = useState([]); // Array di ID [15, 30, ...]
+    const [favourites, setFavourites] = useState([]);
     const [loadingFavs, setLoadingFavs] = useState(true);
 
     // ViewModel data
@@ -38,13 +38,13 @@ const Profile = () => {
         getAllCharacters
     } = CharactersViewModel();
 
-    // 1. Carica tutti i personaggi (necessario per mostrare i dettagli delle card)
+    // Load all characters
     useEffect(() => {
         getAllCharacters();
     }, []);
 
 
-    // 2. Carica i preferiti dell'utente (GET)
+    // Load user favourites characters
     useEffect(() => {
 
         if (!isAuthenticated || !user?.email) {
@@ -54,7 +54,6 @@ const Profile = () => {
 
         async function loadFavourites() {
             try {
-                // getUserFavourites ritorna già l'array di numeri [15, 30] grazie al fix precedente
                 const favsData = await getUserFavourites(user.email);
                 setFavourites(favsData);
             } catch (error) {
@@ -73,26 +72,69 @@ const Profile = () => {
         return (<div>Loading...</div>);
     }
 
-    // Loaded-state return
     return (
         isAuthenticated && (
             <div className={styles.profilePage}>
                 <div className={styles.profileContainer}>
 
-                    {/* SEZIONE HEADER PROFILO */}
-                    <section className={styles.heroSection}>
-                        <div className={styles.avatarWrapper}>
-                            <img src={user.picture} alt={user.name} className={styles.avatar} />
+                    {/* --- SPRINGFIELD PASSPORT --- */}
+                    <div className={styles.passportWrapper}>
+
+                        <div className={styles.passportHeader}>
+                            <span>SPRINGFIELD IDENTIFICATION CARD</span>
                         </div>
-                        <div>
-                            <h1 className={styles.userName}>{user.name}</h1>
-                            <p>{user.email}</p>
-                            <div className={styles.badgeContainer}>
-                                <span className={styles.badge}>Simpson Fan #1</span>
-                                <span className={styles.badge}>Duff Lover</span>
+
+                        <div className={styles.passportBody}>
+
+                            {/* Left: Photo */}
+                            <div className={styles.passportPhotoSection}>
+                                <div className={styles.photoFrame}>
+                                    <img src={user.picture} alt={user.name} className={styles.avatar} />
+                                </div>
+                                <span className={styles.photoLabel}>OFFICIAL PHOTO</span>
                             </div>
+
+                            {/* Center: Data */}
+                            <div className={styles.passportData}>
+                                <div className={styles.dataRow}>
+                                    <label>NAME</label>
+                                    <div className={styles.dataValue}>{user.name}</div>
+                                </div>
+
+                                <div className={styles.dataRow}>
+                                    <label>NICKNAME</label>
+                                    <div className={styles.dataValue}>{user.nickname}</div>
+                                </div>
+
+                                <div className={styles.dataRow}>
+                                    <label>EMAIL</label>
+                                    <div className={styles.dataValueSmall}>{user.email}</div>
+                                </div>
+
+                                <div className={styles.passportGrid}>
+                                    <div className={styles.dataRow}>
+                                        <label>LAST ACCESS</label>
+                                        <div className={styles.dataValue}>{new Date().toLocaleDateString()}</div>
+                                    </div>
+                                    <div className={styles.dataRow}>
+                                        <label>RESIDENCY</label>
+                                        <div className={styles.dataValue}>Evergreen Terrace</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right: Stamps & Status */}
+                            <div className={styles.passportStamps}>
+                                <div className={styles.statusStamp}>
+                                    CITIZEN<br/>APPROVED
+                                </div>
+                                <div className={styles.barcode}>
+                                    || ||| | ||| || || |
+                                </div>
+                            </div>
+
                         </div>
-                    </section>
+                    </div>
 
                     {/* SEZIONE PREFERITI */}
                     <section className={styles.favoritesSection}>
@@ -101,14 +143,14 @@ const Profile = () => {
                         {loadingFavs ? (
                             <p>Caricamento preferiti...</p>
                         ) : favourites.length === 0 ? (
-                            // Caso: Nessun preferito salvato
+                            // Case: no favourites
                             <div className={styles.emptyFavorites}>
                                 <img src="/homer-gif.gif" alt="Homer" className={styles.homerPng} />
                                 <p>
                                     You haven't saved any characters yet. <br />
                                     Run to the characters page to explore all of Springfield's most iconic characters and save your favorites!
                                 </p>
-                                {/* Aggiunto NavLink per rendere il bottone funzionante */}
+                                {/* NavLink for the button */}
                                 <NavLink to="/characters">
                                     <button className={gridStyles.ctaCharacters}>Explore Characters</button>
                                 </NavLink>
@@ -116,27 +158,17 @@ const Profile = () => {
                         ) : allCharacters.length === 0 ? (
                             <p>Loading characters...</p>
                         ) : (
-                            // Caso: Ci sono preferiti -> Mostra Griglia Filtrata
+                            // Case: yes favourites
                             <CharactersGrid
-                                // FILTRO FONDAMENTALE: Passiamo alla griglia SOLO i personaggi contenuti nei preferiti
+                                // Filter for passing to the grid only the favourites characters
                                 allChars={allCharacters.filter(c =>
                                     favourites.includes(Number(c.id))
                                 )}
                                 userFavourites={favourites}
-                                setFavourites={setFavourites} // Passiamo il setter per permettere il REMOVE
+                                setFavourites={setFavourites}
                             />
                         )}
 
-                    </section>
-
-                    {/* DETTAGLI ACCOUNT */}
-                    <section className={styles.detailsSection}>
-                        <h2 className={styles.sectionTitle}>Dati Springfield ID</h2>
-                        <ul className={styles.detailsList}>
-                            <li><strong>Nickname:</strong> {user.nickname}</li>
-                            <li><strong>Ultimo Accesso:</strong> {new Date().toLocaleDateString()}</li>
-                            <li><strong>Status:</strong> Cittadino Modello</li>
-                        </ul>
                     </section>
 
                 </div>
