@@ -61,6 +61,7 @@ function Header() {
                             </svg>
                         </NavLink>)
                     }
+                    <NavLink title="Top 5" to="/top5" className={linkStyle}>Top 5</NavLink>
                     {isAuthenticated && (
                         <NavLink title="Profile" to="/profile" className={linkStyle}>Profile</NavLink>)
                     }

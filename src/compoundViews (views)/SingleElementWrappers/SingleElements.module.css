@@ -241,6 +241,13 @@
     transition: all 0.05s ease;
 }
 
+/* == Rating section ==*/
+.ratingSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 /* == Responsiveness == */
 
 /* Tablet visualization */

@@ -1,6 +1,6 @@
 
 // React imports
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 // ViewModel imports
 import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
@@ -8,8 +8,21 @@ import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 // Style imports
 import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElements.module.css';
 
+// Auth0 imports
+import { useAuth0 } from '@auth0/auth0-react';
+
+// Service imports
+import { getCharacterRatingStats, getUserRating, saveRating } from '../../services/ratingsService';
+
 // Begin logic
 function ShowSingleCharacter({charId, imgSize}) {
+
+    // Auth0 state
+    const { user, isAuthenticated } = useAuth0();
+
+    // Local state for ratings
+    const [userDonuts, setUserDonuts] = useState(0); // rating given by the logged user
+    const [avgStats, setAvgStats] = useState({ average: 0, count: 0 });
 
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
@@ -19,8 +32,39 @@ function ShowSingleCharacter({charId, imgSize}) {
 
     // tell the ViewModel to update its state regarding <allCharacters> when [chardId or imgSize] change (works first render too)
     useEffect(() => {
-        getSingleCharacter(parseInt(charId), imgSize);
+        const id = parseInt(charId);
+        getSingleCharacter(id, imgSize);
+        loadRatingData(id);
     }, [charId, imgSize]);
+
+    // Fetch rating statistics and user specific rating
+    const loadRatingData = async (id) => {
+        try {
+            const stats = await getCharacterRatingStats(id);
+            setAvgStats(stats);
+
+            if (isAuthenticated && user?.email) {
+                const rating = await getUserRating(id, user.email);
+                setUserDonuts(rating);
+            }
+        } catch (error) {
+            console.error("Error loading ratings:", error);
+        }
+    };
+
+    // Handle donut click
+    const handleRating = async (ratingValue) => {
+
+        try {
+            await saveRating(parseInt(charId), user.email, ratingValue);
+            setUserDonuts(ratingValue);
+            // refresh stats to show updated average
+            const stats = await getCharacterRatingStats(parseInt(charId));
+            setAvgStats(stats);
+        } catch (error) {
+            console.error("Error updating rating:", error);
+        }
+    };
 
     return (
         <React.Fragment>
@@ -40,6 +84,12 @@ function ShowSingleCharacter({charId, imgSize}) {
                         </div>
                     )}
                     <h1>{character?.characterData?.name}</h1>
+
+                    {/* Display Average Rating */}
+                    <div className={style.avgRating}>
+                        <span><strong>🍩 {avgStats.average} / 5</strong></span>
+                        <small> ({avgStats.count} votes)</small>
+                    </div>
                 </header>
 
                 {/* Anagraphic data section */}
@@ -93,6 +143,26 @@ function ShowSingleCharacter({charId, imgSize}) {
                             ))}
                         </ul>
                     </section>
+                )}
+
+                {/* --- DONUT RATING SYSTEM --- */}
+                {isAuthenticated && (
+                <section className={style.ratingSection}>
+                    <h2>Rate this character</h2>
+                    <div className={style.donutContainer}>
+                        {[1, 2, 3, 4, 5].map((num) => (
+                            <span
+                                key={num}
+                                className={`${style.donut} ${userDonuts >= num ? style.activeDonut : ''}`}
+                                onClick={() => handleRating(num)}
+                                style={{ cursor: 'pointer', fontSize: '2rem', filter: userDonuts >= num ? 'none' : 'grayscale(100%) brightness(1.5)' }}
+                            >
+                                🍩
+                            </span>
+                        ))}
+                    </div>
+                    {userDonuts > 0 && <p className={style.ratingFeedback}>You gave {userDonuts} donuts!</p>}
+                </section>
                 )}
             </section>
         </React.Fragment>
