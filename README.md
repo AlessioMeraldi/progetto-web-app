@@ -1,4 +1,4 @@
-# [React SPA Simpsons Data Visualizer]
+# React SPA Simpsons Data Visualizer
 
 > **Note:** This project is a Single Page Application (SPA) designed to visualize data
 > from [The Simpsons API](https://thesimpsonsapi.com/). It serves as a technical exercise in consuming APIs, implementing
