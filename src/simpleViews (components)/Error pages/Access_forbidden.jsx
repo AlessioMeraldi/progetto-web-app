@@ -37,7 +37,7 @@ function Access_forbidden() {
                 </section>
 
                 <img className={styles.centerGif}
-                     src="/src/assets/Page_access_forbidden_Homer.gif"
+                     src="/src/assets/Images/Page_access_forbidden_Homer.gif"
                      alt="Homer retreats into a bush because he can't access the page"
                 />
 

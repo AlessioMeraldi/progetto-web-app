@@ -84,30 +84,16 @@ function CharacterViewModel() {
      */
     const getAllCharacters = async () => {
 
-        setIsLoading(true);
+        const allBatches = await fetchAllCharacters(); // fetch all characters Batches
+        // The format of allBatches is [ { headerBatch1, results = [array of characters 1] }, {headerBatch2, results = [array of characters 2] }, ... ]
 
-        try {
+        let localAllCharacters = allBatches.flatMap(batch => batch.results); // discard headers, chain and flatten arrays of characters
+        // The format of localAllCharacters is [ character1, character2, character3, ... character20 (last of batch 1), character21 (first of batch 2), ... ]
 
-            const allBatches = await fetchAllCharacters(); // fetch all characters Batches
-            // The format of allBatches is [ { headerBatch1, results = [array of characters 1] }, {headerBatch2, results = [array of characters 2] }, ... ]
-
-            let localAllCharacters = allBatches.flatMap(batch => batch.results); // discard headers, chain and flatten arrays of characters
-            // The format of localAllCharacters is [ character1, character2, character3, ... character20 (last of batch 1), character21 (first of batch 2), ... ]
-
-            console.log(localAllCharacters);
-            setAllCharacters(localAllCharacters);
-            // setFilteredCharacters(localAllCharacters); // by default, no filter is applied
-            return (localAllCharacters);
-
-        } catch (err) {
-
-            console.log("ViewModel caught the Model's error when trying to fetch the data of all chars: "+err);
-
-        } finally {
-
-            setIsLoading(false);
-
-        }
+        console.log(localAllCharacters);
+        setAllCharacters(localAllCharacters);
+        // setFilteredCharacters(localAllCharacters); // by default, no filter is applied
+        return (localAllCharacters);
 
     }
 

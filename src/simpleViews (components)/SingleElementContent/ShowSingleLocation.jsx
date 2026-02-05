@@ -37,7 +37,7 @@ function ShowSingleLocation({locId, imgSize}) {
                         {location?.locationImageURL && (
                             <div className={style.imageContainer} id={style.singleLocation}>
                                 <img
-                                    src="/src/assets/Locations_loading_silhouette.svg"
+                                    src="/src/assets/Images/Locations_loading_silhouette.svg"
                                     alt="loading..."
                                     className={style.characterImg}
                                     loading="eager"

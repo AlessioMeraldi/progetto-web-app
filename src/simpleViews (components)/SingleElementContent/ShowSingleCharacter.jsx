@@ -80,7 +80,7 @@ function ShowSingleCharacter({charId, imgSize}) {
                         {character?.characterImageURL && (
                             <div className={style.imageContainer}>
                                 <img
-                                    src="/src/assets/Character_loading_silhouette.svg"
+                                    src="/src/assets/Images/Character_loading_silhouette.svg"
                                     alt="loading..."
                                     className={style.characterImg}
                                     loading="eager"

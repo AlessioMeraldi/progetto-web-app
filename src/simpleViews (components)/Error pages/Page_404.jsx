@@ -24,7 +24,7 @@ function Page_404() {
                 </section>
 
                 <img className={styles.centerImg}
-                     src="/src/assets/Page_404_Doh.webp"
+                     src="/src/assets/Images/Page_404_Doh.webp"
                      alt="Homer saying 'Doh!' because the page is not available."
                 />
 
