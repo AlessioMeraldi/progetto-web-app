@@ -32,6 +32,8 @@
     width: 100%;
     gap: 1rem;
     padding-right: 1.5rem;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .navbarLink {
