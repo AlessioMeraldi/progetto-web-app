@@ -67,10 +67,10 @@ export default function Home() {
                         <img src="/logo-the-simpson2.svg" alt="Simpson Logo" className={styles.logo}/>
                     </div>
                     <p className={styles.subtitle}>
-                        Benvenuti a Spriengfield. Venite a scoprire tutte le curiosità sulla famiglia più gialla del
-                        cinema.
+                        <b>Welcome to Springfield! Explore the secrets, trivia, and iconic history of the world’s favorite yellow family.</b>
+                        <br/>Your ultimate guide to all things Simpsons starts here.
                     </p>
-                    <button className={styles.cta}>Esplora i personaggi</button>
+                    <NavLink className={styles.cta} to="/characters"> Explore characters </NavLink>
                 </div>
             </section>
 
