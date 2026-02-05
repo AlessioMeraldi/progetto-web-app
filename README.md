@@ -1,4 +1,4 @@
-# [Project Name: e.g., Simpsons Data Visualizer]
+# [React SPA Simpsons Data Visualizer]
 
 > **Note:** This project is a Single Page Application (SPA) designed to visualize data
 > from [The Simpsons API](https://thesimpsonsapi.com/). It serves as a technical exercise in consuming APIs, implementing
@@ -6,7 +6,7 @@
 
 ## 📖 Introduction
 
-*[Briefly describe what the application does. Example: "This application allows users to browse Simpsons characters, rate them, and save preferences..."]*
+*[TODO: Briefly describe what the application does.]*
 
 ---
 
