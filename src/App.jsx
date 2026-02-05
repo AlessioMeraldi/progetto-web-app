@@ -24,7 +24,8 @@ function App() {
     const footerLinks = [
         {text: "Home", url: "/"},
         {text: "Characters", url: "/characters"},
-        {text: "Locations", url: "/locations"}
+        {text: "Locations", url: "/locations"},
+        {text: "Top 5", url: "/top5"}
     ];
     const courseName = "Università degli Studi di Milano Bicocca";
     const courseLink = "https://www.unimib.it/";
