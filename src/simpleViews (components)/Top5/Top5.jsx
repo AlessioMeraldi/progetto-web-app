@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+// NavLink import for character routing
+import { NavLink } from 'react-router-dom';
 import { getTopFiveCharacters } from '../../services/ratingsService';
 import CharactersViewModel from '../../viewModels/CharactersViewModel';
 import styles from './Top5.module.css';
@@ -11,7 +13,7 @@ const Top5 = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Carichiamo sia la classifica che tutti i personaggi
+                // Load of the leadboard
                 const [leaderboardData] = await Promise.all([
                     getTopFiveCharacters(),
                     getAllCharacters()
@@ -26,10 +28,10 @@ const Top5 = () => {
         fetchData();
     }, []);
 
-    // Funzione per trovare i dati completi del personaggio partendo dall'ID della classifica
+    // Function to show character details
     const getCharDetails = (id) => allCharacters.find(c => Number(c.id) === id);
 
-    if (loading) return <div className={styles.loading}>Calculating donut obsession...</div>;
+    if (loading) return <div className={styles.loading}>Calculating donut leadboard...</div>;
 
     return (
         <div className={styles.leaderboardPage}>
@@ -42,7 +44,15 @@ const Top5 = () => {
                     if (!details) return null;
 
                     return (
-                        <div key={rating.character_id} className={`${styles.rankRow} ${styles[`rank${index + 1}`]}`}>
+                        /* Wrapped the rank row in a NavLink to enable navigation
+                           to the specific character detail page.
+                        */
+                        <NavLink
+                            key={rating.character_id}
+                            to={`/character/${rating.character_id}`}
+                            className={`${styles.rankRow} ${styles[`rank${index + 1}`]}`}
+                            style={{ textDecoration: 'none', color: 'inherit' }} // Ensures styling remains consistent beacuse this in a link
+                        >
                             <div className={styles.rankNumber}>#{index + 1}</div>
 
                             <img
@@ -60,7 +70,7 @@ const Top5 = () => {
                                 <span className={styles.scoreNumber}>{rating.avg_donuts}</span>
                                 <span className={styles.donutIcon}>🍩</span>
                             </div>
-                        </div>
+                        </NavLink>
                     );
                 })}
             </div>

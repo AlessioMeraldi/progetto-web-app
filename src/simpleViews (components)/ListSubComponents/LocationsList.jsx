@@ -25,6 +25,7 @@ function LocationsList ({allLocs}){
                         key={location.id || index}
                         to={`/location/${location.id}`}
                         className={styles.row}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                         <img
                             className={styles.avatar}

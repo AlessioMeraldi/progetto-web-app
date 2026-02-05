@@ -19,7 +19,11 @@ function LocationsGrid({allLocs}) {
 
                 <div className={styles.grid}>
                     {allLocs?.map((location, index) => (
-                        <NavLink key={location.id || index} to={`/location/${location.id}`} className={styles.card}>
+                        <NavLink key={location.id || index}
+                                 to={`/location/${location.id}`}
+                                 className={styles.card}
+                                 style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
                             <div>
                                 <img
                                     src={`https://cdn.thesimpsonsapi.com/500${location.image_path}`}

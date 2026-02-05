@@ -57,7 +57,10 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
                     {allChars?.map((character, index) => (// varName?.xyz only tries to access xyz if varName exists (avoids "undefined element" errors)
 
                         <React.Fragment key={character.id || index}>
-                            <NavLink key={character.id || index} to={`/character/${character.id}`} className={styles.card}>
+                            <NavLink key={character.id || index} to={`/character/${character.id}`}
+                                     className={styles.card}
+                                     style={{ textDecoration: 'none', color: 'inherit' }}
+                            >
                                 <div>
                                     {isAuthenticated && (
                                         <button

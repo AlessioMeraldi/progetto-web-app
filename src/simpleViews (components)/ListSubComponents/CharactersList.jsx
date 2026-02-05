@@ -56,6 +56,7 @@ function CharactersList({allChars, userFavourites = [], setFavourites}) {
                         key={character.id || index}
                         to={`/character/${character.id}`}
                         className={styles.row}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                         <img
                             className={styles.avatar}
