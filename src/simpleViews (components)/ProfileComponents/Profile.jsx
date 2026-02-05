@@ -63,6 +63,11 @@ const Profile = () => {
             }
         }
 
+        //debug
+        if (isAuthenticated) {
+            console.log("Dati utente Auth0:", user);
+        }
+
         loadFavourites();
 
     }, [isAuthenticated, user]);
