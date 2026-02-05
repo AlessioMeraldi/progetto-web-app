@@ -4,6 +4,9 @@ import {useEffect, useState} from 'react';
 // imports from Model
 import {fetchSingleLocation, fetchLocationsBatch, fetchAllLocations} from '/src/models/locationsModel.js';
 
+// imports of utility functions (shared with other ViewModels)
+import filterByName from './Common functions/filterByName.js';
+
 // Begin logic
 function LocationsViewModel() {
 
@@ -153,21 +156,7 @@ function LocationsViewModel() {
      * @param requestedName = the name to search for, if it's empty "" it means any name, otherwise it tries to match the "string".
      * Filters the provided locations list and returns one with only the locations with the specified name, or part of it.
      */
-    function filterByName(listToFilter, requestedName) {
-
-        if (!requestedName || requestedName.trim() === "") {
-            return listToFilter;
-        }
-
-        const lowerCaseName = requestedName.toLowerCase();
-
-        return (
-            listToFilter.filter ( location =>
-                location.name.toLowerCase().includes(lowerCaseName) // name search for location is case-insensitive
-            )
-        );
-
-    }
+    // filterByName is defined in a separate file, filterByName.js, as it is in common with the CharactersViewModel.
 
     // Function to update the filters (status)
 
