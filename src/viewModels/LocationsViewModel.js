@@ -10,14 +10,16 @@ import filterByName from './Common functions/filterByName.js';
 // Begin logic
 function LocationsViewModel() {
 
-    // State
+    // Content state
     const [location, setLocation] = useState(null);
     const [locationsBatch, setLocationsBatch] = useState([]);
     const [allLocations, setAllLocations] = useState([]);
 
-    const [filteredLocations, setfilteredLocations] = useState([]);
+    // Loading State
+    const [isLoading, setIsLoading] = useState(false);
 
     // Filters state
+    const [filteredLocations, setfilteredLocations] = useState([]);
     const [filters, setFilters] = useState({
         city: "allCities", // "allCities", "Springfield", "otherCity"
         use: "allUses", // "allUses", "residential", "otherUse"
@@ -31,16 +33,30 @@ function LocationsViewModel() {
      * @Param locId = integer number of the single location.
      * @Param imgSize = integer number of the resolution for the image = 200 / 500 / 1280.
      * Fetches through the Model the specified location, and returns an object {locationData, "url-for-the-image"}
-     * @returns {Promise<{characterData: null, characterImageURL: string}>}
+     * @returns {Promise<{locationData: null, locationImageURL: string}>}
      */
     const getSingleLocation = async (locId, imgSize) => {
 
-        const theLocation = await fetchSingleLocation(locId, imgSize);
-        // The format of theLocation is { object = "location data from JSON", string = "link-to-portrait-image-of-right-size" }
+        setIsLoading(true);
 
-        console.log(theLocation);
-        setLocation(theLocation);
-        return (theLocation);
+        try {
+
+            const theLocation = await fetchSingleLocation(locId, imgSize);
+            // The format of theLocation is { object = "location data from JSON", string = "link-to-portrait-image-of-right-size" }
+
+            console.log(theLocation);
+            setLocation(theLocation);
+            return (theLocation);
+
+        } catch (err) {
+
+            console.log("ViewModel caught the Model's error when trying to fetch the data of a location: "+err);
+
+        } finally {
+
+            setIsLoading(false);
+
+        }
 
     }
 
@@ -203,6 +219,7 @@ function LocationsViewModel() {
         locationsBatch,
         allLocations,
         filteredLocations,
+        isLoading,
         getSingleLocation,
         getLocationsBatch,
         getAllLocations,

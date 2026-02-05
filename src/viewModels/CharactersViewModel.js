@@ -10,14 +10,16 @@ import filterByName from './Common functions/filterByName.js';
 // Begin logic
 function CharacterViewModel() {
 
-    // State
+    // Content state
     const [character, setCharacter] = useState(null);
     const [charactersBatch, setCharactersBatch] = useState([]);
     const [allCharacters, setAllCharacters] = useState([]);
 
-    const [filteredCharacters, setFilteredCharacters] = useState([]);
+    // Loading State
+    const [isLoading, setIsLoading] = useState(false);
 
     // Filters state
+    const [filteredCharacters, setFilteredCharacters] = useState([]);
     const [filters, setFilters] = useState({
         gender: "All",  // "All", "Male", "Female", "Other"
         status: "All",  // "All", "Alive", "Deceased"
@@ -35,12 +37,26 @@ function CharacterViewModel() {
      */
     const getSingleCharacter = async (charId, imgSize) => {
 
-        const theCharacter = await fetchSingleCharacter(charId, imgSize);
-        // The format of theCharacter is { object = "character data from JSON", string = "link-to-portrait-image-of-right-size" }
+        setIsLoading(true);
 
-        console.log(theCharacter);
-        setCharacter(theCharacter);
-        return (theCharacter);
+        try {
+
+            const theCharacter = await fetchSingleCharacter(charId, imgSize);
+            // The format of theCharacter is { object = "character data from JSON", string = "link-to-portrait-image-of-right-size" }
+
+            console.log(theCharacter);
+            setCharacter(theCharacter);
+            return (theCharacter);
+
+        } catch (err){
+
+            console.log("ViewModel caught the Model's error when trying to fetch the data of a character: "+err);
+
+        } finally  {
+
+            setIsLoading(false);
+
+        }
 
     }
 
@@ -68,16 +84,30 @@ function CharacterViewModel() {
      */
     const getAllCharacters = async () => {
 
-        const allBatches = await fetchAllCharacters(); // fetch all characters Batches
-        // The format of allBatches is [ { headerBatch1, results = [array of characters 1] }, {headerBatch2, results = [array of characters 2] }, ... ]
+        setIsLoading(true);
 
-        let localAllCharacters = allBatches.flatMap(batch => batch.results); // discard headers, chain and flatten arrays of characters
-        // The format of localAllCharacters is [ character1, character2, character3, ... character20 (last of batch 1), character21 (first of batch 2), ... ]
+        try {
 
-        console.log(localAllCharacters);
-        setAllCharacters(localAllCharacters);
-        // setFilteredCharacters(localAllCharacters); // by default, no filter is applied
-        return (localAllCharacters);
+            const allBatches = await fetchAllCharacters(); // fetch all characters Batches
+            // The format of allBatches is [ { headerBatch1, results = [array of characters 1] }, {headerBatch2, results = [array of characters 2] }, ... ]
+
+            let localAllCharacters = allBatches.flatMap(batch => batch.results); // discard headers, chain and flatten arrays of characters
+            // The format of localAllCharacters is [ character1, character2, character3, ... character20 (last of batch 1), character21 (first of batch 2), ... ]
+
+            console.log(localAllCharacters);
+            setAllCharacters(localAllCharacters);
+            // setFilteredCharacters(localAllCharacters); // by default, no filter is applied
+            return (localAllCharacters);
+
+        } catch (err) {
+
+            console.log("ViewModel caught the Model's error when trying to fetch the data of all chars: "+err);
+
+        } finally {
+
+            setIsLoading(false);
+
+        }
 
     }
 
@@ -211,6 +241,7 @@ function CharacterViewModel() {
         charactersBatch,
         allCharacters,
         filteredCharacters,
+        isLoading,
         getSingleCharacter,
         getCharacterBatch,
         getAllCharacters,

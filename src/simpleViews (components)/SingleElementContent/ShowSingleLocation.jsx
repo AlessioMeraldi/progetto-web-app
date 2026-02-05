@@ -14,6 +14,7 @@ function ShowSingleLocation({locId, imgSize}) {
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
         location,
+        isLoading,
         getSingleLocation
     } = LocationsViewModel();
 
@@ -21,6 +22,54 @@ function ShowSingleLocation({locId, imgSize}) {
     useEffect(() => {
         getSingleLocation(parseInt(locId), imgSize);
     }, [locId, imgSize]);
+
+    // Returns
+
+    if (isLoading) {
+        return (
+
+            <React.Fragment>
+                {/* Character's card */}
+                <section className={style.card}>
+
+                    {/* Section heading + image */}
+                    <header className={style.header}>
+                        {location?.locationImageURL && (
+                            <div className={style.imageContainer} id={style.singleLocation}>
+                                <img
+                                    src="/src/assets/Locations_loading_silhouette.svg"
+                                    alt="loading..."
+                                    className={style.characterImg}
+                                    loading="eager"
+                                />
+                            </div>
+                        )}
+                        <h1>Loading...</h1>
+                    </header>
+
+                    {/* Anagraphic data section */}
+                    <section className={style.section}>
+                        <h2>General information</h2>
+                        <ul className={style.dataList}>
+                            <li><strong>Town:</strong> Loading...</li>
+                            <li><strong>Use:</strong> Loading...</li>
+                        </ul>
+                    </section>
+
+                    {/* Description section */}
+                    <section className={style.section}>
+                        <h2>Description</h2>
+                        <p>Loading...</p>
+                    </section>
+
+                    {/* when switching location, no placeholder is displayed for first appearances */}
+                    {/* they are unnecessary as when the location is switched the page is scrolled back to top */}
+
+                </section>
+            </React.Fragment>
+
+        )
+    }
 
     return (
         <React.Fragment>

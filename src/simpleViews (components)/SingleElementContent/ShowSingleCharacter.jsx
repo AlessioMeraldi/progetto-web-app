@@ -27,6 +27,7 @@ function ShowSingleCharacter({charId, imgSize}) {
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
         character,
+        isLoading,
         getSingleCharacter
     } = CharactersViewModel();
 
@@ -66,107 +67,167 @@ function ShowSingleCharacter({charId, imgSize}) {
         }
     };
 
-    return (
-        <React.Fragment>
-            {/* Character's card */}
-            <section className={style.card}>
+    // Returns
 
-                {/* Section heading + image */}
-                <header className={style.header}>
-                    {character?.characterImageURL && (
-                        <div className={style.imageContainer}>
-                            <img
-                                src={character.characterImageURL}
-                                alt={character?.characterData?.name}
-                                className={style.characterImg}
-                                loading="eager"
-                            />
+    if (isLoading) {
+        return (
+            <React.Fragment>
+                {/* Character's card */}
+                <section className={style.card}>
+
+                    {/* Section heading + image */}
+                    <header className={style.header}>
+                        {character?.characterImageURL && (
+                            <div className={style.imageContainer}>
+                                <img
+                                    src="/src/assets/Character_loading_silhouette.svg"
+                                    alt="loading..."
+                                    className={style.characterImg}
+                                    loading="eager"
+                                />
+                            </div>
+                        )}
+                        <h1>Loading...</h1>
+
+                        {/* Display Average Rating */}
+                        <div className={style.avgRating}>
+                            <span><strong>🍩 {avgStats.average} / 5</strong></span>
+                            <small> ({avgStats.count} votes)</small>
                         </div>
-                    )}
-                    <h1>{character?.characterData?.name}</h1>
+                    </header>
 
-                    {/* Display Average Rating */}
-                    <div className={style.avgRating}>
-                        <span><strong>🍩 {avgStats.average} / 5</strong></span>
-                        <small> ({avgStats.count} votes)</small>
-                    </div>
-                </header>
-
-                {/* Anagraphic data section */}
-                <section className={style.section}>
-                    <h2>General information</h2>
-                    <ul className={style.dataList}>
-                        <li><strong>Age:</strong> {character?.characterData?.age}</li>
-                        <li><strong>Gender:</strong> {character?.characterData?.gender}</li>
-                        <li><strong>Status:</strong> {character?.characterData?.status}</li>
-                        <li><strong>Occupation:</strong> {character?.characterData?.occupation}</li>
-                    </ul>
-                </section>
-
-                {/* Description section */}
-                <section className={style.section}>
-                    <h2>Description</h2>
-                    <p>{character?.characterData?.description}</p>
-                </section>
-
-                {/* First appearances */}
-                <section className={style.section}>
-                    <h2>First appearance</h2>
-
-                    {/* conditional rendering with notation: (condition && <element to render>) */}
-                    {character?.characterData?.first_appearance_ep && ( /* pseudocode: IF (first_appearance_ep.EXISTS == TRUE && <element to render>) */
-                        <div className={style.appearanceBox}>
-                            <h3>First TV episode</h3>
-                            <p><strong>Date: </strong>{character.characterData.first_appearance_ep.airdate}</p>
-                            <p><strong>Info: </strong>{character.characterData.first_appearance_ep.description}</p>
-                        </div>
-                    )}
-
-                    {/* same type of conditional rendering in case character was introduced in a short (sh) rather than an episode (ep) */}
-                    {character?.characterData?.first_appearance_sh && (
-                        <div className={style.appearanceBox}>
-                            <h3>First short</h3>
-                            <p><strong>Date: </strong>{character.characterData.first_appearance_sh.airdate}</p>
-                            <p><strong>Info: </strong>{character.characterData.first_appearance_sh.description}</p>
-                        </div>
-                    )}
-                </section>
-
-                {/* Famous lines/quotes */}
-                {character?.characterData?.phrases && character.characterData.phrases.length > 0 && ( /* returned data could be an empty array [] */
+                    {/* Anagraphic data section */}
                     <section className={style.section}>
-                        <h2>Famous lines</h2>
-                        <ul className={style.quotesList}>
-                            {/* map the array to a list of <li> items */}
-                            {character.characterData.phrases.map((phrase, index) => (
-                                <li key={index}>"{phrase}"</li>
-                            ))}
+                        <h2>General information</h2>
+                        <ul className={style.dataList}>
+                            <li><strong>Age:</strong> Loading...</li>
+                            <li><strong>Gender:</strong> Loading...</li>
+                            <li><strong>Status:</strong> Loading...</li>
+                            <li><strong>Occupation:</strong> Loading...</li>
                         </ul>
                     </section>
-                )}
 
-                {/* --- DONUT RATING SYSTEM --- */}
-                {isAuthenticated && (
-                <section className={style.ratingSection}>
-                    <h2>Rate this character</h2>
-                    <div className={style.donutContainer}>
-                        {[1, 2, 3, 4, 5].map((num) => (
-                            <span
-                                key={num}
-                                className={`${style.donut} ${userDonuts >= num ? style.activeDonut : ''}`}
-                                onClick={() => handleRating(num)}
-                                style={{ cursor: 'pointer', fontSize: '2rem', filter: userDonuts >= num ? 'none' : 'grayscale(100%) brightness(1.5)' }}
-                            >
-                                🍩
-                            </span>
-                        ))}
-                    </div>
-                    {userDonuts > 0 && <p className={style.ratingFeedback}>You gave {userDonuts} donuts!</p>}
+                    {/* Description section */}
+                    <section className={style.section}>
+                        <h2>Description</h2>
+                        <p>Loading...</p>
+                    </section>
+
+                    {/* when switching character, no placeholder is displayed for first appearances or citations */}
+                    {/* they are unnecessary as when the character is switched the page is scrolled back to top */}
+
                 </section>
-                )}
-            </section>
-        </React.Fragment>
-    )
+            </React.Fragment>
+        )
+    } else {
+
+        // character loaded return
+        return (
+            <React.Fragment>
+                {/* Character's card */}
+                <section className={style.card}>
+
+                    {/* Section heading + image */}
+                    <header className={style.header}>
+                        {character?.characterImageURL && (
+                            <div className={style.imageContainer}>
+                                <img
+                                    src={character.characterImageURL}
+                                    alt="{character?.characterData?.name}"
+                                    className={style.characterImg}
+                                    loading="eager"
+                                />
+                            </div>
+                        )}
+                        <h1>{character?.characterData?.name}</h1>
+
+                        {/* Display Average Rating */}
+                        <div className={style.avgRating}>
+                            <span><strong>🍩 {avgStats.average} / 5</strong></span>
+                            <small> ({avgStats.count} votes)</small>
+                        </div>
+                    </header>
+
+                    {/* Anagraphic data section */}
+                    <section className={style.section}>
+                        <h2>General information</h2>
+                        <ul className={style.dataList}>
+                            <li><strong>Age:</strong> {character?.characterData?.age}</li>
+                            <li><strong>Gender:</strong> {character?.characterData?.gender}</li>
+                            <li><strong>Status:</strong> {character?.characterData?.status}</li>
+                            <li><strong>Occupation:</strong> {character?.characterData?.occupation}</li>
+                        </ul>
+                    </section>
+
+                    {/* Description section */}
+                    <section className={style.section}>
+                        <h2>Description</h2>
+                        <p>{character?.characterData?.description}</p>
+                    </section>
+
+                    {/* First appearances */}
+                    <section className={style.section}>
+                        <h2>First appearance</h2>
+
+                        {/* conditional rendering with notation: (condition && <element to render>) */}
+                        {character?.characterData?.first_appearance_ep && ( /* pseudocode: IF (first_appearance_ep.EXISTS == TRUE && <element to render>) */
+                            <div className={style.appearanceBox}>
+                                <h3>First TV episode</h3>
+                                <p><strong>Date: </strong>{character.characterData.first_appearance_ep.airdate}</p>
+                                <p><strong>Info: </strong>{character.characterData.first_appearance_ep.description}</p>
+                            </div>
+                        )}
+
+                        {/* same type of conditional rendering in case character was introduced in a short (sh) rather than an episode (ep) */}
+                        {character?.characterData?.first_appearance_sh && (
+                            <div className={style.appearanceBox}>
+                                <h3>First short</h3>
+                                <p><strong>Date: </strong>{character.characterData.first_appearance_sh.airdate}</p>
+                                <p><strong>Info: </strong>{character.characterData.first_appearance_sh.description}</p>
+                            </div>
+                        )}
+                    </section>
+
+                    {/* Famous lines/quotes */}
+                    {character?.characterData?.phrases && character.characterData.phrases.length > 0 && ( /* returned data could be an empty array [] */
+                        <section className={style.section}>
+                            <h2>Famous lines</h2>
+                            <ul className={style.quotesList}>
+                                {/* map the array to a list of <li> items */}
+                                {character.characterData.phrases.map((phrase, index) => (
+                                    <li key={index}>"{phrase}"</li>
+                                ))}
+                            </ul>
+                        </section>
+                    )}
+
+                    {/* --- DONUT RATING SYSTEM --- */}
+                    {isAuthenticated && (
+                        <section className={style.ratingSection}>
+                            <h2>Rate this character</h2>
+                            <div className={style.donutContainer}>
+                                {[1, 2, 3, 4, 5].map((num) => (
+                                    <span
+                                        key={num}
+                                        className={`${style.donut} ${userDonuts >= num ? style.activeDonut : ''}`}
+                                        onClick={() => handleRating(num)}
+                                        style={{
+                                            cursor: 'pointer',
+                                            fontSize: '2rem',
+                                            filter: userDonuts >= num ? 'none' : 'grayscale(100%) brightness(1.5)'
+                                        }}
+                                    >
+                                    🍩
+                                </span>
+                                ))}
+                            </div>
+                            {userDonuts > 0 && <p className={style.ratingFeedback}>You gave {userDonuts} donuts!</p>}
+                        </section>
+                    )}
+                </section>
+            </React.Fragment>
+        )
+    }
 
 }
 
