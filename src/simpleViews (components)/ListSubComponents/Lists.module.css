@@ -92,19 +92,38 @@
 
 /* Responsive */
 @media (max-width: 600px) {
-    .title { font-size: 2.5rem; -webkit-text-stroke: 1.5px var(--black); }
+
+    .title {
+        font-size: 2.5rem;
+        -webkit-text-stroke: 1.5px var(--black);
+    }
 
     .row {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.5rem 1rem;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        padding: 1rem 0.8rem;
     }
 
     .avatar {
-        margin: 0 0 15px 0;
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
+        margin: 0 1rem 0 0;
+        border-width: 2px;
     }
 
-    .name { font-size: 1.5rem; }
+    .info {
+        min-width: 0;
+    }
+
+    .name {
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+    }
+
+    .details {
+        font-size: 0.95rem;
+        line-height: 1.3;
+    }
+
 }
