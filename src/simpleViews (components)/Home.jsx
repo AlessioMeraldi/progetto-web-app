@@ -34,15 +34,16 @@ export default function Home() {
 
             // Controllo compleanni
             const allChars = await getAllCharacters();
-            /*
+
             const today = new Date();
             const todayDay = String(today.getDate()).padStart(2, "0");
             const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
-            */
 
+            /*
             // PROVA COMPLEANNO PERSONAGGIO
             const todayDay = "25";
             const todayMonth = "02";
+            */
 
             const birthday = allChars.find((char) => {
                 if (!char.birthdate) return false;
@@ -81,7 +82,10 @@ export default function Home() {
 
                 <div className={gridStyles.grid}>
                     {characters.map((char) => (
-                        <NavLink key={char.id} to={`/character/${char.id}`} className={gridStyles.card}>
+                        <NavLink key={char.id} to={`/character/${char.id}`}
+                                 className={gridStyles.card}
+                                 style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
                             <div>
                                 <img
                                     src={`https://cdn.thesimpsonsapi.com/500/character/${char.id}.webp`}
@@ -103,32 +107,59 @@ export default function Home() {
 
                 {/* Ctas */}
                 <div className={styles.buttonsHome}>
-
                     <NavLink className={gridStyles.ctaCharacters} to="/characters"> View all the characters </NavLink>
                     <NavLink className={gridStyles.ctaLocations} to="/locations"> View all the locations </NavLink>
-
                 </div>
-
             </section>
 
-            {/* SEZIONE COMPLEANNO - Layout "Featured" */}
-            {birthdayCharacter && (
-                <section className={styles.birthdayHighlight}>
-                    <div className={styles.birthdayCard}>
-                        <div className={styles.birthdayImage}>
-                            <img
-                                src={`https://cdn.thesimpsonsapi.com/500/character/${birthdayCharacter.id}.webp`}
-                                alt={birthdayCharacter.name}
-                            />
-                        </div>
-                        <div className={styles.birthdayInfo}>
-                            <h2>Oggi è il compleanno di <span>{birthdayCharacter.name}</span>!</h2>
-                            <p>Festeggia con il cittadino più festeggiato di oggi a Springfield.</p>
-                            <button className={gridStyles.ctaCharacters}>Vedi dettagli</button>
-                        </div>
-                    </div>
-                </section>
-            )}
+            {/* BIRTHDAY SECTION */}
+            <section className={styles.birthdayHighlight}>
+                <div className={styles.birthdayCard}>
+
+                    {birthdayCharacter ? (
+                        <>
+                            <div className={styles.birthdayImage}>
+                                <img
+                                    src={`https://cdn.thesimpsonsapi.com/500/character/${birthdayCharacter.id}.webp`}
+                                    alt={birthdayCharacter.name}
+                                />
+                            </div>
+                            <div className={styles.birthdayInfo}>
+                                <h2>
+                                    Today is <span>{birthdayCharacter.name}</span>'s birthday!
+                                </h2>
+                                <p>Celebrate with today’s most celebrated citizen of Springfield.</p>
+                                <NavLink
+                                    to={`/character/${birthdayCharacter.id}`}
+                                    style={{ textDecoration: 'none', color: 'inherit' }}
+                                >
+                                    <button className={gridStyles.ctaCharacters}>
+                                        View details
+                                    </button>
+                                </NavLink>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className={styles.birthdayImage}>
+                                <img
+                                    src="/homer-gif.gif"
+                                    alt="No birthdays today"
+                                />
+                            </div>
+
+                            <div className={styles.birthdayInfo}>
+                                <h2>No birthdays in Springfield today 🎈</h2>
+                                <p>
+                                    Even the Simpsons need a day off sometimes… come back tomorrow!
+                                </p>
+                            </div>
+                        </>
+                    )}
+
+                </div>
+            </section>
+
 
             {/* SEZIONE INVITO LOGIN: toDo: update style */}
             {!isAuthenticated && (<section className={styles.authStrip}>
