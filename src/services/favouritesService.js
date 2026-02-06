@@ -1,4 +1,3 @@
-
 // Supabase imports
 import { supabase } from "./supabaseClient.js";
 

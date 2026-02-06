@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React from "react";
 
-const LoginButton = ({ className }) => { // Riceve la classe dal padre
+// Login button component using Auth0 redirect
+const LoginButton = ({ className }) => { // Receives CSS class from parent
     const { loginWithRedirect } = useAuth0();
 
     return (

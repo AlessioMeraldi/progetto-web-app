@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 // Auth0 imports
 import { useAuth0 } from '@auth0/auth0-react';
 
-// Supabase imports
+// Supabase service imports
 import { getUserFavourites } from '../../services/favouritesService';
 
 // Style imports
@@ -23,16 +23,16 @@ import CharactersViewModel from "../../viewModels/CharactersViewModel.js";
 // Begin view
 const Profile = () => {
 
-    // State
+    // State management
 
     // Auth0 state
     const { user, isAuthenticated, isLoading } = useAuth0();
 
-    // Supabase state
+    // Supabase favourites state
     const [favourites, setFavourites] = useState([]);
     const [loadingFavs, setLoadingFavs] = useState(true);
 
-    // ViewModel data
+    // ViewModel data and methods
     const {
         allCharacters,
         getAllCharacters
@@ -44,9 +44,10 @@ const Profile = () => {
     }, []);
 
 
-    // Load user favourites characters
+    // Load user's favourite characters from Supabase
     useEffect(() => {
 
+        // If the user is not authenticated or email is missing, stop loading and skip the request
         if (!isAuthenticated || !user?.email) {
             setLoadingFavs(false);
             return;
@@ -54,18 +55,15 @@ const Profile = () => {
 
         async function loadFavourites() {
             try {
+                // Fetch favourite character IDs for the logged-in user
                 const favsData = await getUserFavourites(user.email);
                 setFavourites(favsData);
             } catch (error) {
                 console.error("Errore caricamento preferiti:", error);
             } finally {
+                // Stop loading once the request is complete
                 setLoadingFavs(false);
             }
-        }
-
-        //debug
-        if (isAuthenticated) {
-            console.log("Dati utente Auth0:", user);
         }
 
         loadFavourites();
@@ -78,6 +76,7 @@ const Profile = () => {
     }
 
     return (
+        // Render the profile page only if the user is authenticated
         isAuthenticated && (
             <div className={styles.profilePage}>
                 <div className={styles.profileContainer}>
@@ -141,7 +140,7 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    {/* SEZIONE PREFERITI */}
+                    {/* FAVOURITES SECTION */}
                     <section className={styles.favoritesSection}>
                         <h2 className={styles.sectionTitle}>{user.name}'s favourites characters!</h2>
 

@@ -7,9 +7,10 @@ import LogoutButton from "../ProfileComponents/LogoutButton.jsx";
 
 function Header() {
 
-    const {isAuthenticated} = useAuth0(); // Stato di autenticazione
+    // Auth0 authentication state
+    const {isAuthenticated} = useAuth0();
 
-    // Funzione helper per non ripetere il codice su ogni link
+    // Helper function for NavLink styling applies active class when the link is active
     const linkStyle = ({isActive}) => (isActive ? styles.active : styles.navbarLink);
 
     return (
@@ -21,9 +22,12 @@ function Header() {
                     </NavLink>
                 </div>
 
+                {/* Navigation links */}
                 <div className={styles.navLinks}>
                     <NavLink title="Home" to="/" className={linkStyle}>Home</NavLink>
                     <NavLink title="Characters" to="/characters" className={linkStyle}>Characters</NavLink>
+
+                    {/* Locations link: shows open lock if authenticated */}
                     {isAuthenticated && (
                         <NavLink title="Locations" to="/locations" className={({ isActive }) =>
                             `${linkStyle({ isActive })} ${styles.linkWithIcon}`}>
@@ -43,6 +47,8 @@ function Header() {
                             </svg>
                         </NavLink>)
                     }
+
+                    {/* Locations link: shows closed lock if not authenticated */}
                     {!isAuthenticated && (
                         <NavLink title="Locations" to="/access_forbidden" className={({ isActive }) =>
                             `${linkStyle({ isActive })} ${styles.linkWithIcon}`}>
@@ -62,6 +68,8 @@ function Header() {
                         </NavLink>)
                     }
                     <NavLink title="Top 5" to="/top5" className={linkStyle}>Top 5</NavLink>
+
+                    {/* Profile link only for authenticated users */}
                     {isAuthenticated && (
                         <NavLink title="Profile" to="/profile" className={linkStyle}>Profile</NavLink>)
                     }

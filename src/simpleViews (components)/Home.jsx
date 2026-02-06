@@ -27,12 +27,13 @@ export default function Home() {
 
     useEffect(() => {
         async function loadCharacters() {
+            // Load a small batch of characters for the homepage preview
             const data = await getCharacterBatch(1);
             if (data && data.results) {
                 setCharacters(data.results.slice(0, 6));
             }
 
-            // Controllo compleanni
+            // Birthday check logic
             const allChars = await getAllCharacters();
 
             const today = new Date();
@@ -40,7 +41,7 @@ export default function Home() {
             const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
 
             /*
-            // PROVA COMPLEANNO PERSONAGGIO
+            // BIRTHDAY TEST (manual override)
             const todayDay = "25";
             const todayMonth = "02";
             */
@@ -61,7 +62,7 @@ export default function Home() {
 
     return (
         <div className={gridStyles.componentWithGrid}>
-            {/* HERO */}
+            {/* HERO SECTION */}
             <section className={styles.hero}>
                 <div className={styles.heroContent}>
                     <div>
@@ -75,10 +76,9 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* PERSONAGGI */}
+            {/* CHARACTERS PREVIEW */}
             <section className={gridStyles.charactersSection}>
                 <h2>The simpson family</h2>
-                {/* <h2>Personaggi</h2>*/}
 
                 <div className={gridStyles.grid}>
                     {characters.map((char) => (
@@ -105,7 +105,7 @@ export default function Home() {
                     You can find the full list on our dedicated page.
                 </p>
 
-                {/* Ctas */}
+                {/* CALL TO ACTIONS */}
                 <div className={styles.buttonsHome}>
                     <NavLink className={gridStyles.ctaCharacters} to="/characters"> View all the characters </NavLink>
                     <NavLink className={gridStyles.ctaLocations} to="/locations"> View all the locations </NavLink>
@@ -160,9 +160,17 @@ export default function Home() {
                 </div>
             </section>
 
-
-            {/* SEZIONE INVITO LOGIN: toDo: update style */}
-            {!isAuthenticated && (<section className={styles.authStrip}>
+            {/* WELCOME SECTION (authenticated users) and LOGIN INVITATION SECTION (unauthenticated users) */}
+            {isAuthenticated ? (<section className={styles.authStrip}>
+                <h2>Welcome to Springfield, {user.name}!</h2>
+                <p className={gridStyles.lastParagraphHome}> Visit your profile to check your favourite saved characters and places, having logged in also
+                    grants you access to visualizing the locations. </p>
+                <div className={styles.buttonsHome}>
+                    <NavLink className={gridStyles.ctaCharacters} to="/profile"> go to your profile </NavLink>
+                </div>
+            </section>
+                ) : (
+                <section className={styles.authStrip}>
                 <h2>Want to become a citizen of Springfield?</h2>
                 <p>
                     Some content is reserved for registered citizens. <br/>
@@ -173,18 +181,8 @@ export default function Home() {
                 <button className={gridStyles.ctaCharacters} onClick={() => loginWithRedirect()}>
                     Log in
                 </button>
-            </section>)
-            }
-
-            {isAuthenticated && (<section className={styles.authStrip}>
-                <h2>Welcome to Springfield, {user.name}!</h2>
-                <p className={gridStyles.lastParagraphHome}> Visit your profile to check your favourite saved characters and places, having logged in also
-                    grants you access to visualizing the locations. </p>
-                <div className={styles.buttonsHome}>
-                    <NavLink className={gridStyles.ctaCharacters} to="/profile"> go to your profile </NavLink>
-                </div>
-            </section>)
-            }
+            </section>
+            )}
 
         </div>
     );
