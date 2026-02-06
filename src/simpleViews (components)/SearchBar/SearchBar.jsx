@@ -69,6 +69,33 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
         setShowSuggestions(false);
     }
 
+    /**
+     * handleKeyDown
+     * @param event = the event passed from the input field
+     * Handles keyboard navigation (Enter to submit, Tab to autocomplete).
+     */
+    function handleKeyDown (event) {
+
+        // if enter is pressed, search for the specified character
+        if (event.key === "Enter") {
+            handleSearchSubmit()
+        }
+
+        // if tab is pressed, autocomplete to first match and search for specified character
+        if (event.key === "Tab") {
+
+            if (showSuggestions && suggestions.length > 0) {
+
+                event.preventDefault(); // "Tab" would send it to the next HTML element by default
+                const firstMatch = suggestions[0].name;
+                handleSuggestionClick(firstMatch);
+
+            }
+
+        }
+
+    }
+
     // Return
 
     return (
@@ -78,17 +105,15 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
             {/* input field & search button section */}
             <div>
 
-                <input
-                    type="text"
-                    placeholder="Search character here"
-                    value = {searchedElement} // set input's value to be the one of the state
-                    onChange = {handleInputChange}
-                    onKeyDown = {
-                        (e) =>
-                            e.key === "Enter" && handleSearchSubmit()
-                    }
-                    className={styles.searchInput}
-                />
+                    <input
+                        type="text"
+                        placeholder="Search character here"
+                        value = {searchedElement} // set input's value to be the one of the state
+                        onChange = {handleInputChange}
+                        onKeyDown = {handleKeyDown} // = to: onKeyDown={(event) => handleKeyDown(event)}
+                        className = {styles.searchInput}
+                    />
+
                 <button
                     className = {globalStyles.cta}
                     onClick = {handleSearchSubmit}

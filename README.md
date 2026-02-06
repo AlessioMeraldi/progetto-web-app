@@ -22,9 +22,9 @@ src/
 │   ├── Images/
 │   └── GlobalStyle.css         # Global CSS variables and resets
 │
-├── compoundViews (views)/      # MVVM Views: High-level wrappers and page layouts
-│   ├── MultipleElementsWrappers/
-│   └── SingleElementWrappers/
+├── compoundViews (views)/          # MVVM Views: High-level wrappers and page layouts
+│   ├── MultipleElementsWrappers/   # grid / list of elements wrapper (characters and locations)
+│   └── SingleElementWrappers/      # wrappers for detailed visualization of a single element (character or location)
 │
 ├── models/                     # MVVM Models: functions to fetch data from the API
 │
@@ -137,7 +137,7 @@ usually [http://localhost:5173](https://www.google.com/search?q=http://localhost
 
 This application avoids putting logic inside UI components.
 
-* **Model:** Responsible for the raw data. It handles the specific calls to the Simpsons API and Supabase tables.
+* **Model:** Responsible for the raw data. It handles the specific calls to the Simpsons API.
   <br><br>
 * **View (React Components):** Strictly presentational. These components receive data via props or hooks and trigger
   user intents. Some have a state for presentation purposes (such as displaying a grid or a list).
