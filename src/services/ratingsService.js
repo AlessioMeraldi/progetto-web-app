@@ -49,18 +49,28 @@ export async function getUserRating(characterId, userEmail) {
  * Saves or updates a user's rating (upsert logic)
  */
 export async function saveRating(characterId, userEmail, donuts) {
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from("character_ratings")
-        .upsert({
-            character_id: characterId,
-            user_email: userEmail,
-            donuts: donuts
-        }, { onConflict: 'character_id, user_email' });
+        .upsert(
+            {
+                character_id: characterId,
+                user_email: userEmail,
+                donuts: donuts
+            },
+            {
+                onConflict: 'character_id, user_email',
+                returning: 'representation'
+            }
+        )
+        .select()
+        .single();
 
     if (error) {
         console.error("Error saving rating:", error);
         throw error;
     }
+
+    return data;
 }
 
 /**

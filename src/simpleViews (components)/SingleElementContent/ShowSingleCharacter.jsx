@@ -53,15 +53,24 @@ function ShowSingleCharacter({charId, imgSize}) {
         }
     };
 
-    // Handle donut click
     const handleRating = async (ratingValue) => {
+        // it doesn't change anything if the rating is the same
+        if (ratingValue === userDonuts) return;
 
         try {
-            await saveRating(parseInt(charId), user.email, ratingValue);
-            setUserDonuts(ratingValue);
-            // refresh stats to show updated average
+            const updatedRating = await saveRating(
+                parseInt(charId),
+                user.email,
+                ratingValue
+            );
+
+            // update the user rating
+            setUserDonuts(updatedRating.donuts);
+
+            // load stats (media + count)
             const stats = await getCharacterRatingStats(parseInt(charId));
             setAvgStats(stats);
+
         } catch (error) {
             console.error("Error updating rating:", error);
         }
