@@ -72,3 +72,42 @@
     text-decoration: underline;
     font-weight: 600;
 }
+
+/* ===== MOBILE FOOTER ======== */
+
+@media (max-width: 600px) {
+
+    .footer {
+        padding: 2rem 0 1.2rem;
+    }
+
+    .container {
+        padding: 0 1.2rem;
+        gap: 1.2rem;
+    }
+
+    .footerLogo {
+        height: 55px;
+    }
+
+    .courseLink {
+        font-size: 1.05rem;
+        text-align: center;
+    }
+
+    .navList {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .navLink {
+        font-size: 0.95rem;
+    }
+
+    .apiCredit {
+        font-size: 0.7rem;
+        text-align: center;
+        margin-top: 0.8rem;
+    }
+}

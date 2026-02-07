@@ -141,3 +141,125 @@
     margin-left: 3px;
     margin-right: 3px;
 }
+
+/* ===== RESPONSIVE ======= */
+
+/* -------- TABLET -------- */
+@media (max-width: 992px) {
+
+    /* HERO */
+    .hero {
+        height: auto;
+        padding: 4rem 1.5rem;
+    }
+
+    .heroContent {
+        padding: 2rem;
+        max-width: 520px;
+    }
+
+    .logo {
+        height: 150px;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    /* BIRTHDAY */
+    .birthdayCard {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+        transform: rotate(0deg);
+    }
+
+    .birthdayImage img {
+        height: 240px;
+    }
+
+    .birthdayInfo h2 {
+        font-size: 2.1rem;
+    }
+
+    /* BUTTONS */
+    .buttonsHome {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+/* -------- MOBILE -------- */
+@media (max-width: 600px) {
+
+    /* HERO */
+    .hero {
+        padding: 3rem 1rem;
+        border-bottom-width: 4px;
+    }
+
+    .heroContent {
+        padding: 1.5rem;
+    }
+
+    .logo {
+        height: 120px;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .cta {
+        font-size: 0.95rem;
+        padding: 0.9rem 1.8rem;
+    }
+
+    /* BIRTHDAY */
+    .birthdayHighlight {
+        padding: 2.5rem 1rem;
+    }
+
+    .birthdayCard {
+        padding: 1.5rem;
+        box-shadow: 8px 8px 0px var(--blue-primary);
+    }
+
+    .birthdayImage {
+        padding: 0.8rem;
+    }
+
+    .birthdayImage img {
+        height: 200px;
+    }
+
+    .birthdayInfo h2 {
+        font-size: 1.7rem;
+        line-height: 1.2;
+    }
+
+    .birthdayInfo p {
+        font-size: 0.95rem;
+    }
+
+    /* AUTH STRIP */
+    .authStrip {
+        padding: 2rem 1rem 1rem;
+    }
+
+    .authStrip h2 {
+        font-size: 1.6rem;
+    }
+
+    .authStrip p {
+        font-size: 0.95rem;
+    }
+
+    /* BUTTONS */
+    .buttonsHome {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem 0;
+    }
+}

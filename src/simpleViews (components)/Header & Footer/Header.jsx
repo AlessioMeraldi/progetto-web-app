@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import styles from "./Header.module.css";
 import {useAuth0} from "@auth0/auth0-react";
@@ -9,6 +9,7 @@ function Header() {
 
     // Auth0 authentication state
     const {isAuthenticated} = useAuth0();
+    const [menuOpen, setMenuOpen] = useState(false);
 
     // Helper function for NavLink styling applies active class when the link is active
     const linkStyle = ({isActive}) => (isActive ? styles.active : styles.navbarLink);
@@ -17,14 +18,24 @@ function Header() {
         <nav className={styles.navbar}>
             <div className={styles.navbarContainer}>
                 <div className={styles.logoSection}>
-                    <NavLink to="/">
+                    <NavLink to="/" onClick={() => setMenuOpen(false)}>
                         <img src="/logo-the-simpson.svg" alt="Logo" className={styles.logoImg}/>
                     </NavLink>
+                    {/* HAMBURGER */}
+                    <button
+                        className={styles.hamburger}
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
                 </div>
 
                 {/* Navigation links */}
-                <div className={styles.navLinks}>
-                    <NavLink title="Home" to="/" className={linkStyle}>Home</NavLink>
+                <div className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
+                <NavLink title="Home" to="/" className={linkStyle}>Home</NavLink>
                     <NavLink title="Characters" to="/characters" className={linkStyle}>Characters</NavLink>
 
                     {/* Locations link: shows open lock if authenticated */}
