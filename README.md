@@ -147,11 +147,96 @@ This application avoids putting logic inside UI components.
 
 ### Authentication Flow (Auth0)
 
-*[TODO: Explain how Auth0 is implemented]*
+This application uses Auth0 to handle user authentication in a secure and scalable way, 
+without managing credentials directly inside the frontend.
+
+Auth0 is configured as a Single Page Application (SPA) and integrated into React using the official 
+Auth0 React SDK.
+
+Authentication Providers
+Users can authenticate using:
+
+* **Standard Auth0 login (email + password)**
+
+Social login providers:
+
+* **Google**
+* **Facebook**
+* **Twitter (X)**
+
+All providers are managed directly from the Auth0 dashboard and exposed to the 
+application through a single, unified login flow.
+
+**Login & Logout**
+
+* The login process is triggered via Auth0-provided methods and redirects the user to the Auth0 Universal Login page.
+
+* After successful authentication, Auth0 redirects the user back to the application with a valid session.
+
+* Logout clears the Auth0 session and returns the user to the public area of the SPA.
+
+**User Session & State**
+
+* Authentication state (logged / not logged) is managed entirely by Auth0.
+
+* The application consumes Auth0’s hooks to:
+   - Check whether the user is authenticated
+   - Access basic user profile information (such as name, email, and avatar)
+
+* No sensitive credentials are ever stored locally.
+
+**Protected Routes**
+
+Some sections of the application (e.g. Locations visualization and user-specific features) 
+are protected and require authentication.
+
+* If an unauthenticated user attempts to access a protected route, they are redirected to a dedicated error / access-denied page.
+* Once logged in, the user can freely navigate protected content without re-authenticating.
 
 ### Data Persistence (Supabase)
 
-*[TODO: Explain what data is stored and how it's used]*
+This application uses **Supabase** to persist user-specific data and manage ratings for characters. 
+The database schema is structured to allow tracking of favorites, individual ratings, and 
+aggregate top-rated characters.
+
+#### Tables
+
+1. **favourites_characters**
+    * Stores the characters that a user has marked as favorite.
+    * Columns:
+        - `id`: Primary key for the table.
+        - `created_at`: Timestamp indicating when the favorite was added.
+        - `user_email`: Email of the user who favorited the character.
+        - `character_id`: ID of the character that was favorited.
+
+2. **character_ratings**
+    * Stores each vote a user gives to a character in terms of donuts.
+    * Columns:
+        - `id`: Primary key for the table.
+        - `created_at`: Timestamp of when the rating was submitted.
+        - `character_id`: ID of the character being rated.
+        - `user_email`: Email of the user who rated the character.
+        - `donuts`: Numeric rating (number of donuts) the user gave.
+
+#### Views
+
+1. **top_rated_characters**
+    * A view that aggregates data from `character_ratings` to calculate:
+        - `avg_donuts`: The average donut rating for each character.
+        - `total_votes`: Total number of votes each character received.
+    * This is used to render the Top 5 leaderboard in the SPA without fetching or 
+   processing all individual ratings on the client side.
+
+#### Usage
+
+* When a logged-in user favorites a character, a new row is inserted into `favourites_characters`.
+* When a user rates a character, the rating is recorded in `character_ratings`.
+* The `top_rated_characters` view is queried to display the leaderboard efficiently.
+* There is always authentication checks, ensuring that only the current user's favorites or votes are modified.
+
+This approach allows the application to provide **real-time updates** to the leaderboard and maintain a 
+persistent record of user interactions while keeping the client-side logic minimal.
+
 
 ### Models
 
