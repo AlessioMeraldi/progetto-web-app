@@ -64,23 +64,6 @@ export async function fetchCharactersBatch(charactersBatchId) {
 }
 
 /**
- * fetchAllCharacters (old sequential version)
- * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
- */
-/*
-export async function fetchAllCharacters() {
-
-    let allCharacters = [];
-
-    for (let i=1; i<=60; i++){
-        allCharacters.push (await fetchCharactersBatch(i));
-    }
-
-    return (allCharacters);
-}
-*/
-
-/**
  * fetchAllCharacters (new parallel version)
  * Fetches all the 60 batches of The Simpson's characters, works by invoking fetchCharactersBatch() multiple times
  */
@@ -89,7 +72,7 @@ export async function fetchAllCharacters() {
     const promises = [];
 
     // parallel requests
-    for (let i=1; i<=30; i++){ // toDo: see if we can fetch the rest keeping acceptable performance (might have to split in 2 modules if react-window / react-virtuoso prove too complicated)
+    for (let i=1; i<=60; i++){
         promises.push(fetchCharactersBatch(i));
     }
 

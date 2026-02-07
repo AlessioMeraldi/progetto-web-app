@@ -26,6 +26,10 @@ function CharacterViewModel() {
         name: ""        // "" = *, "user-input-name"
     });
 
+    // Pagination state
+    const [pageNumber, setPageNumber] = useState(0);
+    const [displayedCharacters, setDisplayedCharacters] = useState([]);
+
     // Functions that interact with the model
 
     /**
@@ -200,7 +204,6 @@ function CharacterViewModel() {
     }
 
     // Effect to actually filter
-
     /**
      * This effect triggers whenever the state of 'allCharacters' or 'filters' changes, thus:
      * --> It will trigger upon fetching all the characters the first time
@@ -217,8 +220,32 @@ function CharacterViewModel() {
         charactersToShow = filterByName(charactersToShow, filters.name);
 
         setFilteredCharacters(charactersToShow);
+        setPageNumber(0); // filters typically make all characters fit in the first page (page 0)
 
     }, [allCharacters, filters]);
+
+    // Effect to handle pagination changes
+    /**
+     * This effect triggers whenever the state of 'pageNumber' or 'filteredCharacters' changes, thus:
+     * --> It will trigger upon fetching all the characters the first time (because it is set by previous useEffect)
+     * --> It will trigger whenever the user changes the page to show
+     * --> It will trigger whenever the user changes the filters
+     * This effect will set the "displayedCharacters" state to be either an array of the first 600 characters
+     * (if pageNumber is 0) or the last (almost) 600 characters (if page isNumber is 1) of the already filtered characters.
+     * Note that it works on the already filtered characters, meaning it could be empty if filters are too strict and
+     * page is set to 1 - this is why the previous effect resets the page number to be 0 by default.
+     */
+    useEffect ( () => {
+
+        if (!filteredCharacters) return;
+
+        if (pageNumber === 0) {
+            setDisplayedCharacters(filteredCharacters.slice(0,600));
+        } else  {
+            setDisplayedCharacters(filteredCharacters.slice(600, filteredCharacters.length));
+        }
+
+    }, [pageNumber, filteredCharacters]);
 
     // Return
 
@@ -228,10 +255,14 @@ function CharacterViewModel() {
         allCharacters,
         filteredCharacters,
         isLoading,
+        pageNumber,
+        displayedCharacters,
         getSingleCharacter,
         getCharacterBatch,
         getAllCharacters,
         updateFilter,
+        setPageNumber,
+        setDisplayedCharacters,
     }
 
 }

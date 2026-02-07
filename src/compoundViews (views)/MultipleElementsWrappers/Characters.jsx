@@ -37,8 +37,11 @@ function Characters() {
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
         filteredCharacters,
+        displayedCharacters,
+        pageNumber,
         getAllCharacters,
         updateFilter,
+        setPageNumber,
     } = CharactersViewModel();
 
     // tell the ViewModel to update its state regarding [allCharacters]
@@ -160,24 +163,54 @@ function Characters() {
                 <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredCharacters} />
             </section>
 
-            {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}
+            {/* Main content */}
             {!favouritesLoaded ? (
                 <p>Loading favourites...</p>
             ) : (
+                /* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */
                 visualizationType === "grid" ? (
                     <CharactersGrid
-                        allChars={filteredCharacters}
+                        allChars={displayedCharacters}
                         userFavourites={favourites}
                         setFavourites={setFavourites}
                     />
                 ) : (
                     <CharactersList
-                        allChars={filteredCharacters}
+                        allChars={displayedCharacters}
                         userFavourites={favourites}
                         setFavourites={setFavourites}
                     />
                 )
             )}
+
+            {/* switch between first-half and last-half of characters */}
+            <section className={styles.container}>
+
+                {/* Button 1 showcases the first 600 filtered characters (will be less if there aren't enough) */}
+                <button
+                    className={`${styles.cta} ${pageNumber === 0 ? styles.selected : ""}`}
+                    onClick={() => {
+                        setPageNumber(0);
+                        window.scrollTo(0, 0); // Scroll to top
+                    }}
+                    disabled={pageNumber === 0}
+                >
+                    ← Batches 1-30
+                </button>
+
+                {/* Button 2 showcases the last 600 filtered characters (will be less or empty if there aren't enough */}
+                <button
+                    className={`${styles.cta} ${pageNumber === 1 ? styles.selected : ""}`}
+                    onClick={() => {
+                        setPageNumber(1);
+                        window.scrollTo(0, 0); // Scroll to top
+                    }}
+                    disabled={pageNumber === 1}
+                >
+                    Batches 31-60 →
+                </button>
+
+            </section>
 
         </React.Fragment>
     )

@@ -64,23 +64,6 @@ export async function fetchLocationsBatch(locationsBatchId) {
 }
 
 /**
- * fetchAllLocations (old sequential version)
- * Fetches all the 24 batches of The Simpson's locations by invoking fetchLocationsBatch() multiple times
- */
-/*
-export async function fetchAllLocations() {
-
-    let allLocations = [];
-
-    for (let i=1; i<=24; i++){
-        allLocations.push( await fetchLocationsBatch(i));
-    }
-
-    return (allLocations);
-}
-*/
-
-/**
  * fetchAllLocations (new parallel version)
  * Fetches all the 24 batches of The Simpson's locations by invoking fetchLocationsBatch() multiple times
  */
