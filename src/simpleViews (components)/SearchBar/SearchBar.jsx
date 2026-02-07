@@ -102,6 +102,9 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
 
         <React.Fragment>
 
+            {/* notification that TAB autocomplete is available */}
+            <p className={styles.tabSuggestion}> TAB to autocomplete to first suggestion </p>
+
             {/* input field & search button section */}
             <div>
 

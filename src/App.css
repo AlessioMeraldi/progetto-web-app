@@ -7,11 +7,11 @@
 
     /* Palette: Blues */
     --blue-primary: #355C9B;
-    --blue-primary-alpha: rgba(53, 92, 155, 0.65); /* Blu scuro semitrasparente */
-    --blue-sky-alpha: rgba(165, 223, 249, 0.37);   /* Celeste cielo semitrasparente */
+    --blue-primary-alpha: rgba(53, 92, 155, 0.65); /* Semi-transparent dark blue */
+    --blue-sky-alpha: rgba(165, 223, 249, 0.37);   /* Semi-transparent light blue (sky blue) */
 
     /* Palette: Neutrals */
-    --black: #000000;
+    --black: #080703;
     --white: #ffffff;
     --gray-dark: #333333;
     --gray-light: #f9f9f9;

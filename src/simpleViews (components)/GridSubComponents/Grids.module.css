@@ -78,7 +78,7 @@
 .card img {
     height: 260px;
     /*width: auto;*/
-    width: 100%; /* changed compared to Yu's design */
+    width: 100%;
     object-fit: contain;
     border-radius: 28px;
     box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.65);
@@ -118,6 +118,7 @@
     text-transform: uppercase;
     transition: all 0.2s ease;
     color: var(--black);
+    text-align: center;
 }
 
 .ctaCharacters:hover, .ctaLocations:hover {

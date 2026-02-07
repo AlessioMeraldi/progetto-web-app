@@ -70,3 +70,9 @@
     border-radius: 2px;
 
 }
+
+/* style for the TAB autocomplete availability notification message */
+.tabSuggestion {
+    color: var(--gray-dark);
+    margin-bottom: 0;
+}
