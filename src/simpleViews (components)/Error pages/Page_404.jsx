@@ -29,7 +29,7 @@ function Page_404() {
                 />
 
                 <section className={styles.errorSection}>
-                    <NavLink className={styles.cta} to="/"> Go back to homepage </NavLink>
+                    <NavLink className={styles.cta} to="/home"> Go back to homepage </NavLink>
                 </section>
 
             </main>

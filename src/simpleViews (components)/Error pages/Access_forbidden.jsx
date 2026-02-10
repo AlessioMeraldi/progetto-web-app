@@ -56,7 +56,7 @@ function Access_forbidden() {
 
                 {/* Return to homepage */}
                 <section className={styles.errorSection}>
-                    <NavLink className={styles.cta} to="/">Return to the homepage</NavLink>
+                    <NavLink className={styles.cta} to="/home">Return to the homepage</NavLink>
                 </section>
 
             </main>

@@ -2,7 +2,7 @@
 import './App.css'
 
 // React imports
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {HashRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 
 // View imports
 import Header from "./simpleViews (components)/Header & Footer/Header.jsx";
@@ -22,7 +22,7 @@ import Top5 from "./simpleViews (components)/Top5/Top5.jsx";
 function App() {
 
     const footerLinks = [
-        {text: "Home", url: "/"},
+        {text: "Home", url: "/home"},
         {text: "Characters", url: "/characters"},
         {text: "Locations", url: "/locations"},
         {text: "Top 5", url: "/top5"}
@@ -32,14 +32,20 @@ function App() {
 
     return (
 
-        /* We had to specify the basename for the deployment on gh-pages */
-        <Router basename={import.meta.env.BASE_URL}>
+        <Router>
             <div className="app">
-                {/* L'Header deve stare dentro il Router per far funzionare i Link */}
+                {/* Header must stay inside the router for the links to work */}
                 <Header/>
                 <main>
                     <Routes>
-                        <Route path="/" element={<Home/>}/>
+
+                        {/* Redirect the root path to /home immediately - so it adds the .../#/... hashtag */}
+                        {/* The problem was that on the first access on GH Pages it wouldn't display /#/ */}
+                        <Route path="/" element={<Navigate replace to="/home" />} />
+
+                        {/* Explicit home component (introduced it to avoid the homepage being ...app/#/ (nothing) */}
+                        <Route path="/home" element={<Home />} />
+
                         <Route path="/characters" element={<Characters/>}/>
                         <Route path="/character/:idNumber" element={<SingleCharacter/>}/>
 
