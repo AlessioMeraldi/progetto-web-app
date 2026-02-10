@@ -308,6 +308,189 @@ buttons to scroll between locations*
 
 ### User profile
 
-*[TODO]*
+The application includes a **dedicated user profile section**, accessible only to authenticated users, which acts as a personal dashboard for each Springfield citizen.
+
+#### Profile access & authentication
+
+* The Profile page is **protected** and rendered only if the user is authenticated via **Auth0**.
+* Authentication state and user data are provided by the Auth0 React SDK.
+* If the user is not authenticated, the Profile route is not accessible.
+
+#### Springfield Identification Card
+
+Once authenticated, the user is presented with a stylized **Springfield Identification Card**, built using Auth0 user metadata.
+
+Displayed information includes:
+
+* Profile picture (provided by Auth0)
+* Full name
+* Nickname
+* Email address
+* Last access date (client-side)
+* Fictional residency information (Evergreen Terrace)
+* Citizenship status stamp
+
+All personal data displayed comes directly from the Auth0 user object and no sensitive information is stored manually in the application.
+
+#### Favourite characters
+
+The Profile page also displays the user’s **favourite characters**, persisted via **Supabase**.
+
+* When the profile loads, the application:
+    * Retrieves the authenticated user’s email from Auth0
+    * Queries Supabase to fetch the list of favourite character IDs associated with that email
+* Favourite characters are then rendered using the same reusable **CharactersGrid** component used elsewhere in the application.
+
+#### Empty state handling
+
+If the user has not saved any favourites yet:
+
+* A dedicated empty state is shown
+* The UI encourages the user to explore the Characters page
+* A call-to-action button redirects directly to the Characters view
+
+This improves UX while keeping the logic consistent across views.
+
+### Login & Logout components
+
+Authentication actions are handled through small, reusable UI components.
+
+#### Login
+
+* The **Login button** triggers Auth0’s `loginWithRedirect()` method.
+* Users are redirected to the Auth0 Universal Login page.
+* After successful authentication, the user is returned to the SPA with an active session.
+
+#### Logout
+
+* The **Logout button** is visible only when the user is authenticated.
+* Clicking it calls Auth0’s `logout()` method, clearing the session.
+* After logout, protected routes (Profile, Locations) are no longer accessible.
+
+### Header & Navigation
+
+The Header component represents the **main navigation system** of the application and plays a central role in both **user experience** and **access control**.
+
+It is fully responsive, authentication-aware, and dynamically adapts its layout and content based on screen size and user state.
+
+#### Structure and responsibilities
+
+The Header is composed of three main logical areas:
+
+* **Logo section**
+* **Navigation links**
+* **Authentication controls (Login / Logout)**
+
+The Simpson logo acts as a home shortcut and is always visible across all viewports.
+
+#### Authentication-aware navigation
+
+The Header integrates tightly with **Auth0** to conditionally render navigation elements:
+
+* When the user is **not authenticated**:
+    * A Login button is displayed
+    * The Locations section is visible but redirects to an access-forbidden page
+    * A closed lock icon visually indicates restricted access
+
+* When the user **is authenticated**:
+    * The Login button is replaced by a Logout button
+    * The Profile link becomes visible
+    * The Locations section becomes accessible and displays an open lock icon
+
+This approach provides both **functional** and **visual feedback** about user permissions without hiding application features.
+
+#### Responsive behaviour & hamburger menu
+
+The Header maintains a classic horizontal navigation on desktop screens, while switching to a **hamburger-based menu** on tablet and mobile devices.
+
+* From tablet breakpoint downward:
+    * Navigation links collapse into a vertical menu
+    * A hamburger button appears next to the logo
+    * Menu visibility is controlled via internal React state
+
+* Clicking the hamburger:
+    * Toggles the visibility of the navigation menu
+    * Allows users to access all routes comfortably on small screens
+
+* Clicking the logo or a navigation link:
+    * Automatically closes the menu, improving mobile UX
+
+This solution ensures usability consistency across desktop, tablet, and mobile devices.
+
+#### Routing and active state
+
+* Navigation links are implemented using `NavLink`
+* The active route is visually highlighted
+* Styles are shared across desktop and mobile layouts for consistency
+
+### Footer
+
+The Footer component provides **secondary navigation**, contextual information, and proper attribution for external resources.
+
+It is fully responsive and visually consistent with the rest of the application.
+
+#### Structure and content
+
+The Footer is composed of four main sections:
+
+* **Branding**
+    * Displays the Simpsons logo for visual continuity
+
+* **Course information**
+    * Passed as a prop to keep the component reusable
+
+* **Navigation links**
+    * Uses `NavLink` to maintain routing consistency with the Header
+
+* **API credits**
+
+#### Design considerations
+
+* The Footer layout stacks vertically on smaller screens
+
+The Footer acts as a stable closing element for every page, reinforcing navigation, transparency, and academic context without overwhelming the main content.
+
+### Home
+
+The **Home** page acts as the entry point of the application and provides a guided overview of its main features.
+
+It combines editorial content, data-driven previews, and user-specific messaging to immediately introduce the Springfield universe.
+
+The page opens with a **hero section** featuring the project branding and a clear call-to-action that invites users to explore the Characters section.
+
+Below the hero, a **characters preview** displays a small curated batch of characters fetched from the API. This preview offers a glimpse of Springfield’s residents and encourages users to navigate to the full Characters page for deeper exploration.
+
+A dedicated **birthday highlight** section adds a dynamic touch to the experience. Each day, the application checks whether any character’s birthday matches the current date and, if so, highlights them. If no birthdays are found, a fallback message is shown instead.
+
+The Home page also adapts to the user’s authentication state:
+
+* **Authenticated users** are welcomed by name and invited to visit their Profile, where they can manage favourite characters and access restricted content.
+* **Unauthenticated users** are encouraged to log in via Auth0, with a clear explanation of the additional features unlocked by authentication.
+
+Overall, the Home page blends discovery, engagement, and personalization while remaining lightweight and easy to navigate.
+
+### Top 5 Leaderboard
+
+The **Top 5** section showcases the five most appreciated characters based on user votes stored in **Supabase**.
+
+Each vote assigns a donut score to a character, and Supabase aggregates this data to calculate both the **average rating** and the **total number of votes**. This allows the leaderboard to always reflect the current preferences of the community.
+
+When the component loads, two data sources are fetched in parallel:
+
+* The Top 5 ranked characters from Supabase
+* The complete character dataset via the Characters ViewModel
+
+Supabase provides the ranking and voting statistics, while the ViewModel supplies character names and additional metadata. Once both datasets are available, the leaderboard is rendered.
+
+The leaderboard is presented as a podium-style list, where each entry displays:
+
+* Rank position
+* Character avatar and name
+* Total number of votes
+* Average donut score 
+
+Each row is fully clickable and routes the user to the corresponding **Character Detail** page, creating a smooth transition from ranking overview to detailed exploration.
+
+The Top 5 page connects user interaction, Supabase-backed data, and character navigation into a single, engaging feature.
 
 ---
