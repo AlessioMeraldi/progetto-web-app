@@ -126,8 +126,8 @@ VITE_SUPABASE_ANON_KEY=[Your Supabase Anon Key]
 npm run dev
 ```
 
-Runs the app in development mode. Open the local host link provided in the terminal (
-usually [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173)) to view it in the browser.
+Runs the app in development mode. Open the local host link provided in the terminal 
+(usually [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173)) to view it in the browser.
 
 ---
 
@@ -281,7 +281,7 @@ persistent record of user interactions while keeping the client-side logic minim
   (anywhere, it could be contained within the name not just start with it). They can be clicked to
   only see the chosen character.
 
-`Note: searchbar is subject to the inserted filters, and will not match characters that don't 
+`Note: searchbar is subject to the inserted filters, and will not match characters that don't
  already match the given criteria (even if their complete name is written)`
 
 ### Locations visualization (access required)
@@ -303,7 +303,7 @@ buttons to scroll between locations*
   (anywhere, it could be contained within the name not just start with it). They can be clicked to
   only see the chosen location.
 
-`Note: searchbar is subject to the inserted filters, and will not match locations that don't 
+`Note: searchbar is subject to the inserted filters, and will not match locations that don't
  already match the given criteria (even if their complete name is written)`
 
 ### User profile

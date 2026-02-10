@@ -31,7 +31,9 @@ function App() {
     const courseLink = "https://www.unimib.it/";
 
     return (
-        <Router>
+
+        /* We had to specify the basename for the deployment on gh-pages */
+        <Router basename={import.meta.env.BASE_URL}>
             <div className="app">
                 {/* L'Header deve stare dentro il Router per far funzionare i Link */}
                 <Header/>
