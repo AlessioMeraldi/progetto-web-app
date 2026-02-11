@@ -8,6 +8,9 @@ import React, {useEffect} from 'react';
 // Routing imports
 import {NavLink} from 'react-router-dom';
 
+// Image imports
+import homerDohImage from "/src/assets/Images/Page_404_Doh.webp";
+
 function Page_404() {
 
     // Scroll back to top (in case redirect is cast from far down another page)
@@ -24,7 +27,7 @@ function Page_404() {
                 </section>
 
                 <img className={styles.centerImg}
-                     src="/src/assets/Images/Page_404_Doh.webp"
+                     src={homerDohImage}
                      alt="Homer saying 'Doh!' because the page is not available."
                 />
 

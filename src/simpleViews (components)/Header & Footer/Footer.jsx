@@ -1,6 +1,15 @@
+
+// React imports
 import React from "react";
+
+// Routing imports
 import { NavLink } from "react-router-dom";
+
+// Style imports
 import styles from "./Footer.module.css";
+
+// Image imports
+import theSimpsonsLogo from "/src/assets/Images/logo-the-simpson.svg"
 
 // Footer component Receives navigation items and course information as props
 function Footer({ navItems, courseName, courseLink }) {
@@ -10,7 +19,7 @@ function Footer({ navItems, courseName, courseLink }) {
 
                 {/* Logo section */}
                 <div className={styles.logoWrapper}>
-                    <img src="/src/assets/Images/logo-the-simpson.svg" alt="Simpson Logo" className={styles.footerLogo} />
+                    <img src={theSimpsonsLogo} alt="Simpson Logo" className={styles.footerLogo} />
                 </div>
 
                 {/* Course information */}

@@ -12,6 +12,9 @@ import {NavLink} from 'react-router-dom';
 // Auth0 imports
 import {useAuth0} from "@auth0/auth0-react";
 
+// Image imports
+import homerBushesGif from "/src/assets/Images/Page_access_forbidden_Homer.gif";
+
 function Access_forbidden() {
 
     const { loginWithRedirect } = useAuth0();
@@ -36,7 +39,7 @@ function Access_forbidden() {
                 </section>
 
                 <img className={styles.centerGif}
-                     src="/src/assets/Images/Page_access_forbidden_Homer.gif"
+                     src={homerBushesGif}
                      alt="Homer retreats into a bush because he can't access the page"
                 />
 

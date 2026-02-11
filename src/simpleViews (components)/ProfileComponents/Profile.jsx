@@ -149,7 +149,7 @@ const Profile = () => {
                         ) : favourites.length === 0 ? (
                             // Case: no favourites
                             <div className={styles.emptyFavorites}>
-                                <img src="/homer-gif.gif" alt="Homer" className={styles.homerPng} />
+                                <img src="/src/assets/Images/homer-gif.gif" alt="Homer" className={styles.homerPng} />
                                 <p>
                                     You haven't saved any characters yet. <br />
                                     Run to the characters page to explore all of Springfield's most iconic characters and save your favorites!

@@ -15,6 +15,7 @@ import {NavLink} from "react-router-dom";
 import {useAuth0} from "@auth0/auth0-react";
 
 import theSimpsonsLogo2 from "/src/assets/Images/logo-the-simpson2.svg";
+import homerGif from "/src/assets/Images/homer-gif.gif";
 
 // Begin logic
 export default function Home() {
@@ -63,7 +64,9 @@ export default function Home() {
     }, []);
 
     return (
+
         <div className={gridStyles.componentWithGrid}>
+
             {/* HERO SECTION */}
             <section className={styles.hero}>
                 <div className={styles.heroContent}>
@@ -145,7 +148,7 @@ export default function Home() {
                         <>
                             <div className={styles.birthdayImage}>
                                 <img
-                                    src="/homer-gif.gif"
+                                    src={homerGif}
                                     alt="No birthdays today"
                                 />
                             </div>

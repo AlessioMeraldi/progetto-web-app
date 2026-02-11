@@ -7,7 +7,7 @@
 /* HERO */
 .hero {
     height: 75vh;
-    background-image: url("/public/clouds-bg.webp");
+    background-image: url("/src/assets/Images/clouds-bg.webp");
     background-size: cover;
     background-position: center;
     display: flex;
