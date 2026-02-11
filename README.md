@@ -1,7 +1,8 @@
 # React SPA Simpsons Data Visualizer
 
 > This project is a Single Page Application (SPA) designed to visualize data
-> from [The Simpsons API](https://thesimpsonsapi.com/). It serves as a technical exercise in **consuming APIs**, implementing
+> from [The Simpsons API](https://thesimpsonsapi.com/). It serves as a technical exercise in **consuming APIs**,
+> implementing
 > the **MVVM pattern** in React, and **managing user state via external services** (Auth0 and Supabase).
 
 ---
@@ -122,7 +123,7 @@ VITE_SUPABASE_ANON_KEY=[Your Supabase Anon Key]
 npm run dev
 ```
 
-Runs the app in development mode. Open the local host link provided in the terminal 
+Runs the app in development mode. Open the local host link provided in the terminal
 (usually [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173)) to view it in the browser.
 
 ---
@@ -143,10 +144,10 @@ This application avoids putting logic inside UI components.
 
 ### Authentication Flow (Auth0)
 
-This application uses Auth0 to handle user authentication in a secure and scalable way, 
+This application uses Auth0 to handle user authentication in a secure and scalable way,
 without managing credentials directly inside the frontend.
 
-Auth0 is configured as a Single Page Application (SPA) and integrated into React using the official 
+Auth0 is configured as a Single Page Application (SPA) and integrated into React using the official
 Auth0 React SDK.
 
 Authentication Providers
@@ -160,7 +161,7 @@ Social login providers:
 * **Facebook**
 * **Twitter (X)**
 
-All providers are managed directly from the Auth0 dashboard and exposed to the 
+All providers are managed directly from the Auth0 dashboard and exposed to the
 application through a single, unified login flow.
 
 **Login & Logout**
@@ -176,23 +177,24 @@ application through a single, unified login flow.
 * Authentication state (logged / not logged) is managed entirely by Auth0.
 
 * The application consumes Auth0’s hooks to:
-   - Check whether the user is authenticated
-   - Access basic user profile information (such as name, email, and avatar)
+    - Check whether the user is authenticated
+    - Access basic user profile information (such as name, email, and avatar)
 
 * No sensitive credentials are ever stored locally.
 
 **Protected Routes**
 
-Some sections of the application (e.g. Locations visualization and user-specific features) 
+Some sections of the application (e.g. Locations visualization and user-specific features)
 are protected and require authentication.
 
-* If an unauthenticated user attempts to access a protected route, they are redirected to a dedicated error / access-denied page.
+* If an unauthenticated user attempts to access a protected route, they are redirected to a dedicated error /
+  access-denied page.
 * Once logged in, the user can freely navigate protected content without re-authenticating.
 
 ### Data Persistence (Supabase)
 
-This application uses **Supabase** to persist user-specific data and manage ratings for characters. 
-The database schema is structured to allow tracking of favorites, individual ratings, and 
+This application uses **Supabase** to persist user-specific data and manage ratings for characters.
+The database schema is structured to allow tracking of favorites, individual ratings, and
 aggregate top-rated characters.
 
 #### Tables
@@ -220,8 +222,8 @@ aggregate top-rated characters.
     * A view that aggregates data from `character_ratings` to calculate:
         - `avg_donuts`: The average donut rating for each character.
         - `total_votes`: Total number of votes each character received.
-    * This is used to render the Top 5 leaderboard in the SPA without fetching or 
-   processing all individual ratings on the client side.
+    * This is used to render the Top 5 leaderboard in the SPA without fetching or
+      processing all individual ratings on the client side.
 
 #### Usage
 
@@ -230,19 +232,64 @@ aggregate top-rated characters.
 * The `top_rated_characters` view is queried to display the leaderboard efficiently.
 * There is always authentication checks, ensuring that only the current user's favorites or votes are modified.
 
-This approach allows the application to provide **real-time updates** to the leaderboard and maintain a 
+This approach allows the application to provide **real-time updates** to the leaderboard and maintain a
 persistent record of user interactions while keeping the client-side logic minimal.
-
 
 ### Models
 
-*[TODO]*
+Based on the style of your existing `.md` file—which is clean, uses bolding for emphasis, and focuses on architectural
+decisions rather than just listing code—here is the completed **Models** section.
+
+I have synthesized the code logic you provided (specifically the `Promise.all` optimization and the URL construction)
+into the documentation style.
+
+---
+
+### Models
+
+The data layer is split into two dedicated files: **`charactersModel.js`** and **`locationsModel.js`**.
+Both adhere to an identical structure, encapsulating the raw HTTP requests
+to [The Simpsons API](https://thesimpsonsapi.com/) and exposing three primary asynchronous functions to the ViewModels.
+
+#### Core Functions
+
+Since the logic is mirrored for both Characters and Locations, the functions operate as follows:
+
+* **fetchSingle[Resource]** (`fetchSingleCharacter` / `fetchSingleLocation`)
+* **Purpose:** Retrieves specific data for a single element based on its ID.
+* **Logic:** It fetches the JSON data and manually constructs the **Image URL string** based on the requested
+  resolution (200px, 500px, or 1280px).
+* **Return:** Returns an object containing both the raw data and the ready-to-use image URL, abstracting the URL
+  formatting logic away from the View.
+
+`Note: the API's object would return about half of the image's URL, but we decided to make the model return
+ the complete image's URL (with size too) building it directly from the ID`
+
+* **fetch[Resource]Batch** (`fetchCharactersBatch` / `fetchLocationsBatch`)
+* **Purpose:** Used by fetchAll[Resources] to retrieve a specific element's batch
+* **Logic:** The API limits responses to **20 items per request**. This function accepts a `batchId` (page number) to
+  retrieve a specific batch of data.
+
+
+* **fetchAll[Resources]** (`fetchAllCharacters` / `fetchAllLocations`)
+* **Purpose:** Fetches all the characters / locations (the entire dataset) for client-side display, filtering and search
+  by invoking fetch[Resource]Batch multiple times.
+* **Performance Optimization:** Instead of awaiting requests sequentially, this function utilizes **`Promise.all`** to
+  fire requests for all the batches in parallel. This significantly reduces the total wait time compared to a sequential
+  loop. There's 60 batches for characters and 24 for locations.
+
+`Note: the much higher number of characters compared to the locations will have implications 
+on both the viewModel and the views for the respective type of element`
+
+---
 
 ### ViewModels
 
 *[TODO]*
 
-### Views 
+---
+
+### Views
 
 *[TODO]*
 
@@ -270,7 +317,7 @@ persistent record of user interactions while keeping the client-side logic minim
 * **Detailed single character visualization**: ShowSingleCharacter.jsx (style from SingleElements.moudle.css)
 
 *Single character module is wrapped by SingleCharacter.jsx, it implements the "next" and "previous"
- buttons to scroll between characters*
+buttons to scroll between characters*
 
 * **Filtering**: filtering criteria: gender, status (alive or deceased).
 * **Search**: searchbar (SearchBar.jsx) displays 5 recommendation that match the inserted string
@@ -304,7 +351,8 @@ buttons to scroll between locations*
 
 ### User profile
 
-The application includes a **dedicated user profile section**, accessible only to authenticated users, which acts as a personal dashboard for each Springfield citizen.
+The application includes a **dedicated user profile section**, accessible only to authenticated users, which acts as a
+personal dashboard for each Springfield citizen.
 
 #### Profile access & authentication
 
@@ -314,7 +362,8 @@ The application includes a **dedicated user profile section**, accessible only t
 
 #### Springfield Identification Card
 
-Once authenticated, the user is presented with a stylized **Springfield Identification Card**, built using Auth0 user metadata.
+Once authenticated, the user is presented with a stylized **Springfield Identification Card**, built using Auth0 user
+metadata.
 
 Displayed information includes:
 
@@ -326,7 +375,8 @@ Displayed information includes:
 * Fictional residency information (Evergreen Terrace)
 * Citizenship status stamp
 
-All personal data displayed comes directly from the Auth0 user object and no sensitive information is stored manually in the application.
+All personal data displayed comes directly from the Auth0 user object and no sensitive information is stored manually in
+the application.
 
 #### Favourite characters
 
@@ -335,7 +385,8 @@ The Profile page also displays the user’s **favourite characters**, persisted 
 * When the profile loads, the application:
     * Retrieves the authenticated user’s email from Auth0
     * Queries Supabase to fetch the list of favourite character IDs associated with that email
-* Favourite characters are then rendered using the same reusable **CharactersGrid** component used elsewhere in the application.
+* Favourite characters are then rendered using the same reusable **CharactersGrid** component used elsewhere in the
+  application.
 
 #### Empty state handling
 
@@ -365,9 +416,11 @@ Authentication actions are handled through small, reusable UI components.
 
 ### Header & Navigation
 
-The Header component represents the **main navigation system** of the application and plays a central role in both **user experience** and **access control**.
+The Header component represents the **main navigation system** of the application and plays a central role in both *
+*user experience** and **access control**.
 
-It is fully responsive, authentication-aware, and dynamically adapts its layout and content based on screen size and user state.
+It is fully responsive, authentication-aware, and dynamically adapts its layout and content based on screen size and
+user state.
 
 #### Structure and responsibilities
 
@@ -393,11 +446,13 @@ The Header integrates tightly with **Auth0** to conditionally render navigation 
     * The Profile link becomes visible
     * The Locations section becomes accessible and displays an open lock icon
 
-This approach provides both **functional** and **visual feedback** about user permissions without hiding application features.
+This approach provides both **functional** and **visual feedback** about user permissions without hiding application
+features.
 
 #### Responsive behaviour & hamburger menu
 
-The Header maintains a classic horizontal navigation on desktop screens, while switching to a **hamburger-based menu** on tablet and mobile devices.
+The Header maintains a classic horizontal navigation on desktop screens, while switching to a **hamburger-based menu**
+on tablet and mobile devices.
 
 * From tablet breakpoint downward:
     * Navigation links collapse into a vertical menu
@@ -421,7 +476,8 @@ This solution ensures usability consistency across desktop, tablet, and mobile d
 
 ### Footer
 
-The Footer component provides **secondary navigation**, contextual information, and proper attribution for external resources.
+The Footer component provides **secondary navigation**, contextual information, and proper attribution for external
+resources.
 
 It is fully responsive and visually consistent with the rest of the application.
 
@@ -444,49 +500,64 @@ The Footer is composed of four main sections:
 
 * The Footer layout stacks vertically on smaller screens
 
-The Footer acts as a stable closing element for every page, reinforcing navigation, transparency, and academic context without overwhelming the main content.
+The Footer acts as a stable closing element for every page, reinforcing navigation, transparency, and academic context
+without overwhelming the main content.
 
 ### Home
 
 The **Home** page acts as the entry point of the application and provides a guided overview of its main features.
 
-It combines editorial content, data-driven previews, and user-specific messaging to immediately introduce the Springfield universe.
+It combines editorial content, data-driven previews, and user-specific messaging to immediately introduce the
+Springfield universe.
 
-The page opens with a **hero section** featuring the project branding and a clear call-to-action that invites users to explore the Characters section.
+The page opens with a **hero section** featuring the project branding and a clear call-to-action that invites users to
+explore the Characters section.
 
-Below the hero, a **characters preview** displays a small curated batch of characters fetched from the API. This preview offers a glimpse of Springfield’s residents and encourages users to navigate to the full Characters page for deeper exploration.
+Below the hero, a **characters preview** displays a small curated batch of characters fetched from the API. This preview
+offers a glimpse of Springfield’s residents and encourages users to navigate to the full Characters page for deeper
+exploration.
 
-A dedicated **birthday highlight** section adds a dynamic touch to the experience. Each day, the application checks whether any character’s birthday matches the current date and, if so, highlights them. If no birthdays are found, a fallback message is shown instead.
+A dedicated **birthday highlight** section adds a dynamic touch to the experience. Each day, the application checks
+whether any character’s birthday matches the current date and, if so, highlights them. If no birthdays are found, a
+fallback message is shown instead.
 
 The Home page also adapts to the user’s authentication state:
 
-* **Authenticated users** are welcomed by name and invited to visit their Profile, where they can manage favourite characters and access restricted content.
-* **Unauthenticated users** are encouraged to log in via Auth0, with a clear explanation of the additional features unlocked by authentication.
+* **Authenticated users** are welcomed by name and invited to visit their Profile, where they can manage favourite
+  characters and access restricted content.
+* **Unauthenticated users** are encouraged to log in via Auth0, with a clear explanation of the additional features
+  unlocked by authentication.
 
-Overall, the Home page blends discovery, engagement, and personalization while remaining lightweight and easy to navigate.
+Overall, the Home page blends discovery, engagement, and personalization while remaining lightweight and easy to
+navigate.
 
 ### Top 5 Leaderboard
 
 The **Top 5** section showcases the five most appreciated characters based on user votes stored in **Supabase**.
 
-Each vote assigns a donut score to a character, and Supabase aggregates this data to calculate both the **average rating** and the **total number of votes**. This allows the leaderboard to always reflect the current preferences of the community.
+Each vote assigns a donut score to a character, and Supabase aggregates this data to calculate both the **average rating
+** and the **total number of votes**. This allows the leaderboard to always reflect the current preferences of the
+community.
 
 When the component loads, two data sources are fetched in parallel:
 
 * The Top 5 ranked characters from Supabase
 * The complete character dataset via the Characters ViewModel
 
-Supabase provides the ranking and voting statistics, while the ViewModel supplies character names and additional metadata. Once both datasets are available, the leaderboard is rendered.
+Supabase provides the ranking and voting statistics, while the ViewModel supplies character names and additional
+metadata. Once both datasets are available, the leaderboard is rendered.
 
 The leaderboard is presented as a podium-style list, where each entry displays:
 
 * Rank position
 * Character avatar and name
 * Total number of votes
-* Average donut score 
+* Average donut score
 
-Each row is fully clickable and routes the user to the corresponding **Character Detail** page, creating a smooth transition from ranking overview to detailed exploration.
+Each row is fully clickable and routes the user to the corresponding **Character Detail** page, creating a smooth
+transition from ranking overview to detailed exploration.
 
-The Top 5 page connects user interaction, Supabase-backed data, and character navigation into a single, engaging feature.
+The Top 5 page connects user interaction, Supabase-backed data, and character navigation into a single, engaging
+feature.
 
 ---
