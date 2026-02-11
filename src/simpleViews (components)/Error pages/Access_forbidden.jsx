@@ -44,7 +44,7 @@ function Access_forbidden() {
                 />
 
                 {/* Quick send to log in */}
-                <section className={authStyles.authStrip}>
+                <section className={`${authStyles.authStrip} ${styles.safeContainer}`}>
                     <h2>Want to become a citizen of Springfield?</h2>
                     <p>
                         Some content is reserved for registered citizens. <br />
