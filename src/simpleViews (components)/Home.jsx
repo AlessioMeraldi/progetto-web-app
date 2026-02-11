@@ -83,7 +83,7 @@ export default function Home() {
 
             {/* CHARACTERS PREVIEW */}
             <section className={gridStyles.charactersSection}>
-                <h2>The simpson family</h2>
+                <h2 className={styles.h2style}>The simpson family</h2>
 
                 <div className={gridStyles.grid}>
                     {characters.map((char) => (

@@ -1,12 +1,8 @@
 # React SPA Simpsons Data Visualizer
 
-> **Note:** This project is a Single Page Application (SPA) designed to visualize data
-> from [The Simpsons API](https://thesimpsonsapi.com/). It serves as a technical exercise in consuming APIs, implementing
-> the MVVM pattern in React, and managing user state via external services.
-
-## 📖 Introduction
-
-*[TODO: Briefly describe what the application does.]*
+> This project is a Single Page Application (SPA) designed to visualize data
+> from [The Simpsons API](https://thesimpsonsapi.com/). It serves as a technical exercise in **consuming APIs**, implementing
+> the **MVVM pattern** in React, and **managing user state via external services** (Auth0 and Supabase).
 
 ---
 
@@ -73,7 +69,7 @@ src/
 
 ### Deployed with GitHub Pages at the following URL:
 
-* TODO
+* https://alessiomeraldi.github.io/progetto-web-app/#/home
 
 ---
 

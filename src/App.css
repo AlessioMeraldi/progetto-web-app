@@ -47,3 +47,11 @@ main {
     flex: 1;
     width: 100%;
 }
+
+@font-face {
+    font-family: 'MyComicSans'; /* We give it a custom name to avoid conflicts */
+    src: url('/src/assets/fonts/comic.woff2') format('woff2'), /* Best for modern browsers */
+    url('/src/assets/fonts/comic.ttf') format('truetype'); /* Fallback */
+    font-weight: normal;
+    font-style: normal;
+}
