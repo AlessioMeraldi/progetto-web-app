@@ -1,9 +1,20 @@
+
+// React imports
 import React, {useState} from "react";
+
+// Routing imports
 import {NavLink} from "react-router-dom";
+
+// Style imports
 import styles from "./Header.module.css";
+
+// Auth0 imports
 import {useAuth0} from "@auth0/auth0-react";
 import LoginButton from "../ProfileComponents/LoginButton.jsx";
 import LogoutButton from "../ProfileComponents/LogoutButton.jsx";
+
+// images imports
+import theSimpsonsLogo from "/src/assets/Images/logo-the-simpson.svg"
 
 function Header() {
 
@@ -19,7 +30,7 @@ function Header() {
             <div className={styles.navbarContainer}>
                 <div className={styles.logoSection}>
                     <NavLink to="/" onClick={() => setMenuOpen(false)}>
-                        <img src="/logo-the-simpson.svg" alt="Logo" className={styles.logoImg}/>
+                        <img src={theSimpsonsLogo} alt="Logo" className={styles.logoImg}/>
                     </NavLink>
                     {/* HAMBURGER */}
                     <button

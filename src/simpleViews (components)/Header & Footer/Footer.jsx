@@ -10,7 +10,7 @@ function Footer({ navItems, courseName, courseLink }) {
 
                 {/* Logo section */}
                 <div className={styles.logoWrapper}>
-                    <img src="/logo-the-simpson.svg" alt="Simpson Logo" className={styles.footerLogo} />
+                    <img src="/src/assets/Images/logo-the-simpson.svg" alt="Simpson Logo" className={styles.footerLogo} />
                 </div>
 
                 {/* Course information */}
