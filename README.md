@@ -237,16 +237,6 @@ persistent record of user interactions while keeping the client-side logic minim
 
 ### Models
 
-Based on the style of your existing `.md` file—which is clean, uses bolding for emphasis, and focuses on architectural
-decisions rather than just listing code—here is the completed **Models** section.
-
-I have synthesized the code logic you provided (specifically the `Promise.all` optimization and the URL construction)
-into the documentation style.
-
----
-
-### Models
-
 The data layer is split into two dedicated files: **`charactersModel.js`** and **`locationsModel.js`**.
 Both adhere to an identical structure, encapsulating the raw HTTP requests
 to [The Simpsons API](https://thesimpsonsapi.com/) and exposing three primary asynchronous functions to the ViewModels.
@@ -285,7 +275,106 @@ on both the viewModel and the views for the respective type of element`
 
 ### ViewModels
 
-*[TODO]*
+The two-way-binding between the data layer and the views is split into two dedicated files: **`charactersViewModel.js`**
+and **`locationsViewModel.js`**.
+The two share a similar structure but the sheer volume of characters compared to the locations, alongside interactions
+with the ability to "favourite" certain characters (a feature not present for locations) required for the *
+*`charactersViewModel.js`** to be more complex.
+
+Because of this, we will describe first the locationsViewModel first and, knowing that everything it contains is
+analogous in the
+other, we will move on to describe the additional features present in the charactersViewModel.
+
+<br>
+
+#### LocationsViewModel.js
+
+This custom hook manages the state and business logic for the Locations views. It acts as the primary source of truth
+for the UI, handling data retrieval, loading indicators, and client-side filtering (but it does NOT include the
+searchbar's logic).
+
+**1. Data Management & Transformation**
+
+* **Single Location:** Fetches detailed data for the specific view (e.g., `ShowSingleLocation`), toggling the
+  `isLoading` state to allow the UI to display skeleton loaders during the request.
+* **All Locations:** While the API is paginated, this ViewModel retrieves **all batches** via the Model and flattens
+  them using `.flatMap()` into a single `allLocations` array. This "fetch-once" strategy enables instant client-side
+  filtering and searching without requiring repeated server requests.
+
+**2. The Reactive Filtering Pipeline**
+The ViewModel implements a **state-driven filtering system**. Instead of filtering imperatively (e.g., only when a "
+Search" button is clicked), the logic is wrapped in a `useEffect` hook that triggers automatically
+whenever a filter is set, a search is conducted (or data is initially loaded).
+
+When this effect runs, it triggers a sequential filtration pipeline:
+
+1. **Filter by City:** Segments locations based on whether they are in "Springfield" or elsewhere.
+2. **Filter by Use:** Segments locations based on whether they are "Residential" or commercial/public.
+3. **Filter by Name:** Uses the shared `filterByName` utility to fuzzy-match the user's search string.
+
+The result is stored in `filteredLocations`, which is the actual array exposed to and rendered by the View.
+
+**3. Exposed Interface**
+The hook returns an object to the View containing its state and functions for the views to use as needed. Some of those
+used are:
+
+* **Reactive Data:** `location` (single), `filteredLocations` (the list to render), and `isLoading`.
+* **Actions:** `getSingleLocation`, `getAllLocations`, and `updateFilter` (used by UI inputs to modify the filter
+  state).
+
+Here is the documentation for **CharactersViewModel.js**, following the established style. It focuses on the
+architectural differences—specifically the added pagination layer—while briefly recapping the shared logic.
+
+<br>
+
+#### CharactersViewModel.js
+
+This ViewModel functions similarly to the **LocationsViewModel**, serving as the bridge between the Simpsons API and the
+UI. It shares the same **Fetch-All strategy** (using `Promise.all` to retrieve all 60+ batches at once) and the same *
+*reactive filtering pipeline**.
+
+However, due to the significantly larger dataset (~1000+ characters vs. ~480 locations), this ViewModel implements an
+additional layer of logic for **Client-Side Pagination** to maintain performance.
+
+**1. Dual-Layer State Management**
+Unlike the Locations ViewModel, which maps filtered results directly to the view, this ViewModel separates the data into
+two distinct stages to handle volume:
+
+1. **`filteredCharacters`**: The complete list of characters that match the current filters (e.g., "All Females").
+2. **`displayedCharacters`**: A slice of the filtered list actually rendered by the DOM.
+
+**2. Client-Side Pagination Logic**
+To prevent rendering delays, the ViewModel implements a simplified pagination system (Pages 0 and 1) controlled by a
+dedicated `useEffect`:
+
+* **Trigger:** Runs whenever `pageNumber` or the `filteredCharacters` list changes.
+* **Logic:**
+* **Page 0:** Slices indices `0` to `600`.
+* **Page 1:** Slices indices `600` to the end.
+
+
+* **Auto-Reset:** Whenever a user updates a filter (e.g., changes Status to "Alive"), the pagination automatically
+  resets to `0` to ensure the user sees the new results from the top (and doesn't risk presenting an empty second page)
+
+**3. Specific Filtering Logic**
+While the name search is shared, this ViewModel implements domain-specific filters for characters:
+
+* **Gender:** Filters for "Male", "Female", or "Other".
+* **Status:** Filters for "Alive" or "Deceased".
+
+**4. Exposed Interface**
+The return object includes the standard data/actions plus specific state for pagination:
+
+* **State (Data):**
+* `character`, `allCharacters`, `charactersBatch`, `isLoading` (Standard).
+* `filteredCharacters`: The full list of matches.
+* `displayedCharacters`: **(New)** The actual array to map over in the JSX.
+* `pageNumber`: **(New)** Current view index (0 or 1).
+
+
+* **Actions (Methods):**
+* `getSingleCharacter`, `getAllCharacters`, `getCharacterBatch`, `updateFilter`.
+* `setPageNumber`: **(New)** Allows the View to toggle between the first and second batch of results.
 
 ---
 
@@ -304,8 +393,6 @@ on both the viewModel and the views for the respective type of element`
 ---
 
 ## 🧩 Features & Modules
-
-*[TODO: List the main functional parts of the app]*
 
 ### Characters visualization
 
