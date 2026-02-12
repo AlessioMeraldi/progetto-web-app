@@ -124,7 +124,7 @@ npm run dev
 ```
 
 Runs the app in development mode. Open the local host link provided in the terminal
-(usually [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173)) to view it in the browser.
+(usually [http://localhost:5173](http://localhost:5173)) to view it in the browser.
 
 ---
 
@@ -420,68 +420,65 @@ The `compoundViews` directory contains the main container views. It is split int
 
 #### simpleViews (components)
 
-The `simpleViews` directory contains the reusable, presentational components of the application. These components are
-generally "dumb" (stateless or strictly UI-state focused) and rely on props passed down from the `compoundViews` or the
-`viewModels` for their data.
+The `simpleViews` directory serves as the library for the application's UI. While most components here are **strictly presentational ("dumb")** and rely on props, this folder also includes **standalone page layouts** and **smart widgets** that manage their own specific data logic.
+
 
 * **SearchBar**
-* *Purpose:* A "smart" input component designed for filtering data with autocomplete capabilities.
-* *functionality:*
-  * **Autocomplete Logic:** Filters the provided `dataForAutocomplete` prop based on user input, displaying a maximum of *
-    *5 suggestions** to keep the UI clean.
-  * **Keyboard Navigation:** Implements accessibility features where users can press **ENTER** to submit the search or 
-  **TAB** to automatically select the first suggestion.
-  * **State Management:** Manages local state for the input value and suggestion visibility, but relies on the
-    `searchElement` callback prop to trigger the actual filtering logic in the parent ViewModel.
-
-
-* *Files:* `SearchBar.jsx`.
+    * *Purpose:* A "smart" input component designed for filtering data with autocomplete capabilities.
+    * *Functionality:*
+        * **Autocomplete Logic:** Filters the provided `dataForAutocomplete` prop based on user input, displaying a maximum of **5 suggestions** to keep the UI clean.
+        * **Keyboard Navigation:** Implements accessibility features where users can press **ENTER** to submit the search or **TAB** to automatically select the first suggestion.
+        * **State Management:** Manages local state for the input value and suggestion visibility, but relies on the `searchElement` callback prop to trigger the actual filtering logic in the parent ViewModel.
+    * *Files:* `SearchBar.jsx`.
 
 
 * **ProfileComponents**
-  * *Purpose:* UI components dedicated to User Identity and Session Management.
-  * *Functionality:* These components interact directly with the Auth0 SDK.
-    * `LoginButton.jsx` / `LogoutButton.jsx`: Trigger the authentication redirection flows.
-    * `Profile.jsx`: Visualizes the currently authenticated user's metadata (image, name, email).
+    * *Purpose:* UI components dedicated to User Identity and Session Management.
+    * *Functionality:* These components interact directly with the Auth0 SDK.
+        * `LoginButton.jsx` / `LogoutButton.jsx`: Trigger the authentication redirection flows.
+        * `Profile.jsx`: Visualizes the currently authenticated user's metadata (image, name, email).
     * *Files:* `LoginButton.jsx`, `LogoutButton.jsx`, `Profile.jsx`.
 
 
 * **Data Collections (Grids & Lists)**
-  * *Purpose:* Pure presentation components responsible for rendering arrays of data.
-  * *Functionality:* These components receive the filtered data (from `Characters.jsx` or `Locations.jsx`) and render it
-    in either a responsive grid layout or a detailed list format. They handle the internal iteration (mapping) over the
-    data array.
-  * *Files:*
-  * `GridSubComponents/`: `CharactersGrid.jsx`, `LocationsGrid.jsx`.
-  * `ListSubComponents/`: `CharactersList.jsx`, `LocationsList.jsx`.
+    * *Purpose:* Pure presentation components responsible for rendering arrays of data.
+    * *Functionality:* These components receive the filtered data (from `Characters.jsx` or `Locations.jsx`) and render it in either a responsive grid layout or a detailed list format. They handle the internal iteration (mapping) over the data array.
+    * *Files:*
+        * `GridSubComponents/`: `CharactersGrid.jsx`, `LocationsGrid.jsx`.
+        * `ListSubComponents/`: `CharactersList.jsx`, `LocationsList.jsx`.
 
 
 * **SingleElementContent**
-  * *Purpose:* The "leaf" components for displaying full details of a specific item.
-  * *Functionality:* Receives a single data object (character or location) and renders the specific HTML/CSS layout for
-    that entity. These are wrapped by the `SingleElementsWrappers` found in compoundViews.
-  * *Files:* `ShowSingleCharacter.jsx`, `ShowSingleLocation.jsx`.
+    * *Purpose:* The "leaf" components for displaying full details of a specific item.
+    * *Functionality:* Receives a single data object (character or location) and renders the specific HTML/CSS layout for that entity. These are wrapped by the `SingleElementsWrappers` found in compoundViews.
+    * *Files:* `ShowSingleCharacter.jsx`, `ShowSingleLocation.jsx`.
 
 
 * **Auth0 (Routing)**
-  * *Purpose:* Route security.
-  * *Functionality:* Contains `ProtectedRoute.jsx`, a wrapper component that checks for a valid Auth0 session before
-    allowing access to specific views (like the locations or the favorites).
+    * *Purpose:* Route security.
+    * *Functionality:* Contains `ProtectedRoute.jsx`, a wrapper component that checks for a valid Auth0 session before allowing access to specific views (like the locations or the favorites).
 
 
 * **Layout & Navigation (/Header & Footer)**
-  * *Purpose:* Global UI elements present across the application.
-  * *Files:* `Header/Header.jsx` (Navigation) and `Footer/Footer.jsx`.
+    * *Purpose:* Global UI elements present across the application.
+    * *Files:* `Header/Header.jsx` (Navigation) and `Footer/Footer.jsx`.
 
 
 * **Error Handling (/Error pages)**
-  * *Purpose:* Fallback views for exception states.
-  * *Files:* `Page_404.jsx` (Not Found) and `Access_forbidden.jsx` (403 Unauthorized).
+    * *Purpose:* Fallback views for exception states.
+    * *Files:* `Page_404.jsx` (Not Found) and `Access_forbidden.jsx` (403 Unauthorized).
 
 
-* **Top5**
-  * *Purpose:* A specialized dashboard widget/component used to display top-rated items.
-  * *Files:* `Top5.jsx`.
+* **Top5 (Smart Widget)**
+    * *Purpose:* A specialized dashboard widget/component used to display top-rated items.
+    * *Functionality:* Unlike standard components, this widget **fetches its own data** by aggregating ratings from Supabase and character metadata from the ViewModel to display the leaderboard.
+    * *Files:* `Top5.jsx`.
+
+
+* **Home (Page Layout)**
+    * *Purpose:* The main landing page entry point.
+    * *Functionality:* Acts as a "Smart View" that orchestrates the hero section, executes the "Birthday Highlight" logic, and manages conditional greetings for authenticated users.
+    * *Files:* `Home.jsx`.
 
 ---
 
@@ -494,7 +491,7 @@ generally "dumb" (stateless or strictly UI-state focused) and rely on props pass
 
 *Character modules are shown in conditional rendering in the Characters.jsx wrapper*
 
-* **Detailed single character visualization**: ShowSingleCharacter.jsx (style from SingleElements.moudle.css)
+* **Detailed single character visualization**: ShowSingleCharacter.jsx (style from SingleElements.module.css)
 
 *Single character module is wrapped by SingleCharacter.jsx, it implements the "next" and "previous"
 buttons to scroll between characters*
@@ -516,7 +513,7 @@ buttons to scroll between characters*
 
 *Character modules are shown in conditional rendering in the Locations.jsx wrapper*
 
-* **Detailed single location visualization**: ShowSingleLocation.jsx (style from SingleElements.moudle.css)
+* **Detailed single location visualization**: ShowSingleLocation.jsx (style from SingleElements.module.css)
 
 *Single location module is wrapped by SingleLocation.jsx, it implements the "next" and "previous"
 buttons to scroll between locations*
