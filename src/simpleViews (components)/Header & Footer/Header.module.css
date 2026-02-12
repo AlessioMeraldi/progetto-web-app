@@ -1,3 +1,4 @@
+
 .navbar {
     background-color: var(--yellow-primary);
     width: 100%;
@@ -6,6 +7,9 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+
+    isolation: isolate;
+    /* ^ Added Isolate stacking context for the whole header (to fix the graphics glitches) */
 }
 
 .navbarContainer {
@@ -29,11 +33,12 @@
 
 .navLinks {
     display: flex;
-    width: 150%;
+    width: auto;
     gap: 1rem;
     padding-right: 1.5rem;
     flex-direction: row;
     justify-content: flex-end;
+    flex-grow: 1;
 }
 
 .navbarLink {
@@ -45,23 +50,33 @@
     padding: 6px 16px;
     border: 3px solid transparent;
     transition: all 0.15s ease-in-out;
+
+    /* ADDED: Hardware acceleration properties */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
-/* Stile attivo */
+/* Active style */
 .active {
     composes: navbarLink;
     background-color: var(--blue-primary);
     color: var(--white) !important;
     border-radius: 5px;
-    transform: translateY(2px);
+
+    /* Updated transform to keep Z-axis */
+    transform: translateY(2px) translateZ(0);
 }
 
-/* Effetto hover */
+/* Hover effects */
 .navbarLink:hover, .login:hover {
     background-color: var(--blue-primary);
     color: var(--white);
     border-color: var(--black);
-    transform: rotate(-2deg) scale(1.1);
+
+    /* Kept Rotation, added translateZ to prevent painting bugs */
+    transform: rotate(-2deg) scale(1.1) translateZ(0);
 }
 
 .login {
@@ -69,6 +84,12 @@
     border: 3px solid transparent;
     cursor: pointer;
     font-family: inherit;
+
+    /* ADDED: Hardware acceleration for login button too */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .lockIcon {
@@ -100,7 +121,7 @@
     transition: fill 0.15s ease-in-out;
 }
 
-{/* .active is automatically assigned via-CSS */}
+/* .active is automatically assigned via-CSS */
 .active .lockIcon path {
     fill: var(--white);
     transition: fill 0.15s ease-in-out;

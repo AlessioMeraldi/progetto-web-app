@@ -10,20 +10,25 @@
     gap: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
+
+    transform: translateZ(0);
+    will-change: transform;
+
 }
 
 .container h3 {
-
     font-size: 1.4rem;
     color: var(--yellow-primary);
-    text-shadow: 2px 2px 0px var(--black);
-    -webkit-text-stroke: 1px var(--black);
     letter-spacing: 1px;
-
     position: relative;
-    transform: rotate(-1deg);
-
     margin: 0.2rem 0;
+
+    text-shadow:
+            -1px -1px 0 var(--black),
+            1px -1px 0 var(--black),
+            -1px  1px 0 var(--black),
+            1px  1px 0 var(--black),
+            3px  3px 0 var(--black);
 }
 
 .buttonsContainer {
@@ -48,7 +53,6 @@
 .cta:hover, .selected {
     background-color: var(--blue-primary);
     color: var(--white);
-    transform: scale(1.05) rotate(2deg);
     box-shadow: 4px 4px 0px var(--black);
 }
 

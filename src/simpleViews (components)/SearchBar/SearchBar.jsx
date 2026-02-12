@@ -106,7 +106,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
             <p className={styles.tabSuggestion}> TAB to autocomplete to first suggestion </p>
 
             {/* input field & search button section */}
-            <div>
+            <div className={styles.searchContainer}>
 
                 <input
                     type="text"
