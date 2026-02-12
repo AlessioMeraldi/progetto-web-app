@@ -37,9 +37,7 @@
 }
 
 .cta {
-
     padding: 0.4rem 2.5rem;
-
     font-size: 1rem;
     border: var(--border-std);
     border-radius: 12px;
@@ -48,6 +46,7 @@
     font-weight: 900;
     text-transform: uppercase;
     transition: all 0.2s ease;
+    color: var(--black);
 }
 
 .cta:hover, .selected {
