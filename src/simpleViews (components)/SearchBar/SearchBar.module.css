@@ -23,6 +23,9 @@
     width: 250px;
     transition: box-shadow 0.2s ease;
 
+    background-color: var(--white); /* Forces white background even in dark mode */
+    color: var(--black);
+
 }
 
 /* Suggestions list that appears right below the searchbar and button */
