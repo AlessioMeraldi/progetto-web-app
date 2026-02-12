@@ -14,6 +14,7 @@ import {NavLink} from "react-router-dom";
 // Auth0 imports
 import {useAuth0} from "@auth0/auth0-react";
 
+// Image imports
 import theSimpsonsLogo2 from "/src/assets/Images/logo-the-simpson2.svg";
 import homerGif from "/src/assets/Images/homer-gif.gif";
 

@@ -111,7 +111,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
                 <input
                     type="text"
                     placeholder="Search character here"
-                    value = {searchedElement} // set input's value to be the one of the state
+                    value = {searchedElement} // set input's value to be the one of the state (when it changes from autocompleting / searching)
                     onChange = {handleInputChange}
                     onKeyDown = {handleKeyDown} // = to: onKeyDown={(event) => handleKeyDown(event)}
                     className = {styles.searchInput}

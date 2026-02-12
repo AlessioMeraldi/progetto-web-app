@@ -380,15 +380,108 @@ The return object includes the standard data/actions plus specific state for pag
 
 ### Views
 
-*[TODO]*
+The view components within the project are split into 2 main groups:
+
+* **compoundViews (views)**: includes wrappers for the simpleViews, these are typically needed for either conditional
+  rendering (i.e: switching between grid and list visualization) and to add additional elements for filtering and
+  navigation.
+* **simpleViews (components)**: includes the main content-related components that don't have any other components that
+  we've made nested within (i.e: the header, the footer, a single character's data visualization, ...).
 
 #### compoundViews (views)
 
-*[TODO]*
+The `compoundViews` directory contains the main container views. It is split into two sub-directories:
+
+* **SingleElementsWrappers**
+* *Purpose:* Wraps the display logic for individual data items (single character, single location).
+* *Functionality:* Adds navigation controls (Previous/Next) and validates parameters before rendering the content.
+* *Note*: navigations controls have conditional rendering to not show "previous" on the first and "next" on the last.
+* *Files:* `SingleCharacter.jsx` (wraps `ShowSingleCharacter.jsx`) and `SingleLocation.jsx` (wraps
+  `ShowSingleLocation.jsx`).
+
+
+* **MultipleElementsWrappers**
+* *Purpose:* High-level **Container Views** that wrap the presentation components (`Grid` or `List`) with the necessary
+  UI controls.
+* *Functionality:*
+    * **Layout Management:** Handles the switching logic between Grid and List visualization modes.
+    * **UI Composition:** Composes the final view by assembling the Search Bar, Filter inputs, and the data display
+      components.
+    * **Integration:** acts as the glue code that connects the dumb components (grids/lists) to the logic (ViewModels)
+      and context providers (Auth0).
+
+
+* *Files:*
+* `Locations.jsx`: Wraps the location display components, adding search and filtering controls.
+* `Characters.jsx`: A more complex wrapper that integrates pagination controls and authenticates user context (Auth0) to
+  manage the state of the "Favorites" feature before passing that data down to the grid/list components.
+
+---
 
 #### simpleViews (components)
 
-*[TODO]*
+The `simpleViews` directory contains the reusable, presentational components of the application. These components are
+generally "dumb" (stateless or strictly UI-state focused) and rely on props passed down from the `compoundViews` or the
+`viewModels` for their data.
+
+* **SearchBar**
+* *Purpose:* A "smart" input component designed for filtering data with autocomplete capabilities.
+* *functionality:*
+  * **Autocomplete Logic:** Filters the provided `dataForAutocomplete` prop based on user input, displaying a maximum of *
+    *5 suggestions** to keep the UI clean.
+  * **Keyboard Navigation:** Implements accessibility features where users can press **ENTER** to submit the search or 
+  **TAB** to automatically select the first suggestion.
+  * **State Management:** Manages local state for the input value and suggestion visibility, but relies on the
+    `searchElement` callback prop to trigger the actual filtering logic in the parent ViewModel.
+
+
+* *Files:* `SearchBar.jsx`.
+
+
+* **ProfileComponents**
+  * *Purpose:* UI components dedicated to User Identity and Session Management.
+  * *Functionality:* These components interact directly with the Auth0 SDK.
+    * `LoginButton.jsx` / `LogoutButton.jsx`: Trigger the authentication redirection flows.
+    * `Profile.jsx`: Visualizes the currently authenticated user's metadata (image, name, email).
+    * *Files:* `LoginButton.jsx`, `LogoutButton.jsx`, `Profile.jsx`.
+
+
+* **Data Collections (Grids & Lists)**
+  * *Purpose:* Pure presentation components responsible for rendering arrays of data.
+  * *Functionality:* These components receive the filtered data (from `Characters.jsx` or `Locations.jsx`) and render it
+    in either a responsive grid layout or a detailed list format. They handle the internal iteration (mapping) over the
+    data array.
+  * *Files:*
+  * `GridSubComponents/`: `CharactersGrid.jsx`, `LocationsGrid.jsx`.
+  * `ListSubComponents/`: `CharactersList.jsx`, `LocationsList.jsx`.
+
+
+* **SingleElementContent**
+  * *Purpose:* The "leaf" components for displaying full details of a specific item.
+  * *Functionality:* Receives a single data object (character or location) and renders the specific HTML/CSS layout for
+    that entity. These are wrapped by the `SingleElementsWrappers` found in compoundViews.
+  * *Files:* `ShowSingleCharacter.jsx`, `ShowSingleLocation.jsx`.
+
+
+* **Auth0 (Routing)**
+  * *Purpose:* Route security.
+  * *Functionality:* Contains `ProtectedRoute.jsx`, a wrapper component that checks for a valid Auth0 session before
+    allowing access to specific views (like the locations or the favorites).
+
+
+* **Layout & Navigation (/Header & Footer)**
+  * *Purpose:* Global UI elements present across the application.
+  * *Files:* `Header/Header.jsx` (Navigation) and `Footer/Footer.jsx`.
+
+
+* **Error Handling (/Error pages)**
+  * *Purpose:* Fallback views for exception states.
+  * *Files:* `Page_404.jsx` (Not Found) and `Access_forbidden.jsx` (403 Unauthorized).
+
+
+* **Top5**
+  * *Purpose:* A specialized dashboard widget/component used to display top-rated items.
+  * *Files:* `Top5.jsx`.
 
 ---
 
