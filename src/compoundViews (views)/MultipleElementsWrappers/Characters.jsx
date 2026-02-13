@@ -195,20 +195,24 @@ function Characters() {
                     }}
                     disabled={pageNumber === 0}
                 >
-                    ← Batches 1-30
+                    First page
                 </button>
 
                 {/* Button 2 showcases the last 600 filtered characters (will be less or empty if there aren't enough */}
-                <button
-                    className={`${styles.cta} ${pageNumber === 1 ? styles.selected : ""}`}
-                    onClick={() => {
-                        setPageNumber(1);
-                        window.scrollTo(0, 0); // Scroll to top
-                    }}
-                    disabled={pageNumber === 1}
-                >
-                    Batches 31-60 →
-                </button>
+                {
+                    (filteredCharacters.length > 600)
+                    &&
+                    <button
+                        className={`${styles.cta} ${pageNumber === 1 ? styles.selected : ""}`}
+                        onClick={() => {
+                            setPageNumber(1);
+                            window.scrollTo(0, 0); // Scroll to top
+                        }}
+                        disabled={pageNumber === 1}
+                    >
+                        Second page
+                    </button>
+                }
 
             </section>
 
