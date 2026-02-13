@@ -24,6 +24,7 @@
     text-decoration: none;
     color: var(--black);
     font-weight: 900;
+    text-shadow: 1px 1px 0px var(--black);
     font-size: 1.2rem;
     text-transform: uppercase;
     transition: color 0.2s;
