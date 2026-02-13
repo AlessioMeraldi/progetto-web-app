@@ -7,7 +7,14 @@ const LogoutButton = ({ className }) => {
 
     return (
         isAuthenticated && (
-            <button className={className} onClick={() => logout()}>
+            <button
+                className={className}
+                onClick={() => logout({
+                    logoutParams: {
+                        returnTo: window.location.origin + window.location.pathname
+                    }
+                })}
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
