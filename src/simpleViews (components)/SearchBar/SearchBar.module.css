@@ -79,3 +79,10 @@
     color: var(--gray-dark);
     margin-bottom: 0;
 }
+
+/* NO TAB FOR MOBILE */
+@media (max-width: 768px) {
+    .tabSuggestion {
+        display: none;
+    }
+}
