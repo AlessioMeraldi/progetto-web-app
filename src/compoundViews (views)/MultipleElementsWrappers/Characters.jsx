@@ -195,7 +195,7 @@ function Characters() {
                     }}
                     disabled={pageNumber === 0}
                 >
-                    ← Batches 1-30
+                    ← First page
                 </button>
 
                 {/* Button 2 showcases the last 600 filtered characters (will be less or empty if there aren't enough */}
@@ -207,7 +207,7 @@ function Characters() {
                     }}
                     disabled={pageNumber === 1}
                 >
-                    Batches 31-60 →
+                    Second page →
                 </button>
 
             </section>
