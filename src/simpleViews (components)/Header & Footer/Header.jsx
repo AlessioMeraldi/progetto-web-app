@@ -46,7 +46,7 @@ function Header() {
 
                 {/* Navigation links */}
                 <div className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
-                <NavLink title="Home" to="/" className={linkStyle}>Home</NavLink>
+                <NavLink title="Home" to="/home" className={linkStyle}>Home</NavLink>
                     <NavLink title="Characters" to="/characters" className={linkStyle}>Characters</NavLink>
 
                     {/* Locations link: shows open lock if authenticated */}
