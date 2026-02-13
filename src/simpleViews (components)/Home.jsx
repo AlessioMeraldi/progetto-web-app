@@ -180,7 +180,7 @@ export default function Home() {
                 <p className={gridStyles.lastParagraphHome}> Visit your profile to check your favourite saved characters and places, having logged in also
                     grants you access to visualizing the locations. </p>
                 <div className={styles.buttonsHome}>
-                    <NavLink className={gridStyles.ctaCharacters} to="/profile"> go to your profile </NavLink>
+                    <NavLink className={gridStyles.ctaCharacters} to="/profile" onClick={() => window.scrollTo(0, 0)}> go to your profile </NavLink>
                 </div>
             </section>
                 ) : (
