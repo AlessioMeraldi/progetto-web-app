@@ -191,7 +191,7 @@
     /* The "Simpsons" hard shadow look */
     box-shadow: 6px 6px 0px var(--black);
 
-    z-index: 100;             /* Ensures it sits on top of everything */
+    z-index: 100; /* Ensures it sits on top of everything */
     transition: all 0.1s ease-in-out;
     cursor: pointer;
 }
