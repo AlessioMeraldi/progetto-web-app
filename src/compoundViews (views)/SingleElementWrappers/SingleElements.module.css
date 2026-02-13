@@ -16,6 +16,8 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    overflow-x: clip;
+    text-overflow: clip;
 }
 
 /* Central card style */
