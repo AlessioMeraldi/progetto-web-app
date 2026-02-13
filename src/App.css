@@ -60,3 +60,7 @@ main {
     /*overflow-x: hidden;*/
     /* ^ Ensures nothing spills over causing horizontal scroll/artifacts */
 }
+
+* {
+    font-family: 'Comic Sans MS', "Arial Round", sans-serif;
+}
