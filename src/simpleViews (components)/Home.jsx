@@ -113,8 +113,16 @@ export default function Home() {
 
                 {/* CALL TO ACTIONS */}
                 <div className={styles.buttonsHome}>
-                    <NavLink className={gridStyles.ctaCharacters} to="/characters"> View all the characters </NavLink>
-                    <NavLink className={gridStyles.ctaLocations} to="/locations"> View all the locations </NavLink>
+                    <NavLink className={gridStyles.ctaCharacters} to="/characters"
+                             onClick={() => window.scrollTo(0, 0)}
+                    >
+                        View all the characters
+                    </NavLink>
+                    <NavLink className={gridStyles.ctaLocations} to="/locations"
+                             onClick={() => window.scrollTo(0, 0)}
+                    >
+                        View all the locations
+                    </NavLink>
                 </div>
             </section>
 
