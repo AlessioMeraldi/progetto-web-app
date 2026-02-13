@@ -19,6 +19,7 @@ import CharactersGrid from "../GridSubComponents/CharactersGrid.jsx";
 
 // ViewModel imports
 import CharactersViewModel from "../../viewModels/CharactersViewModel.js";
+import homerGif from "../../assets/Images/homer-gif.gif";
 
 // Begin view
 const Profile = () => {
@@ -149,7 +150,11 @@ const Profile = () => {
                         ) : favourites.length === 0 ? (
                             // Case: no favourites
                             <div className={styles.emptyFavorites}>
-                                <img src="/src/assets/Images/homer-gif.gif" alt="Homer" className={styles.homerPng} />
+                                <img
+                                    src={homerGif}
+                                    className={styles.homerPng}
+                                    alt="No favourites"
+                                />
                                 <p>
                                     You haven't saved any characters yet. <br />
                                     Run to the characters page to explore all of Springfield's most iconic characters and save your favorites!
