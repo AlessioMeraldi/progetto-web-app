@@ -18,8 +18,8 @@
     font-size: 3.5rem;
     color: var(--yellow-primary);
     text-transform: uppercase;
-    -webkit-text-stroke: 3px var(--black);
-    text-shadow: 5px 5px 0px var(--black), 8px 8px 0px var(--blue-primary);
+    -webkit-text-stroke: 1px var(--black);
+    text-shadow: 2px 2px 0px var(--black), 4px 4px 0px var(--blue-primary);
     letter-spacing: 2px;
 }
 

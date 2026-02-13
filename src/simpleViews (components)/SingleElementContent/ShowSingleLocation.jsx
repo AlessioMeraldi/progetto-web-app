@@ -8,6 +8,9 @@ import LocationsViewModel from '/src/viewModels/LocationsViewModel.js';
 // Style imports
 import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElements.module.css';
 
+// Image imports
+import placeholderImage from '/src/assets/Images/Locations_loading_silhouette.svg';
+
 // Begin logic
 function ShowSingleLocation({locId, imgSize}) {
 
@@ -37,7 +40,7 @@ function ShowSingleLocation({locId, imgSize}) {
                         {location?.locationImageURL && (
                             <div className={style.imageContainer} id={style.singleLocation}>
                                 <img
-                                    src="/src/assets/Images/Locations_loading_silhouette.svg"
+                                    src={placeholderImage}
                                     alt="loading..."
                                     className={style.characterImg}
                                     loading="eager"

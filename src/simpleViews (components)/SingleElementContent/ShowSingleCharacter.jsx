@@ -14,6 +14,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 // Service imports
 import { getCharacterRatingStats, getUserRating, saveRating } from '../../services/ratingsService';
 
+// Image imports
+import placeholderImage from '/src/assets/Images/Character_loading_silhouette.svg';
+
 // Begin logic
 function ShowSingleCharacter({charId, imgSize}) {
 
@@ -89,7 +92,7 @@ function ShowSingleCharacter({charId, imgSize}) {
                         {character?.characterImageURL && (
                             <div className={style.imageContainer}>
                                 <img
-                                    src="/src/assets/Images/Character_loading_silhouette.svg"
+                                    src={placeholderImage}
                                     alt="loading..."
                                     className={style.characterImg}
                                     loading="eager"
