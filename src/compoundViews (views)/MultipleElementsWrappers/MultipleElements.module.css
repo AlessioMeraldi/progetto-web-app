@@ -22,13 +22,8 @@
     letter-spacing: 1px;
     position: relative;
     margin: 0.2rem 0;
-
-    text-shadow:
-            -1px -1px 0 var(--black),
-            1px -1px 0 var(--black),
-            -1px  1px 0 var(--black),
-            1px  1px 0 var(--black),
-            3px  3px 0 var(--black);
+    -webkit-text-stroke: 1px var(--black);
+    text-shadow: 1px 1px 0px var(--black), 2px 2px 0px var(--blue-primary);
 }
 
 .buttonsContainer {
