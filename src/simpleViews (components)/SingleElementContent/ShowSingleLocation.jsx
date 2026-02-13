@@ -108,15 +108,17 @@ function ShowSingleLocation({locId, imgSize}) {
 
                 {/* First appearances */}
                 <section className={style.section}>
-                    <h2>First appearance</h2>
 
                     {/* conditional rendering with notation: (condition && <element to render>) */}
                     {location?.locationData?.first_appearance_ep && ( /* pseudocode: IF (first_appearance_ep.EXISTS == TRUE && <element to render>) */
-                        <div className={style.appearanceBox}>
-                            <h3>First TV episode</h3>
-                            <p><strong>Date: </strong>{location.locationData.first_appearance_ep.airdate}</p>
-                            <p><strong>Info: </strong>{location.locationData.first_appearance_ep.description}</p>
-                        </div>
+                        <React.Fragment>
+                            <h2>First appearance</h2>
+                            <div className={style.appearanceBox}>
+                                <h3>First TV episode</h3>
+                                <p><strong>Date: </strong>{location.locationData.first_appearance_ep.airdate}</p>
+                                <p><strong>Info: </strong>{location.locationData.first_appearance_ep.description}</p>
+                            </div>
+                        </React.Fragment>
                     )}
 
                     {/* same type of conditional rendering in case location was introduced in a short (sh) rather than an episode (ep) */}
