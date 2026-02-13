@@ -87,7 +87,7 @@ src/
 
 ```bash
 git clone https://github.com/AlessioMeraldi/progetto-web-app
-cd repo-name
+cd progetto-web-app
 ```
 
 2. **Install dependencies:**
