@@ -35,7 +35,7 @@ function Locations() {
     }, []);
 
     return (
-        <React.Fragment>
+        <section className={styles.topContainer}>
 
             {/* Filters section */}
             <section className={`${styles.container} ${styles.filtersSection}`}>
@@ -123,7 +123,7 @@ function Locations() {
                 :
                 <LocationsList allLocs={filteredLocations}/> }
 
-        </React.Fragment>
+        </section>
     )
 
 }

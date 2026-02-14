@@ -53,15 +53,15 @@
 /* In index.css */
 
 html {
-    /* Remove overflow-x: hidden from here */
     width: 100%;
-    height: 100%; /* Use height 100% on html */
+    height: 100%;
+    overflow-x: clip;
 }
 
 body {
     min-height: 100%;
     width: 100%;
-    /* overflow-x: hidden; <--- Try commenting this out first to TEST */
+    /* overflow-x: hidden; */
     margin: 0;
 }
 

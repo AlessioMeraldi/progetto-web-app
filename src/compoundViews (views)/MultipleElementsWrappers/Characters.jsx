@@ -73,7 +73,7 @@ function Characters() {
     }, [isAuthenticated, user]);
 
     return (
-        <React.Fragment>
+        <section className={styles.topContainer}>
 
             {/* Choose display type message & buttons */}
             <section className={styles.container}>
@@ -216,7 +216,7 @@ function Characters() {
 
             </section>
 
-        </React.Fragment>
+        </section>
     )
 
 }
