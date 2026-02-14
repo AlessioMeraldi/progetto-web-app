@@ -69,6 +69,10 @@
     transform: translateY(2px) translateZ(0);
 }
 
+button:hover svg {
+    stroke: var(--white);
+}
+
 /* Hover effects */
 .navbarLink:hover, .login:hover {
     background-color: var(--blue-primary);

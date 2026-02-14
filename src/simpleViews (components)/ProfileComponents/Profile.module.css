@@ -181,3 +181,17 @@
 .ctaExplore {
     margin-top: 1.5rem;
 }
+
+.svgStyle  {
+    stroke: var(--black);
+}
+
+.svgStyle:hover {
+    stroke: var(--white) !important;
+}
+
+/*@media (prefers-color-scheme: dark) {*/
+/*    .svgStyle {*/
+/*        stroke: var(--white);*/
+/*    }*/
+/*}*/
