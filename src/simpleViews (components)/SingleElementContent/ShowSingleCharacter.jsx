@@ -164,10 +164,10 @@ function ShowSingleCharacter({charId, imgSize}) {
                     <section className={style.section}>
                         <h2>General information</h2>
                         <ul className={style.dataList}>
-                            <li><strong>Age:</strong> {character?.characterData?.age}</li>
-                            <li><strong>Gender:</strong> {character?.characterData?.gender}</li>
-                            <li><strong>Status:</strong> {character?.characterData?.status}</li>
-                            <li><strong>Occupation:</strong> {character?.characterData?.occupation}</li>
+                            <li><strong>Age: {character?.characterData?.age? character?.characterData?.age : "Unknown"}</strong></li>
+                            <li><strong>Gender:</strong> {character?.characterData?.gender? character?.characterData?.gender : "Unknown/Other"}</li>
+                            <li><strong>Status:</strong> {character?.characterData?.status? character?.characterData?.status : "Unknown"}</li>
+                            <li><strong>Occupation:</strong> {character?.characterData?.occupation? character?.characterData?.occupation : "Unknown"}</li>
                         </ul>
                     </section>
 
