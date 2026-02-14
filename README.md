@@ -339,28 +339,23 @@ additional layer of logic for **Client-Side Pagination** to maintain performance
 **1. Dual-Layer State Management**
 Unlike the Locations ViewModel, which maps filtered results directly to the view, this ViewModel separates the data into
 two distinct stages to handle volume:
-
 1. **`filteredCharacters`**: The complete list of characters that match the current filters (e.g., "All Females").
 2. **`displayedCharacters`**: A slice of the filtered list actually rendered by the DOM.
 
 **2. Client-Side Pagination Logic**
 To prevent rendering delays, the ViewModel implements a simplified pagination system (Pages 0 and 1) controlled by a
 dedicated `useEffect`:
-
 * **Trigger:** Runs whenever `pageNumber` or the `filteredCharacters` list changes.
 * **Logic:**
-* **Page 0:** Slices indices `0` to `600`.
-* **Page 1:** Slices indices `600` to the end.
-
-
+  * **Page 0:** Slices indices `0` to `600`.
+  * **Page 1:** Slices indices `600` to the end.
 * **Auto-Reset:** Whenever a user updates a filter (e.g., changes Status to "Alive"), the pagination automatically
   resets to `0` to ensure the user sees the new results from the top (and doesn't risk presenting an empty second page)
 
 **3. Specific Filtering Logic**
 While the name search is shared, this ViewModel implements domain-specific filters for characters:
-
-* **Gender:** Filters for "Male", "Female", or "Other".
-* **Status:** Filters for "Alive" or "Deceased".
+    * **Gender:** Filters for "Male", "Female", or "Other".
+    * **Status:** Filters for "Alive" or "Deceased".
 
 **4. Exposed Interface**
 The return object includes the standard data/actions plus specific state for pagination:
