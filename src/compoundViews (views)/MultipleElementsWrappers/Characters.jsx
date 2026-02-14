@@ -185,6 +185,15 @@ function Characters() {
                 )
             )}
 
+            {/*No characters displayed notification*/}
+            {
+                (displayedCharacters.length === 0)
+                &&
+                <section className={styles.noElementsContainer}>
+                    <p>No characters match the filters or the search</p>
+                </section>
+            }
+
             {/* switch between first-half and last-half of characters */}
             <section className={styles.container}>
 

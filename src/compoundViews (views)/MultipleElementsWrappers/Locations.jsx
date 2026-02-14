@@ -121,7 +121,17 @@ function Locations() {
             { (visualizationType === "grid") ?
                 <LocationsGrid allLocs={filteredLocations}/>
                 :
-                <LocationsList allLocs={filteredLocations}/> }
+                <LocationsList allLocs={filteredLocations}/>
+            }
+
+            {/*No locations displayed notification*/}
+            {
+                (filteredLocations.length === 0)
+                &&
+                <section className={styles.noElementsContainer}>
+                    <p>No locations match the filters or the search</p>
+                </section>
+            }
 
         </section>
     )
