@@ -150,6 +150,21 @@ button:hover svg {
     transition: all 0.25s ease;
 }
 
+.navLinks svg {
+    stroke: var(--black);
+}
+
+.navLinks a:hover svg,
+.navLinks button:hover svg,
+.navLinks .active svg {
+    stroke: var(--white) !important;
+}
+
+.navLinks a:hover svg path,
+.navLinks .active svg path {
+    fill: var(--white) !important;
+}
+
 /* ===== RESPONSIVE MOBILE MENU ====== */
 
 @media (max-width: 1024px) {
