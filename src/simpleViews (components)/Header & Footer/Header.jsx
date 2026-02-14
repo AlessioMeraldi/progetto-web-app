@@ -1,9 +1,9 @@
 
 // React imports
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // Routing imports
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 
 // Style imports
 import styles from "./Header.module.css";
@@ -21,6 +21,18 @@ function Header() {
     // Auth0 authentication state
     const {isAuthenticated} = useAuth0();
     const [menuOpen, setMenuOpen] = useState(false);
+
+    // Inizialization useLocation
+    const location = useLocation();
+
+    // Close the menu everytime we have a change route (both click to a link or back browser click)
+    useEffect(() => {
+        // Close the menu only if it is actually open
+        if (menuOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setMenuOpen(false);
+        }
+    }, [location]);
 
     // Helper function for NavLink styling applies active class when the link is active
     const linkStyle = ({isActive}) => (isActive ? styles.active : styles.navbarLink);
