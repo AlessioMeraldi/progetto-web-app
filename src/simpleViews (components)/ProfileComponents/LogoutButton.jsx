@@ -1,6 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React from "react";
 
+import styles from './Profile.module.css';
+
 // Logout button component (visible only when authenticated)
 const LogoutButton = ({ className }) => {
     const { logout, isAuthenticated } = useAuth0();
@@ -25,6 +27,7 @@ const LogoutButton = ({ className }) => {
                     strokeWidth="3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    className = {styles.svgStyle}
                 >
                     <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
                     <line x1="12" y1="2" x2="12" y2="12"></line>
