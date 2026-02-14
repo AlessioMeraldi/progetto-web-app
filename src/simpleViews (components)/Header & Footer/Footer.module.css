@@ -28,6 +28,8 @@
     font-size: 1.2rem;
     text-transform: uppercase;
     transition: color 0.2s;
+    display: flex;
+    justifiy-content: center;
 }
 
 .courseLink:hover {
