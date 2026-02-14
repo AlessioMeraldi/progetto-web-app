@@ -79,6 +79,11 @@
     margin-right: 0.5rem;
 }
 
+.centeredText {
+    align-self: center;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
 
     .filterGroup {

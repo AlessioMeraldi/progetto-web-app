@@ -165,7 +165,9 @@ function Characters() {
 
             {/* Main content */}
             {!favouritesLoaded ? (
-                <p>Loading favourites...</p>
+                <p className={styles.centeredText}>
+                    Loading favourites...
+                </p>
             ) : (
                 /* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */
                 visualizationType === "grid" ? (
