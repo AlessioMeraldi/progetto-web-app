@@ -187,7 +187,7 @@ function CharacterViewModel() {
      * updateFilters
      * @param filterType = "gender", "status", "name"
      * @param newValue = new value of the filter to modify, depending on which one it is ("All"/"Male"/"Female"/"Other" for Gender, ...)
-     * Updates the filters state, setting the specific specified filter (first parameter) with the passed value (second parameter)
+     * Updates the filters state, setting the specified filter (first parameter) with the passed value (second parameter)
      */
     function updateFilter (filterType, newValue) {
 

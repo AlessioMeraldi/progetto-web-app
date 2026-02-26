@@ -1,4 +1,3 @@
-
 // Style imports
 import styles from "/src/compoundViews (views)/MultipleElementsWrappers/MultipleElements.module.css";
 
@@ -14,10 +13,10 @@ import CharactersList from '/src/simpleViews (components)/ListSubComponents/Char
 import SearchBar from '/src/simpleViews (components)/SearchBar/SearchBar.jsx'
 
 // Auth0 imports
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 
 // Supabase imports
-import { getUserFavourites } from '../../services/favouritesService';
+import {getUserFavourites} from '../../services/favouritesService';
 
 // Begin logic
 function Characters() {
@@ -30,7 +29,7 @@ function Characters() {
     const [statusRadio, setStatusRadio] = React.useState('All');
 
     // State for favourites
-    const { user, isAuthenticated } = useAuth0();
+    const {user, isAuthenticated} = useAuth0();
     const [favourites, setFavourites] = useState([]); // will contain an array of IDs = [id1, id2, id3, ...]
     const [favouritesLoaded, setFavouritesLoaded] = useState(false);
 
@@ -81,13 +80,17 @@ function Characters() {
                 <div className={styles.buttonsContainer}>
                     {/* v set style to be .cta regardless, if grid is currently being shown, set it to also be .selected*/}
                     <button className={`${styles.cta} ${visualizationType === "grid" ? styles.selected : ""}`}
-                            onClick={() => {setVisualizationType("grid")}}
+                            onClick={() => {
+                                setVisualizationType("grid")
+                            }}
                     >
                         grid
                     </button>
                     <button
                         className={`${styles.cta} ${visualizationType === "list" ? styles.selected : ""}`}
-                        onClick={() => {setVisualizationType("list")}}
+                        onClick={() => {
+                            setVisualizationType("list")
+                        }}
                     >
                         list
                     </button>
@@ -103,26 +106,38 @@ function Characters() {
                     <h3>Gender</h3>
 
                     <input type="radio" id="allGenders" name="gender" value="allGenders"
-                            onChange={() => {updateFilter("gender", "All"); setGenderRadio("All");}}
-                            // ^ To show the default filters, the status was needed, that's why we are invoking both updateFilter(...) [VM state] and setGenderRadio(...) [local state]
-                            checked={genderRadio === 'All'}
+                           onChange={() => {
+                               updateFilter("gender", "All");
+                               setGenderRadio("All");
+                           }}
+                        // ^ To show the default filters, the status was needed, that's why we are invoking both updateFilter(...) [VM state] and setGenderRadio(...) [local state]
+                           checked={genderRadio === 'All'}
                     />
                     <label htmlFor="allGenders">All</label>
 
                     <input type="radio" id="male" name="gender" value="male"
-                           onChange={() => {updateFilter("gender","Male"); setGenderRadio("Male");}}
+                           onChange={() => {
+                               updateFilter("gender", "Male");
+                               setGenderRadio("Male");
+                           }}
                            checked={genderRadio === 'Male'}
                     />
                     <label htmlFor="male">Male</label>
 
                     <input type="radio" id="female" name="gender" value="female"
-                           onChange={() => {updateFilter("gender","Female"); setGenderRadio("Female");}}
+                           onChange={() => {
+                               updateFilter("gender", "Female");
+                               setGenderRadio("Female");
+                           }}
                            checked={genderRadio === 'Female'}
                     />
                     <label htmlFor="female">Female</label>
 
                     <input type="radio" id="other" name="gender" value="other"
-                           onChange={() => {updateFilter("gender","Other"); setGenderRadio("Other");}}
+                           onChange={() => {
+                               updateFilter("gender", "Other");
+                               setGenderRadio("Other");
+                           }}
                            checked={genderRadio === 'Other'}
                     />
                     <label htmlFor="other">Other</label>
@@ -136,19 +151,28 @@ function Characters() {
                     <h3>Status</h3>
 
                     <input type="radio" id="allStatus" name="status" value="allStatus"
-                           onChange={() => {updateFilter("status","All"); setStatusRadio("All");}}
+                           onChange={() => {
+                               updateFilter("status", "All");
+                               setStatusRadio("All");
+                           }}
                            checked={statusRadio === 'All'}
                     />
                     <label htmlFor="allStatus">Both alive and deceased</label>
 
                     <input type="radio" id="alive" name="status" value="alive"
-                           onChange={() => {updateFilter("status","Alive"); setStatusRadio("Alive");}}
+                           onChange={() => {
+                               updateFilter("status", "Alive");
+                               setStatusRadio("Alive");
+                           }}
                            checked={statusRadio === 'Alive'}
                     />
                     <label htmlFor="alive">Alive</label>
 
                     <input type="radio" id="deceased" name="status" value="deceased"
-                           onChange={() => {updateFilter("status","Deceased"); setStatusRadio("Deceased");}}
+                           onChange={() => {
+                               updateFilter("status", "Deceased");
+                               setStatusRadio("Deceased");
+                           }}
                            checked={statusRadio === 'Deceased'}
                     />
                     <label htmlFor="deceased">Deceased</label>
@@ -160,7 +184,7 @@ function Characters() {
 
             {/* Searchbar section */}
             <section className={styles.container}>
-                <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredCharacters} />
+                <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredCharacters}/>
             </section>
 
             {/* Main content */}

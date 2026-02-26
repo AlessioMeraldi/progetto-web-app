@@ -100,9 +100,9 @@ function LocationsViewModel() {
 
     /**
      *  filterByCity
-     *  @Param listToFilter = array of characters to filter by gender
+     *  @Param listToFilter = array of characters to filter by city
      *  @Param requestedCity = "allCities", "Springfield", "otherCity"
-     *  Text
+     *  Filters the provided locations list and returns one with only the locations in the specified city
      */
     function filterByCity (listToFilter, requestedCity) {
 
@@ -134,9 +134,9 @@ function LocationsViewModel() {
 
     /**
      * filterByUse
-     * @param listToFilter = array of characters to be filtered by status
-     * @param requestedUse = "allUses", "residential", "otherUse"
-     * Text
+     * @param listToFilter = array of characters to be filtered by use
+     * @param requestedUse = "allUses", "residential", "otherUse" = non-residential use
+     * Filters the provided locations list and returns one with only the locations that have the specified use
      */
     function filterByUse (listToFilter, requestedUse) {
 
@@ -178,9 +178,9 @@ function LocationsViewModel() {
 
     /**
      * updateFilters
-     * @param filterType = "gender", "status", "name"
-     * @param newValue = new value of the filter to modify, depending on which one it is ("All"/"Male"/"Female"/"Other" for Gender, ...)
-     * Updates the filters state, setting the specific specified filter (first parameter) with the passed value (second parameter)
+     * @param filterType = "city", "use", "name"
+     * @param newValue = new value of the filter to modify, depending on which one it is
+     * Updates the filters state, setting the specified filter (first parameter) with the passed value (second parameter)
      */
     function updateFilter (filterType, newValue) {
 
@@ -194,10 +194,10 @@ function LocationsViewModel() {
     // Effect to actually filter
 
     /**
-     * This effect triggers whenever the state of 'allCharacters' or 'filters' changes, thus:
-     * --> It will trigger upon fetching all the characters the first time
+     * This effect triggers whenever the state of 'allLocations' or 'filters' changes, thus:
+     * --> It will trigger upon fetching all the locations the first time
      * --> It will trigger whenever a filter is modified
-     * The effect itself chains the calling of a series of filtering functions to update the 'charactersToShow'
+     * The effect itself chains the calling of a series of filtering functions to update the 'locationsToShow'
      * state with the filtered list (on the first trigger, it won't filter anything at all)
      */
     useEffect(() => {

@@ -29,7 +29,7 @@ function Locations() {
         updateFilter
     } = LocationsViewModel();
 
-    // tell the ViewModel to update its state regarding [allCharacters]
+    // tell the ViewModel to update its state regarding [allLocations]
     useEffect(() => {
         getAllLocations();
     }, []);
@@ -46,20 +46,29 @@ function Locations() {
                     <h3>City</h3>
 
                     <input type="radio" id="allCities" name="cities" value="allCities"
-                           onChange={() => {updateFilter("city", "allCities"); setCityRadio("allCities");}}
+                           onChange={() => {
+                               updateFilter("city", "allCities");
+                               setCityRadio("allCities");
+                           }}
                         // ^ To show the default filters, the status was needed, that's why we are invoking both updateFilter(...) [VM state] and setGenderRadio(...) [local state]
                            checked={cityRadio === 'allCities'}
                     />
                     <label htmlFor="allCities">All</label>
 
                     <input type="radio" id="Springfield" name="cities" value="Springfield"
-                           onChange={() => {updateFilter("city","Springfield"); setCityRadio("Springfield");}}
+                           onChange={() => {
+                               updateFilter("city", "Springfield");
+                               setCityRadio("Springfield");
+                           }}
                            checked={cityRadio === 'Springfield'}
                     />
                     <label htmlFor="Springfield">Springfield (only)</label>
 
                     <input type="radio" id="otherCity" name="cities" value="otherCity"
-                           onChange={() => {updateFilter("city","otherCity"); setCityRadio("otherCity");}}
+                           onChange={() => {
+                               updateFilter("city", "otherCity");
+                               setCityRadio("otherCity");
+                           }}
                            checked={cityRadio === 'otherCity'}
                     />
                     <label htmlFor="otherCity">Other cities</label>
@@ -73,19 +82,28 @@ function Locations() {
                     <h3>Use</h3>
 
                     <input type="radio" id="allUses" name="use" value="allUses"
-                           onChange={() => {updateFilter("use","allUses"); setUseRadio("allUses");}}
+                           onChange={() => {
+                               updateFilter("use", "allUses");
+                               setUseRadio("allUses");
+                           }}
                            checked={useRadio === 'allUses'}
                     />
                     <label htmlFor="allUses">All uses</label>
 
                     <input type="radio" id="residential" name="use" value="residential"
-                           onChange={() => {updateFilter("use","residential"); setUseRadio("residential");}}
+                           onChange={() => {
+                               updateFilter("use", "residential");
+                               setUseRadio("residential");
+                           }}
                            checked={useRadio === 'residential'}
                     />
                     <label htmlFor="residential">Residential use</label>
 
                     <input type="radio" id="otherUse" name="use" value="otherUse"
-                           onChange={() => {updateFilter("use","otherUse"); setUseRadio("otherUse");}}
+                           onChange={() => {
+                               updateFilter("use", "otherUse");
+                               setUseRadio("otherUse");
+                           }}
                            checked={useRadio === 'otherUse'}
                     />
                     <label htmlFor="otherUse">Non-Residential use</label>
@@ -100,12 +118,16 @@ function Locations() {
                 <h3>CHOOSE VISUALIZATION TYPE</h3>
                 <div className={styles.buttonsContainer}>
                     <button className={`${styles.cta} ${visualizationType === "grid" ? styles.selected : ""}`}
-                            onClick={() => {setVisualizationType("grid")}}
+                            onClick={() => {
+                                setVisualizationType("grid")
+                            }}
                     >
                         grid
                     </button>
                     <button className={`${styles.cta} ${visualizationType === "list" ? styles.selected : ""}`}
-                            onClick={() => {setVisualizationType("list")}}
+                            onClick={() => {
+                                setVisualizationType("list")
+                            }}
                     >
                         list
                     </button>
@@ -114,11 +136,11 @@ function Locations() {
 
             {/* Searchbar section */}
             <section className={styles.container}>
-                <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredLocations} />
+                <SearchBar searchElement={updateFilter} dataForAutocomplete={filteredLocations}/>
             </section>
 
             {/* Ternary operator for abbreviated IF-ELSE --> (condition) ? expressionTrue : expressionFalse; */}
-            { (visualizationType === "grid") ?
+            {(visualizationType === "grid") ?
                 <LocationsGrid allLocs={filteredLocations}/>
                 :
                 <LocationsList allLocs={filteredLocations}/>

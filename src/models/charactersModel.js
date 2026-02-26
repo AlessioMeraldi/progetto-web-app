@@ -1,6 +1,6 @@
 
 /**
- *  fetchSingleCharater
+ *  fetchSingleCharacter
  *  @Param characterId = integer number of the single character.
  *  @Param imageSize = integer number of the resolution for the image = 200 / 500 / 1280.
  *  Fetches a single specified character's JSON from The Simpsons API (characterId) and prepares the URL to get their image of the appropriate size (imageSize)

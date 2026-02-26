@@ -19,7 +19,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
     /**
      * handleInputChange
      * @param event = the event caused by the input field (to get its value)
-     * Gets the input value and matches the element (character or location) that contain said input (case-insensitive)
+     * Gets the input value and matches the elements (characters or locations) that contain said input (case-insensitive)
      * creating an array of up to 5 recommended matches.
      */
     function handleInputChange(event) {
@@ -126,7 +126,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
 
             </div>
 
-            {/* autocomplete section */}
+            {/* suggestions section */}
             { showSuggestions && suggestions.length > 0 && (
                 <ul className={styles.suggestionsList}>
                     {suggestions.map(((element, index) => (
