@@ -2,7 +2,7 @@
 import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElements.module.css';
 
 // React imports
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 // Routing imports
 import {useParams, Navigate, NavLink} from 'react-router-dom';
@@ -45,7 +45,7 @@ function SingleLocation() {
         <main className={style.pageContainer}>
             {
                 /* conditional rendering of the {condition && <thing to render>} type */
-                (locationId>1)
+                (locationId > 1)
                 &&
                 <NavLink to={`/location/${locationId - 1}`} className={`${style.navBtn} ${style.prevBtn}`}>
                     PREVIOUS
@@ -53,7 +53,7 @@ function SingleLocation() {
             }
             <ShowSingleLocation locId={locationId} imgSize="500"/>
             {
-                (locationId<maxId)
+                (locationId < maxId)
                 &&
                 <NavLink to={`/location/${locationId + 1}`} className={`${style.navBtn} ${style.nextBtn}`}>
                     NEXT

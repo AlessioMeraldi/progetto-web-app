@@ -1,4 +1,3 @@
-
 // React imports
 import React, {useState} from 'react';
 
@@ -7,7 +6,7 @@ import globalStyles from "/src/compoundViews (views)/MultipleElementsWrappers/Mu
 import styles from "./SearchBar.module.css";
 
 // Begin view
-function SearchBar ({searchElement, dataForAutocomplete}) {
+function SearchBar({searchElement, dataForAutocomplete}) {
 
     // State
     const [searchedElement, setsSearchedElement] = useState("");
@@ -50,7 +49,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
      * The wrapper itself (characters.jsx or locations.jsx) will then call the respective VM to handle the request.
      * After this, it disables the showing of the suggestions.
      */
-    function handleSearchSubmit () {
+    function handleSearchSubmit() {
         searchElement("name", searchedElement);
         setShowSuggestions(false);
     }
@@ -63,7 +62,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
      * The wrapper itself (characters.jsx or locations.jsx) will then call the respective VM to handle the request.
      * After this, it disables the showing of the suggestions.
      */
-    function handleSuggestionClick (clickedSuggestion) {
+    function handleSuggestionClick(clickedSuggestion) {
         setsSearchedElement(clickedSuggestion);
         searchElement("name", clickedSuggestion);
         setShowSuggestions(false);
@@ -74,7 +73,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
      * @param event = the event passed from the input field
      * Handles keyboard navigation (Enter to submit, Tab to autocomplete).
      */
-    function handleKeyDown (event) {
+    function handleKeyDown(event) {
 
         // if enter is pressed, search for the specified character
         if (event.key === "Enter") {
@@ -111,15 +110,15 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
                 <input
                     type="text"
                     placeholder="Search character here"
-                    value = {searchedElement} // set input's value to be the one of the state (when it changes from autocompleting / searching)
-                    onChange = {handleInputChange}
-                    onKeyDown = {handleKeyDown} // = to: onKeyDown={(event) => handleKeyDown(event)}
-                    className = {styles.searchInput}
+                    value={searchedElement} // set input's value to be the one of the state (when it changes from autocompleting / searching)
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown} // = to: onKeyDown={(event) => handleKeyDown(event)}
+                    className={styles.searchInput}
                 />
 
                 <button
-                    className = {globalStyles.cta}
-                    onClick = {handleSearchSubmit}
+                    className={globalStyles.cta}
+                    onClick={handleSearchSubmit}
                 >
                     Find
                 </button>
@@ -127,7 +126,7 @@ function SearchBar ({searchElement, dataForAutocomplete}) {
             </div>
 
             {/* suggestions section */}
-            { showSuggestions && suggestions.length > 0 && (
+            {showSuggestions && suggestions.length > 0 && (
                 <ul className={styles.suggestionsList}>
                     {suggestions.map(((element, index) => (
                         <li key={element.id || index}

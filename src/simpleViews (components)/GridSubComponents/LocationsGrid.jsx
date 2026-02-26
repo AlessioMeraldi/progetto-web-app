@@ -22,7 +22,7 @@ function LocationsGrid({allLocs}) {
                         <NavLink key={location.id || index}
                                  to={`/location/${location.id}`}
                                  className={styles.card}
-                                 style={{ textDecoration: 'none', color: 'inherit' }}
+                                 style={{textDecoration: 'none', color: 'inherit'}}
                         >
                             <div>
                                 <img

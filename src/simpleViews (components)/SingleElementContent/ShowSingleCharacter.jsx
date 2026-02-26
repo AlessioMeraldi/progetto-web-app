@@ -1,4 +1,3 @@
-
 // React imports
 import React, {useEffect, useState} from 'react';
 
@@ -9,10 +8,10 @@ import CharactersViewModel from '/src/viewModels/CharactersViewModel.js';
 import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElements.module.css';
 
 // Auth0 imports
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 
 // Service imports
-import { getCharacterRatingStats, getUserRating, saveRating } from '../../services/ratingsService';
+import {getCharacterRatingStats, getUserRating, saveRating} from '../../services/ratingsService';
 
 // Image imports
 import placeholderImage from '/src/assets/Images/Character_loading_silhouette.svg';
@@ -21,11 +20,11 @@ import placeholderImage from '/src/assets/Images/Character_loading_silhouette.sv
 function ShowSingleCharacter({charId, imgSize}) {
 
     // Auth0 state
-    const { user, isAuthenticated } = useAuth0();
+    const {user, isAuthenticated} = useAuth0();
 
     // Local state for ratings
     const [userDonuts, setUserDonuts] = useState(0); // rating given by the logged user
-    const [avgStats, setAvgStats] = useState({ average: 0, count: 0 });
+    const [avgStats, setAvgStats] = useState({average: 0, count: 0});
 
     // instantiate the ViewModel and get only the parts we're interested in right now
     const {
@@ -164,10 +163,18 @@ function ShowSingleCharacter({charId, imgSize}) {
                     <section className={style.section}>
                         <h2>General information</h2>
                         <ul className={style.dataList}>
-                            <li><strong>Age: {character?.characterData?.age? character?.characterData?.age : "Unknown"}</strong></li>
-                            <li><strong>Gender:</strong> {character?.characterData?.gender? character?.characterData?.gender : "Unknown/Other"}</li>
-                            <li><strong>Status:</strong> {character?.characterData?.status? character?.characterData?.status : "Unknown"}</li>
-                            <li><strong>Occupation:</strong> {character?.characterData?.occupation? character?.characterData?.occupation : "Unknown"}</li>
+                            <li>
+                                <strong>Age: {character?.characterData?.age ? character?.characterData?.age : "Unknown"}</strong>
+                            </li>
+                            <li>
+                                <strong>Gender:</strong> {character?.characterData?.gender ? character?.characterData?.gender : "Unknown/Other"}
+                            </li>
+                            <li>
+                                <strong>Status:</strong> {character?.characterData?.status ? character?.characterData?.status : "Unknown"}
+                            </li>
+                            <li>
+                                <strong>Occupation:</strong> {character?.characterData?.occupation ? character?.characterData?.occupation : "Unknown"}
+                            </li>
                         </ul>
                     </section>
 

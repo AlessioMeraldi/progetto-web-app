@@ -86,7 +86,7 @@
     border-radius: 28px;
     box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.65);
     transform: translateY(-30px);
-    filter: drop-shadow(6px 6px 0px rgba(0,0,0,0.15));
+    filter: drop-shadow(6px 6px 0px rgba(0, 0, 0, 0.15));
     transition: transform 0.25s ease;
 }
 
@@ -157,7 +157,9 @@
 
 /* Responsive */
 @media (max-width: 992px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 /* Responsive - Update the existing media query at the bottom of the file */
@@ -184,7 +186,8 @@
     }
 
     .heroContent {
-        transform: none; padding: 1.5rem;
+        transform: none;
+        padding: 1.5rem;
     }
 
 }

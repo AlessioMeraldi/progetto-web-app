@@ -2,13 +2,13 @@
 import React, {useEffect, useState} from 'react';
 
 // Router imports
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 // Auth0 imports
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 
 // Supabase service imports
-import { getUserFavourites } from '../../services/favouritesService';
+import {getUserFavourites} from '../../services/favouritesService';
 
 // Style imports
 import styles from './Profile.module.css';
@@ -27,7 +27,7 @@ const Profile = () => {
     // State management
 
     // Auth0 state
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const {user, isAuthenticated, isLoading} = useAuth0();
 
     // Supabase favourites state
     const [favourites, setFavourites] = useState([]);
@@ -94,7 +94,7 @@ const Profile = () => {
                             {/* Left: Photo */}
                             <div className={styles.passportPhotoSection}>
                                 <div className={styles.photoFrame}>
-                                    <img src={user.picture} alt={user.name} className={styles.avatar} />
+                                    <img src={user.picture} alt={user.name} className={styles.avatar}/>
                                 </div>
                                 <span className={styles.photoLabel}>OFFICIAL PHOTO</span>
                             </div>
@@ -156,8 +156,9 @@ const Profile = () => {
                                     alt="No favourites"
                                 />
                                 <p>
-                                    You haven't saved any characters yet. <br />
-                                    Run to the characters page to explore all of Springfield's most iconic characters and save your favorites!
+                                    You haven't saved any characters yet. <br/>
+                                    Run to the characters page to explore all of Springfield's most iconic characters
+                                    and save your favorites!
                                 </p>
                                 {/* NavLink for the button */}
                                 <NavLink to="/characters">

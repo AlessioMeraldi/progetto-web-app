@@ -1,5 +1,5 @@
 // Supabase imports
-import { supabase } from "./supabaseClient.js";
+import {supabase} from "./supabaseClient.js";
 
 /**
  * getUserFavourites
@@ -7,10 +7,10 @@ import { supabase } from "./supabaseClient.js";
  * Fetches user's favourites saved in Supabase, alongside the user's email (for identification)
  * @returns {Promise<*[]>}
  */
-export async function getUserFavourites (userEmail) {
+export async function getUserFavourites(userEmail) {
 
     // get data from remote DB
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from("favourites_characters")
         .select("character_id")
         .eq("user_email", userEmail) // email is used to know in the DB which user saved which character
@@ -31,7 +31,7 @@ export async function getUserFavourites (userEmail) {
  * Saves a favourite character in the Supabase DB, associating the favourite with the user's email
  * @returns {Promise<void>}
  */
-export async function addFavourite (characterId, userEmail) {
+export async function addFavourite(characterId, userEmail) {
 
     // .from('where to insert data') , .insert(value-to-insert)
     await supabase
@@ -39,8 +39,8 @@ export async function addFavourite (characterId, userEmail) {
         .insert({
             character_id: characterId,
             user_email: userEmail,
-            })
-        ;
+        })
+    ;
 }
 
 /**
@@ -50,7 +50,7 @@ export async function addFavourite (characterId, userEmail) {
  * Removes a previously saved favourite character in the Supabase DB, associated with the user's email
  * @returns {Promise<void>}
  */
-export async function removeFavourite (characterId, userEmail) {
+export async function removeFavourite(characterId, userEmail) {
 
     await supabase
         .from("favourites_characters")

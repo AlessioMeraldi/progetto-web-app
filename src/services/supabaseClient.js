@@ -1,5 +1,5 @@
 // Supabase imports
-import { createClient } from "@supabase/supabase-js";
+import {createClient} from "@supabase/supabase-js";
 
 // Create a supabase client object, we pass it the .env keys to authenticate
 export const supabase = createClient(

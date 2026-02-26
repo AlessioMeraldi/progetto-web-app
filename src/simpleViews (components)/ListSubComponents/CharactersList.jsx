@@ -5,13 +5,13 @@ import styles from "/src/simpleViews (components)/ListSubComponents/Lists.module
 import React from "react";
 
 // Routing imports
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 // Auth0 imports
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 
 // Supabase imports
-import { addFavourite, removeFavourite } from '../../services/favouritesService';
+import {addFavourite, removeFavourite} from '../../services/favouritesService';
 
 // Begin view
 function CharactersList({allChars, userFavourites = [], setFavourites}) {
@@ -38,7 +38,7 @@ function CharactersList({allChars, userFavourites = [], setFavourites}) {
      * @param passedCharacter
      * @returns {boolean}
      */
-    function isFavourite (passedCharacter) {
+    function isFavourite(passedCharacter) {
         return userFavourites.includes(Number(passedCharacter.id));
     }
 
@@ -56,7 +56,7 @@ function CharactersList({allChars, userFavourites = [], setFavourites}) {
                         key={character.id || index}
                         to={`/character/${character.id}`}
                         className={styles.row}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
+                        style={{textDecoration: 'none', color: 'inherit'}}
                     >
                         <img
                             className={styles.avatar}
@@ -76,14 +76,19 @@ function CharactersList({allChars, userFavourites = [], setFavourites}) {
                         {isAuthenticated && (
                             <button
                                 type="button"
-                                className={styles.favButton} // Assicurati che questa classe esista in Lists.module.css
+                                className={styles.favButton}
                                 onClick={(e) => {
                                     e.preventDefault();      // block the redirect
                                     e.stopPropagation();     // block the click on the card
                                     toggleFavourite(character.id);
                                 }}
-                                style={{ marginRight: '15px', cursor: 'pointer', background: 'transparent', border: 'none', fontSize: '1.5rem' }}
-                                // ^ Ho aggiunto un po' di stile inline di base per sicurezza, sentiti libero di spostarlo nel CSS
+                                style={{
+                                    marginRight: '15px',
+                                    cursor: 'pointer',
+                                    background: 'transparent',
+                                    border: 'none',
+                                    fontSize: '1.5rem'
+                                }}
                             >
                                 {isFavourite(character) ? "❤️" : "🤍"}
                             </button>

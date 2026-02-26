@@ -75,7 +75,8 @@ export default function Home() {
                         <img src={theSimpsonsLogo2} alt="Simpson Logo" className={styles.logo}/>
                     </div>
                     <p className={styles.subtitle}>
-                        <b>Welcome to Springfield! Explore the secrets, trivia, and iconic history of the world’s favorite yellow family.</b>
+                        <b>Welcome to Springfield! Explore the secrets, trivia, and iconic history of the world’s
+                            favorite yellow family.</b>
                         <br/>Your ultimate guide to all things Simpsons starts here.
                     </p>
                     <NavLink className={styles.cta} to="/characters"> Explore characters </NavLink>
@@ -90,7 +91,7 @@ export default function Home() {
                     {characters.map((char) => (
                         <NavLink key={char.id} to={`/character/${char.id}`}
                                  className={gridStyles.card}
-                                 style={{ textDecoration: 'none', color: 'inherit' }}
+                                 style={{textDecoration: 'none', color: 'inherit'}}
                         >
                             <div>
                                 <img
@@ -145,7 +146,7 @@ export default function Home() {
                                 <p>Celebrate with today’s most celebrated citizen of Springfield.</p>
                                 <NavLink
                                     to={`/character/${birthdayCharacter.id}`}
-                                    style={{ textDecoration: 'none', color: 'inherit' }}
+                                    style={{textDecoration: 'none', color: 'inherit'}}
                                 >
                                     <button className={gridStyles.ctaCharacters}>
                                         View details
@@ -176,26 +177,28 @@ export default function Home() {
 
             {/* WELCOME SECTION (authenticated users) and LOGIN INVITATION SECTION (unauthenticated users) */}
             {isAuthenticated ? (<section className={styles.authStrip}>
-                <h2>Welcome to Springfield, {user.name}!</h2>
-                <p className={gridStyles.lastParagraphHome}> Visit your profile to check your favourite saved characters and places, having logged in also
-                    grants you access to visualizing the locations. </p>
-                <div className={styles.buttonsHome}>
-                    <NavLink className={gridStyles.ctaCharacters} to="/profile" onClick={() => window.scrollTo(0, 0)}> go to your profile </NavLink>
-                </div>
-            </section>
-                ) : (
+                    <h2>Welcome to Springfield, {user.name}!</h2>
+                    <p className={gridStyles.lastParagraphHome}> Visit your profile to check your favourite saved
+                        characters and places, having logged in also
+                        grants you access to visualizing the locations. </p>
+                    <div className={styles.buttonsHome}>
+                        <NavLink className={gridStyles.ctaCharacters} to="/profile"
+                                 onClick={() => window.scrollTo(0, 0)}> go to your profile </NavLink>
+                    </div>
+                </section>
+            ) : (
                 <section className={styles.authStrip}>
-                <h2>Want to become a citizen of Springfield?</h2>
-                <p>
-                    Some content is reserved for registered citizens. <br/>
-                    Log in to save your favorite characters and don't miss out on
-                    the city's best-kept secrets. <br/>
-                    Become a citizen now!
-                </p>
-                <button className={gridStyles.ctaCharacters} onClick={() => loginWithRedirect()}>
-                    Log in
-                </button>
-            </section>
+                    <h2>Want to become a citizen of Springfield?</h2>
+                    <p>
+                        Some content is reserved for registered citizens. <br/>
+                        Log in to save your favorite characters and don't miss out on
+                        the city's best-kept secrets. <br/>
+                        Become a citizen now!
+                    </p>
+                    <button className={gridStyles.ctaCharacters} onClick={() => loginWithRedirect()}>
+                        Log in
+                    </button>
+                </section>
             )}
 
         </div>

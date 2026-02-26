@@ -41,10 +41,10 @@ function App() {
 
                         {/* Redirect the root path to /home immediately - so it adds the .../#/... hashtag */}
                         {/* The problem was that on the first access on GH Pages it wouldn't display /#/ */}
-                        <Route path="/" element={<Navigate replace to="/home" />} />
+                        <Route path="/" element={<Navigate replace to="/home"/>}/>
 
                         {/* Explicit home component (introduced it to avoid the homepage being ...app/#/ (nothing) */}
-                        <Route path="/home" element={<Home />} />
+                        <Route path="/home" element={<Home/>}/>
 
                         <Route path="/characters" element={<Characters/>}/>
                         <Route path="/character/:idNumber" element={<SingleCharacter/>}/>
@@ -53,7 +53,7 @@ function App() {
                             path="/locations"
                             element={
                                 <ProtectedRoute>
-                                    <Locations />
+                                    <Locations/>
                                 </ProtectedRoute>
                             }
                         />
@@ -62,7 +62,7 @@ function App() {
                             path="/location/:idNumber"
                             element={
                                 <ProtectedRoute>
-                                    <SingleLocation />
+                                    <SingleLocation/>
                                 </ProtectedRoute>
                             }
                         />
@@ -71,7 +71,7 @@ function App() {
                             path="/profile"
                             element={
                                 <ProtectedRoute>
-                                    <Profile />
+                                    <Profile/>
                                 </ProtectedRoute>
                             }
                         />

@@ -1,4 +1,3 @@
-
 // Style imports
 import styles from "/src/simpleViews (components)/ListSubComponents/Lists.module.css";
 
@@ -6,10 +5,10 @@ import styles from "/src/simpleViews (components)/ListSubComponents/Lists.module
 import React from "react";
 
 // Routing imports
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 // Begin view
-function LocationsList ({allLocs}){
+function LocationsList({allLocs}) {
 
     return (
 
@@ -25,7 +24,7 @@ function LocationsList ({allLocs}){
                         key={location.id || index}
                         to={`/location/${location.id}`}
                         className={styles.row}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
+                        style={{textDecoration: 'none', color: 'inherit'}}
                     >
                         <img
                             className={styles.avatar}

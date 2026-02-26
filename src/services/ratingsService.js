@@ -1,5 +1,5 @@
 // Supabase imports
-import { supabase } from "./supabaseClient.js";
+import {supabase} from "./supabaseClient.js";
 
 /**
  * getCharacterRatingStats
@@ -7,14 +7,14 @@ import { supabase } from "./supabaseClient.js";
  * Fetches the average rating and total number of reviews for a specific character
  */
 export async function getCharacterRatingStats(characterId) {
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from("character_ratings")
         .select("donuts")
         .eq("character_id", characterId);
 
     if (error) throw error;
 
-    if (data.length === 0) return { average: 0, count: 0 };
+    if (data.length === 0) return {average: 0, count: 0};
 
     const sum = data.reduce((acc, curr) => acc + curr.donuts, 0);
     return {
@@ -30,7 +30,7 @@ export async function getCharacterRatingStats(characterId) {
  * Checks if a specific user has already rated this character
  */
 export async function getUserRating(characterId, userEmail) {
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from("character_ratings")
         .select("donuts")
         .eq("character_id", characterId)
@@ -49,7 +49,7 @@ export async function getUserRating(characterId, userEmail) {
  * Saves or updates a user's rating (upsert logic)
  */
 export async function saveRating(characterId, userEmail, donuts) {
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from("character_ratings")
         .upsert(
             {
@@ -78,7 +78,7 @@ export async function saveRating(characterId, userEmail, donuts) {
  * Fetches the top 5 rated characters from the dedicated database view
  */
 export async function getTopFiveCharacters() {
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from("top_rated_characters")
         .select("*");
 

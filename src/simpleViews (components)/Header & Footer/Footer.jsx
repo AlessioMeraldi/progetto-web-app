@@ -1,9 +1,8 @@
-
 // React imports
 import React from "react";
 
 // Routing imports
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 // Style imports
 import styles from "./Footer.module.css";
@@ -12,14 +11,14 @@ import styles from "./Footer.module.css";
 import theSimpsonsLogo from "/src/assets/Images/logo-the-simpson.svg"
 
 // Footer component Receives navigation items and course information as props
-function Footer({ navItems, courseName, courseLink }) {
+function Footer({navItems, courseName, courseLink}) {
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
 
                 {/* Logo section */}
                 <div className={styles.logoWrapper}>
-                    <img src={theSimpsonsLogo} alt="Simpson Logo" className={styles.footerLogo} />
+                    <img src={theSimpsonsLogo} alt="Simpson Logo" className={styles.footerLogo}/>
                 </div>
 
                 {/* Course information */}
@@ -44,7 +43,8 @@ function Footer({ navItems, courseName, courseLink }) {
 
                 {/* API credits */}
                 <div className={styles.apiCredit}>
-                    Data provided by <a href="https://thesimpsonsapi.com/" target="_blank" rel="noreferrer">The Simpsons API</a>
+                    Data provided by <a href="https://thesimpsonsapi.com/" target="_blank" rel="noreferrer">The Simpsons
+                    API</a>
                 </div>
 
             </div>

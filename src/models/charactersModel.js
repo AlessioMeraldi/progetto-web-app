@@ -1,4 +1,3 @@
-
 /**
  *  fetchSingleCharacter
  *  @Param characterId = integer number of the single character.
@@ -8,8 +7,8 @@
 export async function fetchSingleCharacter(characterId, imageSize) {
 
     // constants (URLs created from the function's parameters)
-    const characterURL = "https://thesimpsonsapi.com/api/characters/"+characterId; // format: https://thesimpsonsapi.com/api/characters/{character_name}
-    const characterImageURL = "https://cdn.thesimpsonsapi.com/"+imageSize+"/character/"+characterId+".webp"; // format https://cdn.thesimpsonsapi.com/{size}{image_path}
+    const characterURL = "https://thesimpsonsapi.com/api/characters/" + characterId; // format: https://thesimpsonsapi.com/api/characters/{character_name}
+    const characterImageURL = "https://cdn.thesimpsonsapi.com/" + imageSize + "/character/" + characterId + ".webp"; // format https://cdn.thesimpsonsapi.com/{size}{image_path}
 
     // variables (for returning data)
     let characterData = null;
@@ -20,16 +19,16 @@ export async function fetchSingleCharacter(characterId, imageSize) {
         const fetchedCharacter = await fetch(characterURL);
 
         if (!fetchedCharacter.ok) {
-            throw new Error("Could not fetch character "+characterId);
+            throw new Error("Could not fetch character " + characterId);
         }
 
         characterData = await fetchedCharacter.json();
 
     } catch (error) {
-        console.error("API error, "+error);
+        console.error("API error, " + error);
     }
 
-    return { characterData, characterImageURL }; // return an object {data, url_for_the_image} (CORS blocks from downloading the image)
+    return {characterData, characterImageURL}; // return an object {data, url_for_the_image} (CORS blocks from downloading the image)
 }
 
 /**
@@ -40,7 +39,7 @@ export async function fetchSingleCharacter(characterId, imageSize) {
 export async function fetchCharactersBatch(charactersBatchId) {
 
     // constants = URLs created from the function's parameters (batch 1 works both with /characters and /characters?page=1)
-    const charactersBatchURL = "https://thesimpsonsapi.com/api/characters?page="+charactersBatchId;
+    const charactersBatchURL = "https://thesimpsonsapi.com/api/characters?page=" + charactersBatchId;
 
     // variables (for returning data)
     let charactersBatch = null;
@@ -51,13 +50,13 @@ export async function fetchCharactersBatch(charactersBatchId) {
         const fetchedBatch = await fetch(charactersBatchURL);
 
         if (!fetchedBatch.ok) {
-            throw new Error("Could not fetch characters batch "+charactersBatchId);
+            throw new Error("Could not fetch characters batch " + charactersBatchId);
         }
 
         charactersBatch = await fetchedBatch.json();
 
     } catch (error) {
-        console.error("API error, "+error);
+        console.error("API error, " + error);
     }
 
     return (charactersBatch);
@@ -72,7 +71,7 @@ export async function fetchAllCharacters() {
     const promises = [];
 
     // parallel requests
-    for (let i=1; i<=60; i++){
+    for (let i = 1; i <= 60; i++) {
         promises.push(fetchCharactersBatch(i));
     }
 
@@ -81,7 +80,7 @@ export async function fetchAllCharacters() {
         const allCharacterBatches = await Promise.all(promises);
         return (allCharacterBatches);
     } catch (error) {
-        console.error("API error, "+error);
+        console.error("API error, " + error);
     }
 
 }

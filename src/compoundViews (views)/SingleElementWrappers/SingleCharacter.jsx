@@ -2,7 +2,7 @@
 import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElements.module.css';
 
 // React imports
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 // Routing imports
 import {useParams, Navigate, NavLink} from 'react-router-dom';
@@ -45,7 +45,7 @@ function SingleCharacter() {
         <main className={style.pageContainer}>
             {
                 /* conditional rendering of the {condition && <thing to render>} type */
-                (characterId>1)
+                (characterId > 1)
                 &&
                 <NavLink to={`/character/${characterId - 1}`} className={`${style.navBtn} ${style.prevBtn}`}>
                     PREVIOUS
@@ -53,7 +53,7 @@ function SingleCharacter() {
             }
             <ShowSingleCharacter charId={characterId} imgSize="500"/>
             {
-                (characterId<maxId)
+                (characterId < maxId)
                 &&
                 <NavLink to={`/character/${characterId + 1}`} className={`${style.navBtn} ${style.nextBtn}`}>
                     NEXT

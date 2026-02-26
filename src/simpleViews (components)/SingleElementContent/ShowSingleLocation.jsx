@@ -1,4 +1,3 @@
-
 // React imports
 import React, {useEffect} from 'react';
 
@@ -98,8 +97,12 @@ function ShowSingleLocation({locId, imgSize}) {
                 <section className={style.section}>
                     <h2>General information</h2>
                     <ul className={style.dataList}>
-                        <li><strong>Town:</strong> {location?.locationData?.town? location?.locationData?.town : "Unknown"}</li>
-                        <li><strong>Use:</strong> {location?.locationData?.use? location?.locationData?.use : "Unknown"}</li>
+                        <li>
+                            <strong>Town:</strong> {location?.locationData?.town ? location?.locationData?.town : "Unknown"}
+                        </li>
+                        <li>
+                            <strong>Use:</strong> {location?.locationData?.use ? location?.locationData?.use : "Unknown"}
+                        </li>
                     </ul>
                 </section>
 

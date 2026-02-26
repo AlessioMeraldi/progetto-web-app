@@ -1,4 +1,3 @@
-
 // Style imports
 import styles from "/src/simpleViews (components)/GridSubComponents/Grids.module.css";
 
@@ -9,15 +8,15 @@ import React from "react";
 import {NavLink} from 'react-router-dom';
 
 // Auth0 imports
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 
 // Supabase imports
-import { addFavourite, removeFavourite } from '../../services/favouritesService';
+import {addFavourite, removeFavourite} from '../../services/favouritesService';
 
 // Being view
 function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
 
-    const { user, isAuthenticated } = useAuth0();
+    const {user, isAuthenticated} = useAuth0();
 
     const toggleFavourite = async (characterId) => {
 
@@ -39,7 +38,7 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
      * @param passedCharacter
      * @returns {boolean}
      */
-    function isFavourite (passedCharacter) {
+    function isFavourite(passedCharacter) {
         return userFavourites.includes(Number(passedCharacter.id));
     }
 
@@ -59,7 +58,7 @@ function CharactersGrid({allChars, userFavourites = [], setFavourites}) {
                         <React.Fragment key={character.id || index}>
                             <NavLink key={character.id || index} to={`/character/${character.id}`}
                                      className={styles.card}
-                                     style={{ textDecoration: 'none', color: 'inherit' }}
+                                     style={{textDecoration: 'none', color: 'inherit'}}
                             >
                                 <div>
                                     {isAuthenticated && (

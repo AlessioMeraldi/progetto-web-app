@@ -1,4 +1,3 @@
-
 /**
  *  fetchSingleLocation
  *  @Param locationId = integer number of the single location.
@@ -8,8 +7,8 @@
 export async function fetchSingleLocation(locationId, imageSize) {
 
     // constants (URLs created from the function's parameters)
-    const locationURL = "https://thesimpsonsapi.com/api/locations/"+locationId; // format: https://thesimpsonsapi.com/api/locations/{location_id}
-    const locationImageURL = "https://cdn.thesimpsonsapi.com/"+imageSize+"/location/"+locationId+".webp"; // format: https://cdn.thesimpsonsapi.com/{image_size}/location/{location_id}.webp
+    const locationURL = "https://thesimpsonsapi.com/api/locations/" + locationId; // format: https://thesimpsonsapi.com/api/locations/{location_id}
+    const locationImageURL = "https://cdn.thesimpsonsapi.com/" + imageSize + "/location/" + locationId + ".webp"; // format: https://cdn.thesimpsonsapi.com/{image_size}/location/{location_id}.webp
 
     // variables (for returning data)
     let locationData = null;
@@ -20,16 +19,16 @@ export async function fetchSingleLocation(locationId, imageSize) {
         const fetchedLocation = await fetch(locationURL);
 
         if (!fetchedLocation.ok) {
-            throw new Error("Could not fetch location "+locationId);
+            throw new Error("Could not fetch location " + locationId);
         }
 
         locationData = await fetchedLocation.json();
 
     } catch (error) {
-        console.error("API error, "+error);
+        console.error("API error, " + error);
     }
 
-    return { locationData, locationImageURL }; // return an object {data, url_for_the_image} (CORS blocks from downloading the image)
+    return {locationData, locationImageURL}; // return an object {data, url_for_the_image} (CORS blocks from downloading the image)
 }
 
 /**
@@ -40,7 +39,7 @@ export async function fetchSingleLocation(locationId, imageSize) {
 export async function fetchLocationsBatch(locationsBatchId) {
 
     // constants = URLs created from the function's parameters (batch 1 works both with /locations and /locations?page=1)
-    const locationsBatchURL = "https://thesimpsonsapi.com/api/locations?page="+locationsBatchId;
+    const locationsBatchURL = "https://thesimpsonsapi.com/api/locations?page=" + locationsBatchId;
 
     // variables (for returning data)
     let locationsBatch = null;
@@ -51,13 +50,13 @@ export async function fetchLocationsBatch(locationsBatchId) {
         const fetchedBatch = await fetch(locationsBatchURL);
 
         if (!fetchedBatch.ok) {
-            throw new Error("Could not fetch locations batch "+locationsBatchId);
+            throw new Error("Could not fetch locations batch " + locationsBatchId);
         }
 
         locationsBatch = await fetchedBatch.json();
 
     } catch (error) {
-        console.error("API error, "+error);
+        console.error("API error, " + error);
     }
 
     return (locationsBatch);
@@ -72,7 +71,7 @@ export async function fetchAllLocations() {
     const promises = [];
 
     // parallel requests
-    for (let i=1; i<=24; i++){
+    for (let i = 1; i <= 24; i++) {
         promises.push(fetchLocationsBatch(i));
     }
 
@@ -81,7 +80,7 @@ export async function fetchAllLocations() {
         const allLocationsBatches = await Promise.all(promises);
         return (allLocationsBatches);
     } catch (error) {
-        console.error("API error, "+error);
+        console.error("API error, " + error);
     }
 
 }

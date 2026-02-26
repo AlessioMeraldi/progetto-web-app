@@ -104,14 +104,22 @@
     z-index: 10;
 }
 
-.rank1 { width: 100%; padding: 2.5rem; }
+.rank1 {
+    width: 100%;
+    padding: 2.5rem;
+}
+
 .rank1 .rankNumber {
     width: 90px;
     height: 90px;
     font-size: 3.5rem;
 }
 
-.rank2 { width: 85%; padding: 1.8rem; }
+.rank2 {
+    width: 85%;
+    padding: 1.8rem;
+}
+
 .rank2 .rankNumber {
     width: 70px;
     height: 70px;
@@ -119,7 +127,11 @@
     left: -35px;
 }
 
-.rank3 { width: 75%; padding: 1.4rem; }
+.rank3 {
+    width: 75%;
+    padding: 1.4rem;
+}
+
 .rank3 .rankNumber {
     width: 60px;
     height: 60px;
@@ -127,7 +139,11 @@
     left: -30px;
 }
 
-.rank4, .rank5 { width: 65%; padding: 1rem; }
+.rank4, .rank5 {
+    width: 65%;
+    padding: 1rem;
+}
+
 .rank4 .rankNumber, .rank5 .rankNumber {
     width: 50px;
     height: 50px;
@@ -145,8 +161,15 @@
     object-fit: contain;
 }
 
-.rank1 .miniAvatar { width: 130px; height: 130px; }
-.rank2 .miniAvatar { width: 100px; height: 100px; }
+.rank1 .miniAvatar {
+    width: 130px;
+    height: 130px;
+}
+
+.rank2 .miniAvatar {
+    width: 100px;
+    height: 100px;
+}
 
 /*-- RESPONSIVE TABLET --*/
 @media (max-width: 900px) {

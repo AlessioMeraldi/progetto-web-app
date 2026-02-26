@@ -1,4 +1,3 @@
-
 /* global scope color variables */
 :root {
 
@@ -8,7 +7,7 @@
     /* Palette: Blues */
     --blue-primary: #355C9B;
     --blue-primary-alpha: rgba(53, 92, 155, 0.65); /* Semi-transparent dark blue */
-    --blue-sky-alpha: rgba(165, 223, 249, 0.37);   /* Semi-transparent light blue (sky blue) */
+    --blue-sky-alpha: rgba(165, 223, 249, 0.37); /* Semi-transparent light blue (sky blue) */
 
     /* Palette: Neutrals */
     --black: #080703;
@@ -31,7 +30,7 @@
         /* Palette: Blues */
         --blue-primary: #355C9B;
         --blue-primary-alpha: rgba(53, 92, 155, 0.65); /* Semi-transparent dark blue */
-        --blue-sky-alpha: rgba(165, 223, 249, 0.37);   /* Semi-transparent light blue (sky blue) */
+        --blue-sky-alpha: rgba(165, 223, 249, 0.37); /* Semi-transparent light blue (sky blue) */
 
         /* Palette: Neutrals */
         --black: #080703;

@@ -1,4 +1,3 @@
-
 // React imports
 import React, {useEffect, useState} from "react";
 
@@ -50,21 +49,21 @@ function Header() {
                         onClick={() => setMenuOpen(!menuOpen)}
                         aria-label="Toggle menu"
                     >
-                        <span />
-                        <span />
-                        <span />
+                        <span/>
+                        <span/>
+                        <span/>
                     </button>
                 </div>
 
                 {/* Navigation links */}
                 <div className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
-                <NavLink title="Home" to="/home" className={linkStyle}>Home</NavLink>
+                    <NavLink title="Home" to="/home" className={linkStyle}>Home</NavLink>
                     <NavLink title="Characters" to="/characters" className={linkStyle}>Characters</NavLink>
 
                     {/* Locations link: shows open lock if authenticated */}
                     {isAuthenticated && (
-                        <NavLink title="Locations" to="/locations" className={({ isActive }) =>
-                            `${linkStyle({ isActive })} ${styles.linkWithIcon}`}>
+                        <NavLink title="Locations" to="/locations" className={({isActive}) =>
+                            `${linkStyle({isActive})} ${styles.linkWithIcon}`}>
                             Locations
                             {/* open lock SVG */}
                             <svg className={styles.lockIcon}
@@ -84,8 +83,8 @@ function Header() {
 
                     {/* Locations link: shows closed lock if not authenticated */}
                     {!isAuthenticated && (
-                        <NavLink title="Locations" to="/access_forbidden" className={({ isActive }) =>
-                            `${linkStyle({ isActive })} ${styles.linkWithIcon}`}>
+                        <NavLink title="Locations" to="/access_forbidden" className={({isActive}) =>
+                            `${linkStyle({isActive})} ${styles.linkWithIcon}`}>
 
                             Locations
                             {/* closed lock SVG */}

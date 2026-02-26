@@ -110,7 +110,7 @@
     color: var(--blue-primary);
 }
 
-.buttonsHome{
+.buttonsHome {
     display: flex;
     flex-direction: row;
     justify-content: center;

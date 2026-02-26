@@ -17,7 +17,7 @@ import homerBushesGif from "/src/assets/Images/Page_access_forbidden_Homer.gif";
 
 function Access_forbidden() {
 
-    const { loginWithRedirect } = useAuth0();
+    const {loginWithRedirect} = useAuth0();
 
     // Scroll back to top (in case redirect is cast from far down another page)
     useEffect(() => {
@@ -47,9 +47,9 @@ function Access_forbidden() {
                 <section className={`${authStyles.authStrip} ${styles.safeContainer}`}>
                     <h2>Want to become a citizen of Springfield?</h2>
                     <p>
-                        Some content is reserved for registered citizens. <br />
+                        Some content is reserved for registered citizens. <br/>
                         Log in to save your favorite characters and don't miss out on
-                        the city's best-kept secrets. <br />
+                        the city's best-kept secrets. <br/>
                         Become a citizen now!
                     </p>
                     <button className={gridStyles.ctaCharacters} onClick={() => loginWithRedirect()}>
