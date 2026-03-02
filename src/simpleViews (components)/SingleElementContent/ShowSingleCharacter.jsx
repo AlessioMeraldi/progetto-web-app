@@ -10,9 +10,6 @@ import style from '/src/compoundViews (views)/SingleElementWrappers/SingleElemen
 // Auth0 imports
 import {useAuth0} from '@auth0/auth0-react';
 
-// Service imports
-import {getCharacterRatingStats, getUserRating, saveRating} from '../../services/ratingsService';
-
 // Image imports
 import placeholderImage from '/src/assets/Images/Character_loading_silhouette.svg';
 
@@ -22,59 +19,59 @@ function ShowSingleCharacter({charId, imgSize}) {
     // Auth0 state
     const {user, isAuthenticated} = useAuth0();
 
-    // Local state for ratings
-    const [userDonuts, setUserDonuts] = useState(0); // rating given by the logged user
-    const [avgStats, setAvgStats] = useState({average: 0, count: 0});
-
-    // instantiate the ViewModel and get only the parts we're interested in right now
+    // Instantiate the ViewModel and get the necessary states and functions
     const {
         character,
         isLoading,
-        getSingleCharacter
+        getSingleCharacter,
+        userDonuts,       // state managed by the VM (the actual rating from the DB)
+        avgStats,         // state managed by the VM (average and count)
+        loadRatingData,   // VM function to fetch initial rating data
+        updateRating      // VM function to save a new rating
     } = CharactersViewModel();
 
-    // tell the ViewModel to update its state regarding <allCharacters> when [chardId or imgSize] change (works first render too)
+    /** * LOCAL STATE FOR REACTIVE BEHAVIOR
+     * This state captures the user's intent to rate before it is sent to the server.
+     */
+    const [pendingRating, setPendingRating] = useState(null);
+
+    // Tell the ViewModel to update its state when [charId or imgSize] change (works first render too)
     useEffect(() => {
         const id = parseInt(charId);
         getSingleCharacter(id, imgSize);
-        loadRatingData(id);
-    }, [charId, imgSize]);
 
-    // Fetch rating statistics and user specific rating
-    const loadRatingData = async (id) => {
-        try {
-            const stats = await getCharacterRatingStats(id);
-            setAvgStats(stats);
+        // Fetch rating statistics and user specific rating through the ViewModel
+        loadRatingData(id, user?.email, isAuthenticated);
+    }, [charId, imgSize, user?.email, isAuthenticated]);
 
-            if (isAuthenticated && user?.email) {
-                const rating = await getUserRating(id, user.email);
-                setUserDonuts(rating);
-            }
-        } catch (error) {
-            console.error("Error loading ratings:", error);
-        }
-    };
+    /**
+     * REACTIVE EFFECT
+     * Instead of calling the service directly on click, this effect "watches"
+     * pendingRating and triggers the VM call only when the local state changes.
+     */
+    useEffect(() => {
+        if (pendingRating === null) return;
 
-    const handleRating = async (ratingValue) => {
-        // it doesn't change anything if the rating is the same
-        if (ratingValue === userDonuts) return;
+        const syncWithViewModel = async () => {
+            // Trigger the ViewModel logic
+            await updateRating(parseInt(charId), user.email, pendingRating);
 
-        try {
-            const updatedRating = await saveRating(
-                parseInt(charId),
-                user.email,
-                ratingValue
-            );
+            // Clear the pending state once the VM has processed the update
+            setPendingRating(null);
+        };
 
-            // update the user rating
-            setUserDonuts(updatedRating.donuts);
+        syncWithViewModel();
+    }, [pendingRating, charId, user?.email]);
 
-            // load stats (media + count)
-            const stats = await getCharacterRatingStats(parseInt(charId));
-            setAvgStats(stats);
-
-        } catch (error) {
-            console.error("Error updating rating:", error);
+    /**
+     * handleDonutClick
+     * this handler ONLY changes a local state.
+     * It does not perform any API calls directly.
+     */
+    const handleDonutClick = (ratingValue) => {
+        // Only update if the rating is actually different from the current one
+        if (ratingValue !== userDonuts) {
+            setPendingRating(ratingValue);
         }
     };
 
@@ -83,24 +80,22 @@ function ShowSingleCharacter({charId, imgSize}) {
     if (isLoading) {
         return (
             <React.Fragment>
-                {/* Character's card */}
+                {/* Character's card (Loading State) */}
                 <section className={style.card}>
 
                     {/* Section heading + image */}
                     <header className={style.header}>
-                        {character?.characterImageURL && (
-                            <div className={style.imageContainer}>
-                                <img
-                                    src={placeholderImage}
-                                    alt="loading..."
-                                    className={style.characterImg}
-                                    loading="eager"
-                                />
-                            </div>
-                        )}
+                        <div className={style.imageContainer}>
+                            <img
+                                src={placeholderImage}
+                                alt="loading..."
+                                className={style.characterImg}
+                                loading="eager"
+                            />
+                        </div>
                         <h1>Loading...</h1>
 
-                        {/* Display Average Rating */}
+                        {/* Display Average Rating from VM */}
                         <div className={style.avgRating}>
                             <span><strong>🍩 {avgStats.average} / 5</strong></span>
                             <small> ({avgStats.count} votes)</small>
@@ -132,7 +127,7 @@ function ShowSingleCharacter({charId, imgSize}) {
         )
     } else {
 
-        // character loaded return
+        // Character loaded return
         return (
             <React.Fragment>
                 {/* Character's card */}
@@ -144,7 +139,7 @@ function ShowSingleCharacter({charId, imgSize}) {
                             <div className={style.imageContainer}>
                                 <img
                                     src={character.characterImageURL}
-                                    alt="{character?.characterData?.name}"
+                                    alt={character?.characterData?.name}
                                     className={style.characterImg}
                                     loading="eager"
                                 />
@@ -152,7 +147,7 @@ function ShowSingleCharacter({charId, imgSize}) {
                         )}
                         <h1>{character?.characterData?.name}</h1>
 
-                        {/* Display Average Rating */}
+                        {/* Display Average Rating from VM */}
                         <div className={style.avgRating}>
                             <span><strong>🍩 {avgStats.average} / 5</strong></span>
                             <small> ({avgStats.count} votes)</small>
@@ -228,26 +223,30 @@ function ShowSingleCharacter({charId, imgSize}) {
                                 {[1, 2, 3, 4, 5].map((num) => (
                                     <span
                                         key={num}
-                                        className={`${style.donut} ${userDonuts >= num ? style.activeDonut : ''}`}
-                                        onClick={() => handleRating(num)}
+                                        className={`${style.donut} ${(pendingRating ?? userDonuts) >= num ? style.activeDonut : ''}`}
+                                        onClick={() => handleDonutClick(num)}
                                         style={{
                                             cursor: 'pointer',
                                             fontSize: '2rem',
-                                            filter: userDonuts >= num ? 'none' : 'grayscale(100%) brightness(1.5)'
+                                            filter: (pendingRating ?? userDonuts) >= num ? 'none' : 'grayscale(100%) brightness(1.5)'
                                         }}
                                     >
-                                    🍩
-                                </span>
+                                        🍩
+                                    </span>
                                 ))}
                             </div>
-                            {userDonuts > 0 && <p className={style.ratingFeedback}>You gave {userDonuts} donuts!</p>}
+                            {/* Feedback: Show "Saving..." during the Effect processing, otherwise show the current rating */}
+                            {(pendingRating || userDonuts > 0) && (
+                                <p className={style.ratingFeedback}>
+                                    {pendingRating ? "Saving your donuts..." : `Your rating: ${userDonuts} donuts!`}
+                                </p>
+                            )}
                         </section>
                     )}
                 </section>
             </React.Fragment>
         )
     }
-
 }
 
 export default ShowSingleCharacter;

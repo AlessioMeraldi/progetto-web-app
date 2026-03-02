@@ -4,6 +4,9 @@ import {useEffect, useState} from 'react';
 // imports from Model
 import {fetchSingleCharacter, fetchCharactersBatch, fetchAllCharacters} from '/src/models/charactersModel.js';
 
+// Service imports (for rating logic)
+import {getCharacterRatingStats, getUserRating, saveRating} from '/src/services/ratingsService';
+
 // imports of utility functions (shared with other ViewModels)
 import filterByName from './Common functions/filterByName.js';
 
@@ -14,6 +17,10 @@ function CharacterViewModel() {
     const [character, setCharacter] = useState(null);
     const [charactersBatch, setCharactersBatch] = useState([]);
     const [allCharacters, setAllCharacters] = useState([]);
+
+    // --- RATING STATE ---
+    const [userDonuts, setUserDonuts] = useState(0); // rating given by the logged user
+    const [avgStats, setAvgStats] = useState({ average: 0, count: 0 }); // general stats
 
     // Loading State
     const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +38,49 @@ function CharacterViewModel() {
     const [displayedCharacters, setDisplayedCharacters] = useState([]);
 
     // Functions that interact with the model
+
+    /**
+     * loadRatingData
+     * @Param charId = integer id of the character.
+     * @Param userEmail = email of the logged-in user.
+     * @Param isAuthenticated = boolean check from Auth0.
+     * Fetches rating statistics and the specific rating given by the user if logged in.
+     */
+    const loadRatingData = async (charId, userEmail, isAuthenticated) => {
+        try {
+            const stats = await getCharacterRatingStats(charId);
+            setAvgStats(stats);
+
+            if (isAuthenticated && userEmail) {
+                const rating = await getUserRating(charId, userEmail);
+                setUserDonuts(rating);
+            }
+        } catch (error) {
+            console.error("ViewModel caught error loading ratings:", error);
+        }
+    };
+
+    /**
+     * updateRating
+     * @Param charId = integer id of the character.
+     * @Param userEmail = email of the logged-in user.
+     * @Param ratingValue = the new rating value (1-5).
+     * Saves the rating to the database and updates the local state for both user and average stats.
+     */
+    const updateRating = async (charId, userEmail, ratingValue) => {
+        try {
+            const updatedRating = await saveRating(charId, userEmail, ratingValue);
+
+            // update the user rating locally
+            setUserDonuts(updatedRating.donuts);
+
+            // refresh the average stats to reflect the new vote
+            const stats = await getCharacterRatingStats(charId);
+            setAvgStats(stats);
+        } catch (error) {
+            console.error("ViewModel caught error updating rating:", error);
+        }
+    };
 
     /**
      * getSingleCharacter
@@ -104,10 +154,10 @@ function CharacterViewModel() {
     // Functions to apply the filters
 
     /**
-     *  filterByGender
-     *  @Param listToFilter = array of characters to filter by gender
-     *  @Param requestedGender = gender to filter the characters by, it can be = "All", "Male", "Female", "Other"
-     *  Filters the provided characters list and returns one with only the characters of the specified gender
+     * filterByGender
+     * @Param listToFilter = array of characters to filter by gender
+     * @Param requestedGender = gender to filter the characters by, it can be = "All", "Male", "Female", "Other"
+     * Filters the provided characters list and returns one with only the characters of the specified gender
      */
     function filterByGender (listToFilter, requestedGender) {
 
@@ -257,9 +307,13 @@ function CharacterViewModel() {
         isLoading,
         pageNumber,
         displayedCharacters,
+        userDonuts,
+        avgStats,
         getSingleCharacter,
         getCharacterBatch,
         getAllCharacters,
+        loadRatingData,
+        updateRating,
         updateFilter,
         setPageNumber,
         setDisplayedCharacters,
