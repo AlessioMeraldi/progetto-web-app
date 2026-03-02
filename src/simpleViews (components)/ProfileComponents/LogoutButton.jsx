@@ -1,8 +1,6 @@
 import {useAuth0} from '@auth0/auth0-react';
 import React from "react";
 
-import styles from './Profile.module.css';
-
 // Logout button component (visible only when authenticated)
 const LogoutButton = ({className}) => {
     const {logout, isAuthenticated} = useAuth0();

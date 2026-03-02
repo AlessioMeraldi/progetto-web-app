@@ -270,6 +270,16 @@ A view that aggregates data from `character_ratings` to calculate:
 * `avg_donuts`: The average donut rating for each character.
 * `total_votes`: Total number of votes each character received.
 
+CREATE OR REPLACE VIEW top_rated_characters AS
+SELECT character_id,
+AVG(donuts)::numeric(10,1) as avg_donuts,
+COUNT(id) as total_votes
+FROM character_ratings
+GROUP BY character_id
+HAVING COUNT(id) > 0
+ORDER BY avg_donuts DESC, total_votes DESC
+LIMIT 5;
+
 #### Usage
 
 * When a logged-in user favorites a character, a new row is inserted into `favourites_characters`.
