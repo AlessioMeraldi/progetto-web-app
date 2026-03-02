@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
+<head>
 
     <!-- meta tags -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
     <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="/progetto-web-app/assets/logo-the-simpson-D8Br6w8u.svg" />
+    <link href="/progetto-web-app/assets/logo-the-simpson-D8Br6w8u.svg" rel="icon" type="image/svg+xml"/>
 
     <!-- font imports -->
     <link href="https://db.onlinewebfonts.com/c/7cc6719bd5f0310be3150ba33418e72e?family=Comic+Sans+MS" rel="stylesheet">
@@ -16,12 +16,32 @@
     <!-- page title -->
     <title>progetto-web-app</title>
 
-    <script type="module" crossorigin src="/progetto-web-app/assets/index-L45eXvNc.js"></script>
-    <link rel="stylesheet" crossorigin href="/progetto-web-app/assets/index-CLGJFI9b.css">
-  </head>
+  <script type="module" crossorigin src="/progetto-web-app/assets/index-L45eXvNc.js"></script>
+  <link rel="stylesheet" crossorigin href="/progetto-web-app/assets/index-CLGJFI9b.css">
+</head>
 
-  <body>
-    <div id="root"></div>
-  </body>
+<body>
+
+<!-- script to avoid sending the server a request if an URL below the basepath is inserted -->
+<script>
+    (function () {
+        let path = window.location.pathname;
+        let basePath = '/progetto-web-app/';
+
+        // If we're at a path that's not the base and doesn't have a hash, redirect to base
+        if (path !== basePath && !window.location.hash) {
+            window.location.replace(basePath);
+        }
+    })();
+</script>
+
+<!-- noscript warning -->
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+
+<div id="root"></div>
+
+</body>
 
 </html>
